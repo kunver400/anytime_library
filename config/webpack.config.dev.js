@@ -149,7 +149,9 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+              "plugins": [
+                ["import", { "libraryName": "antd", "libraryDirectory": "es"}] // `style: true` for less
+              ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -161,6 +163,11 @@ module.exports = {
           // "style" loader turns CSS into JS modules that inject <style> tags.
           // In production, we use a plugin to extract that CSS to a file, but
           // in development "style" loader enables hot editing of CSS.
+          {
+            test: /\.css$/,
+            resourceQuery: /^\?raw$/,
+            use: [require.resolve("style-loader"), require.resolve("css-loader")]
+          },
           {
             test: /\.css$/,
             use: [

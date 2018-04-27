@@ -2,10 +2,11 @@
   text-align: center; }
 
 .Layoutheader {
-  background-color: #700a0a;
+  background-color: #10bcd6;
   height: 150px;
-  padding: 20px;
-  color: white; }
+  padding: 20px; }
+  .Layoutheader h1 {
+    color: white; }
 
 .Layouttitle {
   font-size: 1.5em; }

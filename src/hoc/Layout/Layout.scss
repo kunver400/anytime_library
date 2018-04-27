@@ -3,10 +3,12 @@
 }
 
 .Layoutheader {
-  background-color: rgb(112, 10, 10);
+  background-color: rgb(16, 188, 214);
   height: 150px;
   padding: 20px;
-  color: white;
+  h1 {
+    color: rgb(255, 255, 255);
+  }
 }
 
 .Layouttitle {

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import {DatePicker} from 'antd';
 import classes from './Layout.css';
 
 class Layout extends Component {
+  datechange = (a,b) => {
+    console.log(a,b);
+  };
   render() {
     return (
       <div className={classes.Layout}>
@@ -10,6 +14,7 @@ class Layout extends Component {
         </header>
         <p className={classes.Layoutintro}>
           React init.
+          <DatePicker onChange={this.datechange}/>
         </p>
       </div>
     );
