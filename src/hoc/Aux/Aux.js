@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Aux = (props) => {
-   return props.childrens;
-}
+const Aux = (props) => props.childrens;
 
 export default Aux;
