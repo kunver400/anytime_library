@@ -6,7 +6,10 @@
   background-color: #ffffff80; }
 
 .logo {
-  width: 32px;
-  height: 32px;
-  margin: 16px 16px 16px -32px;
+  width: 42px;
+  height: 42px;
+  margin: 12px 12px 12px 12px;
+  border: white 2px solid;
+  border-radius: 30px;
+  padding: 5px;
   float: left; }

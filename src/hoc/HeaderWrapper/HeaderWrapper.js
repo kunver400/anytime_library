@@ -16,7 +16,7 @@ class HeaderWrapper extends Component {
                     defaultSelectedKeys={['1']}
                     style={{ lineHeight: '64px' }}
                 >
-                    <Menu.Item key="1"><Icon type="bank" />Home</Menu.Item>                    
+                    <Menu.Item key="1"><Icon type="home" />Home</Menu.Item>                    
                     <SubMenu title={<span><Icon type="search" />Search</span>}>
                         <Menu.Item key="search:1">Book search</Menu.Item>
                         <Menu.Item key="search:2">Asset search</Menu.Item>
@@ -26,7 +26,7 @@ class HeaderWrapper extends Component {
                     <Menu.Item key="3"><Icon type="layout" />Return</Menu.Item>
 
                     <SubMenu className={classes.menuitem_right} title={<Icon type="idcard" />}>
-                    <Menu.Item key="github"><Icon type="code-o" />Site source</Menu.Item>
+                    <Menu.Item key="github"><a href="https://github.com/kunver400/untitledone"><Icon type="code-o" />Site source</a></Menu.Item>
                         <ItemGroup title='You' className={classes.light_item_group}>
                             <Menu.Item key="user:1"><Icon type="user" />Profile</Menu.Item>
                             <Menu.Item key="user:2"><Icon type="logout" />Logout</Menu.Item>
