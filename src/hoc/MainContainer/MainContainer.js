@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import {Layout, Breadcrumb} from 'antd';
+import { Layout, Breadcrumb, Icon } from 'antd';
 
-const {Content} = Layout;
+import classes from './MainContainer.css';
+
+const { Content } = Layout;
 
 class MainContainer extends Component {
     render() {
         return (
-            <Layout style={{ padding: '0 24px 24px' }}>
+            <Layout style={{ padding: '0 12px 12px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
+                    <Breadcrumb.Item>Hi wanderer <Icon type="smile" style={{ 'fontSize': 14 }} /> , here's what you're looking for...</Breadcrumb.Item>
                 </Breadcrumb>
-                <Content style={{ background: '#fff', padding: 12, margin: 0, minHeight: 600 }}>
-                    Content
-          </Content>
+                <Content style={{ padding: 12, margin: 0, minHeight: 600 }}>
+                <div className={classes.landing_splash}>
+                <h1>Anytime</h1>
+                <h2>Anywhere</h2>
+                <p>The solo depot for all you will ever read.</p>
+                </div>
+                </Content>
             </Layout>
         )
     }

@@ -13,7 +13,7 @@ class SiderWrapper extends Component {
                 <Menu theme='dark'
                     mode="inline"
                     //defaultSelectedKeys={['1']}
-                    //defaultOpenKeys={['sub1']}
+                    defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
                 >
                     <SubMenu key="sub1" title={<span><Icon type="database" />All Books</span>}>

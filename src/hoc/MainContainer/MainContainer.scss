@@ -1,0 +1,27 @@
+.landing_splash {
+    width: 100%;
+    border-radius: 8px;
+    height: 300px;
+    background-image: url(../../assets/books.jpg);
+    h1,h2,p {
+        color: white;
+        font-size: 64px;
+        text-shadow:  2px 2px #000000;
+        padding: 12px;
+    }
+    h2 {
+        font-size: 42px;
+        float: right;
+    }
+    p {
+        font-size: 18px;
+        position: relative;
+        top: -7%;
+        text-align: center;
+    }
+    @media screen and (max-width: 600px) {
+        h1,h2,p{
+            float: right;
+        }
+      }
+}
