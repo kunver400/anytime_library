@@ -1,0 +1,12 @@
+.menuitem_right {
+  float: right !important; }
+
+.light_item_group {
+  color: #ffffff;
+  background-color: #ffffff80; }
+
+.logo {
+  width: 32px;
+  height: 32px;
+  margin: 16px 16px 16px -32px;
+  float: left; }
