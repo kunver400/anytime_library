@@ -1,5 +1,0 @@
-.menuitem_display {
-  display: unset; }
-  @media screen and (min-width: 700px) {
-    .menuitem_display {
-      display: none !important; } }
