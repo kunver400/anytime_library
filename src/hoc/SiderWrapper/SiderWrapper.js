@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
-
+import './SiderWrapper.raw.css?raw';
+import classes from './SiderWrapper.css';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
@@ -16,6 +17,7 @@ class SiderWrapper extends Component {
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
                 >
+
                     <SubMenu key="sub1" title={<span><Icon type="database" />All Books</span>}>
                         <Menu.Item key="1">Best sellers</Menu.Item>
                         <Menu.Item key="2">Fresh arrivals</Menu.Item>
@@ -34,6 +36,13 @@ class SiderWrapper extends Component {
                         <Menu.Item key="11">Recommend a Book</Menu.Item>
                         <Menu.Item key="12">Lets Party!</Menu.Item>
                     </SubMenu>
+
+                    <SubMenu key="subo1" className={classes.menuitem_display} title={<span><Icon type="search" />Search</span>}>
+                        <Menu.Item key="search:1">Book search</Menu.Item>
+                        <Menu.Item key="search:2">Asset search</Menu.Item>
+                    </SubMenu>
+                    <Menu.Item className={classes.menuitem_display} key="issue"><Icon type="book" />Issue</Menu.Item>
+                    <Menu.Item className={classes.menuitem_display} key="return"><Icon type="layout" />Return</Menu.Item>
                 </Menu>
             </Sider>
         );

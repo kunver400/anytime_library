@@ -1,5 +1,5 @@
 {
-    "files.exclude": {
-        "src/**/**/*.css": true
-    }
+    // "files.exclude": {
+    //     "src/**/**/*.css": true
+    // }
 }
