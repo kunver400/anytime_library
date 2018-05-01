@@ -6,6 +6,21 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 class SiderWrapper extends Component {
+
+    rootSubmenuKeys = ['sub1', 'sub2', 'sub3','subo1'];
+    state = {
+        openKeys: ['sub1'],
+    };
+    onOpenChange = (openKeys) => {
+        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            this.setState({ openKeys });
+        } else {
+            this.setState({
+                openKeys: latestOpenKey ? [latestOpenKey] : [],
+            });
+        }
+    }
     render() {
         return (
             <Sider width={200} breakpoint="lg"
@@ -14,6 +29,8 @@ class SiderWrapper extends Component {
                 <Menu theme='dark'
                     mode="inline"
                     //defaultSelectedKeys={['1']}
+                    openKeys={this.state.openKeys}
+                    onOpenChange={this.onOpenChange}
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
                 >
