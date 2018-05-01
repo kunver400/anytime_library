@@ -8,7 +8,7 @@ const { Sider } = Layout;
 class SiderWrapper extends Component {
     render() {
         return (
-            <Sider width={200} style={{ background: '#fff' }} breakpoint="lg"
+            <Sider width={200} breakpoint="lg"
                 collapsedWidth="0"
                 onCollapse={(collapsed, type) => { console.log(collapsed, type); }}>
                 <Menu theme='dark'

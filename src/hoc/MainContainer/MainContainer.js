@@ -8,12 +8,12 @@ const { Content } = Layout;
 class MainContainer extends Component {
     render() {
         return (
-            <Layout style={{ padding: '0 12px 12px' }}>
+            <Layout style={{alignItems:'center'}}>
                 {/* <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Hi wanderer <Icon type="smile" style={{ 'fontSize': 14 }} /> , here's what you're looking for...</Breadcrumb.Item>
                 </Breadcrumb> */}
                 <span style={{color:'#ffffffab', margin: '16px 0' }}>Hi wanderer <Icon type="smile" style={{'color':'#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..</span>
-                <Content>
+                <Content className={classes.content}>
                 <div className={classes.landing_splash}>
                 <h1>Anytime</h1>
                 <h2>Anywhere</h2>
