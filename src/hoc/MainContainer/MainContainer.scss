@@ -1,6 +1,6 @@
 .content {
     width: 80%;
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 992px) {
         width: 100%;
     }
 }
@@ -41,4 +41,22 @@
             float: right;
         }
       }
+}
+.trigger { 
+    color: white;
+    z-index:1;
+    font-size: 18px;
+    line-height: 64px;
+    padding-top: 42px;
+    padding-left: 16px;
+    position: absolute;
+    left:205px;
+    cursor: pointer;
+    transition: color .3s;
+    &:hover {
+        color: #1890ff;
+      }
+    @media screen and (min-width: 992px) {
+        display: none!important;
+    }
 }

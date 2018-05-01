@@ -7,10 +7,15 @@ const { Sider } = Layout;
 
 class SiderWrapper extends Component {
 
-    rootSubmenuKeys = ['sub1', 'sub2', 'sub3','subo1'];
+    rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'subo1'];
     state = {
         openKeys: ['sub1'],
+        collapsed: false
     };
+    constructor(props) {
+        super();
+        props.getToggle(this.toggleSider);
+    }
     onOpenChange = (openKeys) => {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
         if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -21,11 +26,18 @@ class SiderWrapper extends Component {
             });
         }
     }
+    toggleSider = () => {
+        this.setState({collapsed: !this.state.collapsed})
+        return !this.state.collapsed;
+    }
     render() {
         return (
             <Sider width={200} breakpoint="lg"
+                trigger={null}
+                collapsible
+                collapsed={this.state.collapsed}
                 collapsedWidth="0"
-                onCollapse={(collapsed, type) => { console.log(collapsed, type); }}>
+                onCollapse={(collapsed, type) => { console.log(collapsed, type,this); }}>
                 <Menu theme='dark'
                     mode="inline"
                     //defaultSelectedKeys={['1']}

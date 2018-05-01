@@ -9,15 +9,20 @@ import classes from './LayoutContainer.css';
 
 
 class LayoutContainer extends Component {
-
+  getToggle = (func) => {
+    this.toggle = func;
+  }
+  toggleSider = () => {
+    return this.toggle();
+  };
   render() {
     return (
       <Layout className={classes.top_layout}>
         <HeaderWrapper />
 
         <Layout>
-          <SiderWrapper />
-          <MainContainer />
+          <SiderWrapper getToggle={this.getToggle} />
+          <MainContainer toggleSider={this.toggleSider}/>
         </Layout>
 
         <FooterWrapper />
