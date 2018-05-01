@@ -13,7 +13,7 @@ class MainContainer extends Component {
                     <Breadcrumb.Item>Hi wanderer <Icon type="smile" style={{ 'fontSize': 14 }} /> , here's what you're looking for...</Breadcrumb.Item>
                 </Breadcrumb> */}
                 <span style={{color:'#ffffffab', margin: '16px 0' }}>Hi wanderer <Icon type="smile" style={{'color':'#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..</span>
-                <Content style={{ margin: 0, minHeight: 600 }}>
+                <Content style={{ margin: 0, minHeight: 900 }}>
                 <div className={classes.landing_splash}>
                 <h1>Anytime</h1>
                 <h2>Anywhere</h2>
