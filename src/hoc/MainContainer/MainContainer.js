@@ -8,7 +8,7 @@ const { Content } = Layout;
 
 class MainContainer extends Component {
     state = {
-        siderCollapsed: false,
+        siderCollapsed: window.innerWidth<992,
         backdrop: false
     };
     siderController = () => {

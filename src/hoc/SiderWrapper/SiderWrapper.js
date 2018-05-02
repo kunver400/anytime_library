@@ -10,7 +10,7 @@ class SiderWrapper extends Component {
     rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'subo1'];
     state = {
         openKeys: ['sub1'],
-        collapsed: false
+        collapsed: window.innerWidth<992
     };
     constructor(props) {
         super();
