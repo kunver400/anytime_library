@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Icon } from 'antd';
+import Backdrop from '../Backdrop/Backdrop'
 
 import classes from './MainContainer.css';
 
@@ -7,14 +8,17 @@ const { Content } = Layout;
 
 class MainContainer extends Component {
     state = {
-        siderCollapsed: false
+        siderCollapsed: false,
+        backdrop: false
     };
     siderController = () => {
-        this.setState({siderCollapsed: this.props.toggleSider()});
+        let sider = this.props.toggleSider();
+        this.setState({siderCollapsed: sider, backdrop: !sider});
     }
     render() {
         return (
             <Layout style={{ alignItems: 'center' }}>
+            <Backdrop visible={this.state.backdrop} callback={this.siderController}/>            
                 <Icon
                     className={classes.trigger}
                     type={this.state.siderCollapsed?'menu-unfold' : 'menu-fold'}

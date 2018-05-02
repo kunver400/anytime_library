@@ -2,10 +2,10 @@
     top: 42px!important;
 }
 .ant-layout-sider {
-    background: '#051529'!important;
+    background: linear-gradient(#051529,#051529,#051529,#ffffff00)!important;
+    z-index: 3;
     @media screen and (max-width: 992px) {
         position: absolute!important;
-        z-index: 1;
         min-height: 600px;
     }
 }
