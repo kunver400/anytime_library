@@ -21,8 +21,8 @@ class MainContainer extends Component {
             <Backdrop visible={this.state.backdrop} callback={this.siderController}/>            
                 <Icon
                     className={classes.trigger}
-                    type={this.state.siderCollapsed?'menu-unfold' : 'menu-fold'}
-                    style={this.state.siderCollapsed?{left:0}:null}
+                    type={this.state.siderCollapsed?'right-square' : 'menu-fold'}
+                    style={this.state.siderCollapsed?{left:0}:{display: 'none'}}
                     onClick={this.siderController}
                 />
                 {/* <Breadcrumb style={{ margin: '16px 0' }}>
