@@ -1,13 +1,17 @@
 import React from 'react';
+import { Icon } from 'antd';
 import classes from './Landing.css'
 
 const Landing = () => {
     return (
+        <div className={classes.landing}>
+        <span style={{ color: '#ffffffab'}}>Hi wanderer <Icon type="smile" style={{ 'color': '#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..</span>
         <div className={classes.landing_splash}>
-        <h1>Anytime</h1>
-        <h2>Anywhere</h2>
-        <p>The solo depot for all you will ever read.</p>
-    </div>
+            <h1>Anytime</h1>
+            <h2>Anywhere</h2>
+            <p>The solo depot for all you will ever read.</p>
+        </div>
+        </div>
     )
 }
 
