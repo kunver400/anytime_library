@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import { Layout } from 'antd';
 import HeaderWrapper from '../HeaderWrapper/HeaderWrapper'
 import SiderWrapper from '../SiderWrapper/SiderWrapper';
@@ -17,6 +18,7 @@ class LayoutContainer extends Component {
   };
   render() {
     return (
+      <BrowserRouter>
       <Layout className={classes.top_layout}>
         <HeaderWrapper />
 
@@ -27,6 +29,7 @@ class LayoutContainer extends Component {
 
         <FooterWrapper />
       </Layout>
+      </BrowserRouter>
     );
   }
 }
