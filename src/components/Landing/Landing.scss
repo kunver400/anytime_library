@@ -16,27 +16,15 @@
         background-image: linear-gradient(to bottom right,#002f4b,#99321d);
         opacity: .6; 
       }
-    h1,h2,p {
-        color: white;
-        font-size: 64px;
-        text-shadow:  2px 2px #000000;
-        padding: 12px;
-    }
-    h2 {
-        font-size: 42px;
-        float: right;
-    }
     p {
+        color: white;
+        text-shadow:  2px 2px #000000;
+        padding-top: 150px;
         font-size: 18px;
         position: relative;
-        top: -7%;
         text-align: center;
     }
-    @media screen and (max-width: 600px) {
-        h1,h2,p{
-            float: right;
-        }
-      }
+
 }
 .landing {
 text-align: center;
