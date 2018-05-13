@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 
-import Landing from '../../components/Landing/Landing'
-import NotFound from '../../components/NotFound/NotFound'
+import Landing from '../../components/Landing/Landing';
+import NotFound from '../../components/NotFound/NotFound';
+import SignUp from '../../components/SignUp/SignUp';
 
 import classes from './ContentWrapper.css'
 const { Content } = Layout;
@@ -13,6 +14,7 @@ class ContentWrapper extends Component {
         return (
             <Content className={classes.content}>
                 <Switch>
+                <Route path="/signup" exact component={SignUp} />
                     <Route path="/" exact component={Landing} />
                     <Route component={NotFound}/>
                 </Switch>
