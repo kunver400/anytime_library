@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete, Modal } from 'antd';
+import Axios from 'axios';
 import classes from './SignUp.css';
 
 const FormItem = Form.Item;
@@ -33,14 +34,35 @@ class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
+        checked: false
     };
     handleSubmit = (e) => {
+        console.log(this.props.form);
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                Axios.post('user.json', {
+                    nickname: values.nickname,
+                    email: values.email,
+                    password: values.password,
+                    phone: '+' + values.prefix + values.phone,
+                    residence: values.residence,
+                    website: values.website
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        Modal.success({
+                            title: 'Congratulations, you are a memeber now.',
+                            content: 'Please login and continue.',
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         });
+
     }
     handleConfirmBlur = (e) => {
         const value = e.target.value;
@@ -70,6 +92,13 @@ class RegistrationForm extends React.Component {
         }
         this.setState({ autoCompleteResult });
     }
+    toggleChecked = () => {
+        let check = this.state.checked;
+        this.setState({
+            checked: !check
+        });
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
@@ -111,6 +140,7 @@ class RegistrationForm extends React.Component {
 
         return (
             <div className={classes.SignUp}>
+            <p className={classes.form_head}>Create your account:</p>
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem
                         {...formItemLayout}
@@ -197,7 +227,7 @@ class RegistrationForm extends React.Component {
                         label="Website"
                     >
                         {getFieldDecorator('website', {
-                            rules: [{ required: true, message: 'Please input website!' }],
+                            rules: [{ message: 'Please input website!' }],
                         })(
                             <AutoComplete
                                 dataSource={websiteOptions}
@@ -208,33 +238,15 @@ class RegistrationForm extends React.Component {
                             </AutoComplete>
                         )}
                     </FormItem>
-                    {/* <FormItem
-                        {...formItemLayout}
-                        label="Captcha"
-                        extra="We must make sure that your are a human."
-                    >
-                        <Row gutter={8}>
-                            <Col span={12}>
-                                {getFieldDecorator('captcha', {
-                                    rules: [{ required: true, message: 'Please input the captcha you got!' }],
-                                })(
-                                    <Input />
-                                )}
-                            </Col>
-                            <Col span={12}>
-                                <Button>Get captcha</Button>
-                            </Col>
-                        </Row>
-                    </FormItem> */}
                     <FormItem {...tailFormItemLayout}>
                         {getFieldDecorator('agreement', {
                             valuePropName: 'checked',
                         })(
-                            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+                            <Checkbox onChange={this.toggleChecked}>I have read the <a href="">agreement</a></Checkbox>
                         )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">Register</Button>
+                        <Button type="primary" disabled={!this.state.checked} htmlType="submit">Register</Button>
                     </FormItem>
                 </Form>
             </div>

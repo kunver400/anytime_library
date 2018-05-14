@@ -17,12 +17,29 @@ body {
     color: #051529!important;
   }
 }
-.ant-form-item-label label, .ant-form-explain, .ant-form-extra,.ant-checkbox-wrapper{
-  color: white!important;
+.ant-form-item-label label, .ant-form-explain, .ant-form-extra, .ant-checkbox-wrapper{
+  color:#ffffffcc!important;
 }
 .ant-input,.ant-select,.ant-cascader-picker,.ant-cascader-menus {
   background-color:#f8fcff!important;
 }
+.ant-modal-content {
+  background-color: #233238;
+  .ant-modal-close{
+    .ant-modal-close-x{
+      color: #ffffffcc;
+    }
+  }
+  .ant-modal-header {
+    background-color: #233238;
+    border-bottom: none;
+    .ant-modal-title {
+      color: #ffffffcc;
+    }
+  }
+}
+
+
 #root {
   height: 100%;
   min-height: 800px;

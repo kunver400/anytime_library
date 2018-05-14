@@ -31,7 +31,7 @@ class HeaderWrapper extends Component {
                             <Menu.Item key="user:2"><Icon type="logout" />Logout</Menu.Item>
                         </ItemGroup>
                         <ItemGroup title='You' className={classes.light_item_group}>
-                            <Menu.Item key="4"><Icon type="login" />Login</Menu.Item>
+                            <Menu.Item key="4"><a onClick={(e)=>{ e.preventDefault();this.props.login(true)}}><Icon type="login" />Login</a></Menu.Item>
                             <Menu.Item key="5"><Link to='/signup'><Icon type="user-add" />Join us</Link></Menu.Item>
                         </ItemGroup>
                     </SubMenu>
