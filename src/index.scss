@@ -25,17 +25,12 @@ body {
 }
 .ant-modal-content {
   background-color: #233238;
-  .ant-modal-close{
-    .ant-modal-close-x{
-      color: #ffffffcc;
-    }
-  }
   .ant-modal-header {
-    background-color: #233238;
+    background-color: inherit;
     border-bottom: none;
-    .ant-modal-title {
-      color: #ffffffcc;
-    }
+  }
+  .ant-confirm-title, .ant-confirm-content, .ant-modal-title, .ant-modal-close-x {
+    color: #ffffffcc;
   }
 }
 
