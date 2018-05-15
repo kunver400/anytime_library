@@ -15,7 +15,7 @@ class ContentWrapper extends Component {
             <Content className={classes.content}>
                 <Switch>
                 <Route path="/signup" exact component={SignUp} />
-                    <Route path="/" exact component={Landing} />
+                    <Route path="/" exact component={Landing} user={this.props.user}/>
                     <Route component={NotFound}/>
                 </Switch>
             </Content>

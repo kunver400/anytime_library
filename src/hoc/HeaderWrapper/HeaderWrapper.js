@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import classes from './HeaderWrapper.css'
 import logo from '../../assets/book.svg'
@@ -26,14 +26,21 @@ class HeaderWrapper extends Component {
                     <Menu.Item className={classes.menuitem_display} key="2"><Icon type="book" />Issue</Menu.Item>
                     <Menu.Item className={classes.menuitem_display} key="3"><Icon type="layout" />Return</Menu.Item>
                     <SubMenu className={classes.menuitem_right} title={<Icon type="idcard" />}>
-                        <ItemGroup title='You' className={classes.light_item_group}>
-                            <Menu.Item key="user:1"><Icon type="user" />Profile</Menu.Item>
-                            <Menu.Item key="user:2"><Icon type="logout" />Logout</Menu.Item>
-                        </ItemGroup>
-                        <ItemGroup title='You' className={classes.light_item_group}>
-                            <Menu.Item key="4"><a onClick={(e)=>{ e.preventDefault();this.props.login(true)}}><Icon type="login" />Login</a></Menu.Item>
-                            <Menu.Item key="5"><Link to='/signup'><Icon type="user-add" />Join us</Link></Menu.Item>
-                        </ItemGroup>
+                        
+                            {this.props.user ?
+                                (
+                                    <ItemGroup title='You' className={classes.light_item_group}>
+                                    <Menu.Item key="user:1"><Icon type="user" />Profile</Menu.Item>
+                                    <Menu.Item key="user:2"><a onClick={(e)=>{e.preventDefault(); this.props.logout()}}><Icon type="logout" />Logout</a></Menu.Item>
+                                    </ItemGroup>
+                                ) :
+                                (
+                                    <ItemGroup title='You' className={classes.light_item_group}>
+                                    <Menu.Item key="4"><a onClick={(e) => { e.preventDefault(); this.props.login(true) }}><Icon type="login" />Login</a></Menu.Item>
+                                    <Menu.Item key="5"><Link to='/signup'><Icon type="user-add" />Join us</Link></Menu.Item>
+                                    </ItemGroup>
+                                )
+                            }                        
                     </SubMenu>
                 </Menu>
             </Header>

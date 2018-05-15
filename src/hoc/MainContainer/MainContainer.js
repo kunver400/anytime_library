@@ -27,7 +27,7 @@ class MainContainer extends Component {
                 {/* <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Hi wanderer <Icon type="smile" style={{ 'fontSize': 14 }} /> , here's what you're looking for...</Breadcrumb.Item>
                 </Breadcrumb> */}
-                <ContentWrapper/>
+                <ContentWrapper user={this.props.user}/>
             </Layout>
         )
     }

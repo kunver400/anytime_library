@@ -12,7 +12,8 @@ import classes from './LayoutContainer.css';
 
 class LayoutContainer extends Component {
   state = {
-    loginVisible: false
+    loginVisible: false,
+    user: null
   }
   getToggle = (func) => {
     this.toggle = func;
@@ -27,19 +28,30 @@ class LayoutContainer extends Component {
       });
     }
   }
+  setUser = (user) => {
+    this.setState({
+      user: user
+    });
+    console.log(user);
+  }
+  logoutUser = () => {
+    this.setState({
+      user: null
+    });
+  }
   render() {
     return (
       <BrowserRouter>
         <Layout className={classes.top_layout}>
-          <HeaderWrapper login={this.toggleLogin}/>
+          <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser}/>
 
           <Layout>
             <SiderWrapper getToggle={this.getToggle} />
-            <MainContainer toggleSider={this.toggleSider} />
+            <MainContainer toggleSider={this.toggleSider} user={this.state.user}/>
           </Layout>
 
           <FooterWrapper />
-          <Login visible={this.state.loginVisible} toggle={this.toggleLogin}/>
+          <Login visible={this.state.loginVisible} toggle={this.toggleLogin} setUser={this.setUser}/>
         </Layout>
       </BrowserRouter>
     );

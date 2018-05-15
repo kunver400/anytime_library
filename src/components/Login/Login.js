@@ -10,13 +10,11 @@ class Login extends Component {
             <Modal
                 title="Login"
                 visible={this.props.visible}
-                onOk={() => this.props.toggle(false)}
                 onCancel={() => this.props.toggle(false)}
                 footer={null}
                 className={classes.login_modal}
-                // style={{maxWidth: '350px',margin: 'auto'}}
             >
-            <LoginForm/>
+            <LoginForm toggleModal={this.props.toggle} setUser={this.props.setUser}/>
             </Modal>
         )
     }

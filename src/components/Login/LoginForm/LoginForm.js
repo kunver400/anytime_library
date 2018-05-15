@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import Axios from 'axios';
 import classes from './LoginForm.css';
 const FormItem = Form.Item;
 
@@ -8,7 +9,22 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        Axios.get('/user.json')
+          .then(response => {
+            let user;
+            for (let key in response.data) {
+              if (values.nickname === response.data[key].nickname && values.password === response.data[key].password) {
+                user = response.data[key];
+              }
+            }
+            if(user) {
+              this.props.setUser(user);
+              this.props.toggleModal(false);
+            }
+          })
+          .catch(response => {
+            console.log(response);
+          })
       }
     });
   }
@@ -17,10 +33,10 @@ class LoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className={classes.login_form}>
         <FormItem>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+          {getFieldDecorator('nickname', {
+            rules: [{ required: true, message: 'Please input your nickname!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Nickname" />
           )}
         </FormItem>
         <FormItem>
