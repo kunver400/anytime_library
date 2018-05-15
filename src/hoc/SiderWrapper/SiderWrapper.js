@@ -70,8 +70,10 @@ class SiderWrapper extends Component {
                         <Menu.Item key="search:1">Book search</Menu.Item>
                         <Menu.Item key="search:2">Asset search</Menu.Item>
                     </SubMenu>
-                    <Menu.Item className={classes.menuitem_display} key="issue"><Icon type="book" />Issue</Menu.Item>
-                    <Menu.Item className={classes.menuitem_display} key="return"><Icon type="layout" />Return</Menu.Item>
+                    {this.props.user?
+                    [<Menu.Item className={classes.menuitem_display} key="issue"><Icon type="book" />Issue</Menu.Item>,
+                    <Menu.Item className={classes.menuitem_display} key="return"><Icon type="layout" />Return</Menu.Item>]:null
+                    }
                 </Menu>
             </Sider>
         );

@@ -46,7 +46,7 @@ class LayoutContainer extends Component {
           <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser}/>
 
           <Layout>
-            <SiderWrapper getToggle={this.getToggle} />
+            <SiderWrapper getToggle={this.getToggle} user={this.state.user}/>
             <MainContainer toggleSider={this.toggleSider} user={this.state.user}/>
           </Layout>
 

@@ -23,8 +23,11 @@ class HeaderWrapper extends Component {
                         <Menu.Item key="search:1">Book search</Menu.Item>
                         <Menu.Item key="search:2">Asset search</Menu.Item>
                     </SubMenu>
-                    <Menu.Item className={classes.menuitem_display} key="2"><Icon type="book" />Issue</Menu.Item>
-                    <Menu.Item className={classes.menuitem_display} key="3"><Icon type="layout" />Return</Menu.Item>
+                    {
+                    this.props.user ?
+                    [<Menu.Item className={classes.menuitem_display} key="2"><Icon type="book" />Issue</Menu.Item>,
+                    <Menu.Item className={classes.menuitem_display} key="3"><Icon type="layout" />Return</Menu.Item>]:null
+                    }
                     <SubMenu className={classes.menuitem_right} title={<Icon type="idcard" />}>
                         
                             {this.props.user ?
