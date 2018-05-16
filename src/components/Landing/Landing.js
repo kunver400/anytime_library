@@ -2,20 +2,25 @@ import React from 'react';
 import { Icon } from 'antd';
 import Aux from '../../hoc/Aux/Aux'
 import classes from './Landing.css'
-
+import logo from '../../assets/book.svg'
 const Landing = (props) => {
     return (
         <div className={classes.landing}>
-        <span style={{ color: '#ffffffab'}}>
-        {props.user?props.user.nickname+"'s Anytime Library":
-        <Aux>
-        Hi wanderer <Icon type="smile" style={{ 'color': '#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..
-        </Aux>
-        }
-        </span>
-        <div className={classes.landing_splash}>
-            <p>The solo depot for all you will ever read.</p>
-        </div>
+            <span style={{ color: '#ffffffab' }}>
+
+            </span>
+            <div className={classes.landing_splash}>
+                <p className={[classes.splash_head,classes.splash_welcome].join(' ')}>
+                    {props.user ? props.user.nickname + "'s Anytime Library." :
+                        <Aux>
+                            Hi wanderer <Icon type="smile" style={{ 'color': '#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..
+                        </Aux>
+                    }
+                </p>
+                <img src={logo} alt='na' className={classes.logo} />
+                <p className={classes.splash_head}>#Anytime Library</p>
+                <p className={[classes.splash_head,classes.splash_subhead].join(' ')}>The solo depot to serve your mental appetite.</p>
+            </div>
         </div>
     )
 }

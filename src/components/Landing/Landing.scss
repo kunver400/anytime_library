@@ -1,8 +1,8 @@
 .landing_splash {
-    margin-top: 10px;
+    margin-top: 0px;
     width: 100%;
     border-radius: 4px;
-    height: 300px;
+    height: 370px;
     background-image: url(../../assets/bg-gallery-2.png);
     background-size: cover;
     position: relative;
@@ -16,16 +16,27 @@
         background-image: linear-gradient(to bottom right,#002f4b,#99321d);
         opacity: .6; 
       }
-    p {
+    .splash_head {
         color: white;
         text-shadow:  2px 2px #000000;
-        padding-top: 150px;
-        font-size: 18px;
+        font-size: 32px;
         position: relative;
         text-align: center;
     }
+    .splash_subhead {
+        font-size: 16px;
+    }
+    .splash_welcome {
+        font-size: 14px;
+        position: relative;
+        text-align: left;
+        padding: 14px;
+    }
 
 }
-.landing {
-text-align: center;
+.logo {
+    width: 170px;
+    position: relative;
+    display: block;
+    margin: auto;
 }
