@@ -1,0 +1,32 @@
+.book_card {
+    color: white!important;
+    min-width: 100%;
+    min-height: 250px;
+    margin-bottom: 14px;
+    border-radius: 5px;
+}
+.splash_card {
+    height: 100%;
+    margin-right: 12px;
+    padding: 5px!important;
+    text-align: center;
+    box-shadow: none!important;
+    @media screen and (max-width: 1030px) {
+        margin-right: 0px;
+        margin-bottom: 12px;
+        width: 100%!important;
+    }
+}
+.desc_card {
+    height: 100%;
+    width: 60%!important;
+    box-shadow: none!important;
+    @media screen and (max-width: 1030px) {
+        width: 100%!important;
+    }
+}
+.the_book {
+    height: 250px;
+    width: 200px;
+    align-self: center;
+}

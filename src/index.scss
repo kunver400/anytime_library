@@ -33,8 +33,24 @@ body {
     color: #ffffffcc;
   }
 }
-
-
+.ant-table-row {
+  color: #ffffffcc;
+  background-color: #223333a6;
+}
+.ant-table-thead > tr.ant-table-row-hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td,
+.ant-table-thead > tr:hover > td,
+.ant-table-tbody > tr:hover > td,
+.ant-table-tbody > tr.ant-table-row-selected td {
+  background-color: #3f5369;
+}
+.ant-card-head {
+  background-color: #051529;
+  border-bottom: none;
+  .ant-card-head-title{
+    color: #ffffffcc;
+  }
+}
 #root {
   height: 100%;
   min-height: 800px;

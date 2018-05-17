@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 import './SiderWrapper.raw.css?raw';
 import classes from './SiderWrapper.css';
 const { SubMenu } = Menu;
@@ -51,7 +52,7 @@ class SiderWrapper extends Component {
                         <Menu.Item key="1">Best sellers</Menu.Item>
                         <Menu.Item key="2">Fresh arrivals</Menu.Item>
                         <Menu.Item key="3">Magazines</Menu.Item>
-                        <Menu.Item key="4">Indexed collection</Menu.Item>
+                        <Menu.Item key="4"><Link to='/indexofbooks'>Indexed collection</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" title={<span><Icon type="barcode" />My Books</span>}>
                         <Menu.Item key="5">Active subscriptions</Menu.Item>
