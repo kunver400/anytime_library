@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon } from 'antd';
+import { Layout, Icon} from 'antd';
 import Backdrop from '../Backdrop/Backdrop';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
@@ -16,7 +16,7 @@ class MainContainer extends Component {
     }
     render() {
         return (
-            <Layout style={{ alignItems: 'center' }}>
+            <Layout>
             <Backdrop visible={this.state.backdrop} callback={this.siderController}/>            
                 <Icon
                     className={classes.trigger}

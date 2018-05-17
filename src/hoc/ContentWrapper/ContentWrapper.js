@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layout } from 'antd';
+import { Layout, Breadcrumb, Icon } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 
 import Landing from '../../components/Landing/Landing';
@@ -14,6 +14,17 @@ class ContentWrapper extends Component {
     render() {
         return (
             <Content className={classes.content}>
+                <Breadcrumb>
+                <Breadcrumb.Item>
+                    <Icon type="home" />
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <span>All Books</span>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    Indexed collection
+                </Breadcrumb.Item>
+                </Breadcrumb>
                 <Switch>
                 <Route path="/signup" component={SignUp} />
                 <Route path="/indexofbooks" component={IndexedCollection}/>
