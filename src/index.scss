@@ -51,6 +51,12 @@ body {
     color: #ffffffcc;
   }
 }
+.ant-breadcrumb {
+  a,span{
+  color: #ffffffcc;
+  }
+  margin-bottom: 8px;
+}
 #root {
   height: 100%;
   min-height: 800px;

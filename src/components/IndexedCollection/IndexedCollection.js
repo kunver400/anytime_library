@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'antd';
+import { Table, Breadcrumb, Icon } from 'antd';
 import Axios from 'axios';
 import Aux from '../../hoc/Aux/Aux';
 import BookCard from './BookCard/BookCard';
@@ -8,14 +8,14 @@ import classes from './IndexedCollection.css';
 const columns = [{
     title: 'Title',
     dataIndex: 'title',
-    sorter: (a,b)=>a.title.localeCompare(b.title),
+    sorter: (a, b) => a.title.localeCompare(b.title),
     key: 0
     // width: '20%',
-},{
+}, {
     title: 'Author',
     dataIndex: 'author',
-    sorter: (a,b)=>a.title.localeCompare(b.title),
-    defaultSortOrder: 'ascend',
+    sorter: (a, b) => a.title.localeCompare(b.title),
+    //defaultSortOrder: 'ascend',
     key: 1,
     // width: '20%',
 },
@@ -28,23 +28,23 @@ const columns = [{
 {
     title: 'Date Added',
     dataIndex: 'date_added',
-    sorter: (a,b)=>{
-      let adate = new Date(a.date_string),bdate = new Date(b.date_string);
-      return (adate<bdate?1:(adate===bdate?0:-1));
+    sorter: (a, b) => {
+        let adate = new Date(a.date_string), bdate = new Date(b.date_string);
+        return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
     },
-    render: date_string=>formatDate(date_string),
+    render: date_string => formatDate(date_string),
     key: 3
     // width: '20%',
-},{
+}, {
     title: 'Available units',
     dataIndex: 'availablity',
-    sorter: (a,b)=> a.availablity-b.availablity,
+    sorter: (a, b) => a.availablity - b.availablity,
     key: 4
     // width: '20%',
-},{
+}, {
     title: 'Popularity',
     dataIndex: 'times_issued',
-    sorter: (a,b)=> a.times_issued-b.times_issued,
+    sorter: (a, b) => a.times_issued - b.times_issued,
     key: 5
     // width: '20%',
 }
@@ -63,7 +63,7 @@ const formatBooks = (data) => {
 };
 const formatDate = (date_string) => {
     let date = new Date(date_string);
-    return date.getUTCDate()+'/'+date.getUTCMonth()+'/'+date.getUTCFullYear();
+    return date.getUTCDate() + '/' + date.getUTCMonth() + '/' + date.getUTCFullYear();
 }
 
 
@@ -90,39 +90,53 @@ class IndexedCollection extends Component {
                 console.log('something went wrong.');
             });
     };
-    rowSelection  = {
+    rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log('selectedRowKeys:', selectedRowKeys, 'selectedRows: ', selectedRows);
-          },
-          getCheckboxProps: record => ({
+        },
+        getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
             name: record.title,
-          }),
+        }),
     };
-    onRowClick=(record) => {
-    this.setState({
-        selectedBook: record
-    })        
+    onRowClick = (record) => {
+        this.setState({
+            selectedBook: record
+        })
     };
+    // handleTableChange = (pagination, filters, sorter) => {
+    //     console.log('params', pagination, filters, sorter);
+    // }
     componentDidMount() {
         this.fetchBooks();
     };
     render() {
         return (
             <Aux>
-                <BookCard book={this.state.selectedBook}/>
-            <Table columns={columns}
-                //rowKey={record => record.registered}
-                dataSource={this.state.data}
-                //pagination={this.state.pagination}
-                loading={this.state.loading}
-                rowSelection={this.rowSelection}
-                onRow={(record)=>{
-                    return {onClick: ()=>this.onRowClick(record)};
-                }}
-                // onChange={this.handleTableChange}
-            size='middle'
-            /></Aux>
+                <Breadcrumb>
+                    <Breadcrumb.Item>
+                        <Icon type="home" />
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <span>All Books</span>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        Indexed collection
+                </Breadcrumb.Item>
+                </Breadcrumb>
+                <BookCard book={this.state.selectedBook} />
+                <Table columns={columns}
+                    //rowKey={record => record.registered}
+                    dataSource={this.state.data}
+                    //pagination={this.state.pagination}
+                    loading={this.state.loading}
+                    rowSelection={this.rowSelection}
+                    onRow={(record) => {
+                        return { onClick: () => this.onRowClick(record) };
+                    }}
+                    // onChange={this.handleTableChange}
+                    size='middle'
+                /></Aux>
         )
     }
 }

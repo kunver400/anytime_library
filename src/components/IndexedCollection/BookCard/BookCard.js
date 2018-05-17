@@ -4,14 +4,13 @@ import classes from './BookCard.css';
 import altimg from '../../../assets/books.jpg';
 
 const BookCard = (props) => {
-    console.log(props.book);
     return (
         <div className={classes.book_card}>
             {/* Book one
             <Icon type="setting" />
             <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> */}
             {props.book?
-            <Card style={{backgroundColor: 'transparent',   border: 'none'}} title={props.book.title} bodyStyle={{padding: '12px', minHeight: '230px', backgroundColor: '#223333a6', color: '#ffffffcc'}}>
+            <Card style={{backgroundColor: 'transparent',   border: 'none'}} title={props.book.title} bodyStyle={{padding: '12px', minHeight: '230px', backgroundColor: '#223333d1', color: '#ffffffcc'}}>
                 <Card.Grid className={classes.splash_card}>
                 <img alt={altimg} src={altimg} className={classes.the_book}/>
                 </Card.Grid>
