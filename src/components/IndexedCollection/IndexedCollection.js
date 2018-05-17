@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Breadcrumb, Icon } from 'antd';
+import { Table, Icon } from 'antd';
 import Axios from 'axios';
 import Aux from '../../hoc/Aux/Aux';
 import BookCard from './BookCard/BookCard';
@@ -113,17 +113,6 @@ class IndexedCollection extends Component {
     render() {
         return (
             <Aux>
-                <Breadcrumb>
-                    <Breadcrumb.Item>
-                        <Icon type="home" />
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        <span>All Books</span>
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        Indexed collection
-                </Breadcrumb.Item>
-                </Breadcrumb>
                 <BookCard book={this.state.selectedBook} />
                 <Table columns={columns}
                     //rowKey={record => record.registered}
