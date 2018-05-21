@@ -37,6 +37,9 @@ body {
   color: #ffffffcc;
   background-color: #223333a6;
 }
+.ant-table-tbody > tr > td {
+  border: none;
+}
 .ant-table-thead > tr.ant-table-row-hover > td,
 .ant-table-tbody > tr.ant-table-row-hover > td,
 .ant-table-thead > tr:hover > td,

@@ -22,7 +22,7 @@ class ContentWrapper extends Component {
                     <span>All Books</span>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    Indexed collection
+                    <span>Indexed collection</span>
                 </Breadcrumb.Item>
                 </Breadcrumb>
                 <Switch>
