@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Icon } from 'antd';
 import Axios from 'axios';
-import Aux from '../../hoc/Aux/Aux';
+import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
 import classes from './IndexedCollection.css';
 
@@ -112,7 +112,7 @@ class IndexedCollection extends Component {
     };
     render() {
         return (
-            <Aux>
+            <Auxi>
                 <BookCard book={this.state.selectedBook} />
                 <Table columns={columns}
                     //rowKey={record => record.registered}
@@ -125,7 +125,7 @@ class IndexedCollection extends Component {
                     }}
                     // onChange={this.handleTableChange}
                     size='middle'
-                /></Aux>
+                /></Auxi>
         )
     }
 }

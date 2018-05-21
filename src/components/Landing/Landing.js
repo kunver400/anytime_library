@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from 'antd';
-import Aux from '../../hoc/Aux/Aux'
+import Auxi from '../../hoc/Auxi/Auxi'
 import classes from './Landing.css'
 import logo from '../../assets/book.svg'
 const Landing = (props) => {
@@ -12,9 +12,9 @@ const Landing = (props) => {
             <div className={classes.landing_splash}>
                 <p className={[classes.splash_head,classes.splash_welcome].join(' ')}>
                     {props.user ? props.user.nickname + "'s Anytime Library." :
-                        <Aux>
+                        <Auxi>
                             Hi wanderer <Icon type="smile" style={{ 'color': '#ffffffab', 'fontSize': 14 }} /> , here's what you're looking for..
-                        </Aux>
+                        </Auxi>
                     }
                 </p>
                 <img src={logo} alt='na' className={classes.logo} />
