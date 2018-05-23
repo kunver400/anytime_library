@@ -15,12 +15,9 @@ import classes from './LayoutContainer.css';
 
 
 class LayoutContainer extends Component {
-  state = {
-    collapsed: window.innerWidth < 992
-  }
   toggleSider = () => {
-    this.setState({ collapsed: !this.state.collapsed })
-    return !this.state.collapsed;
+    this.props.sidderToggled();
+    return !this.props.collapsed;
   }
   toggleLogin = (visible) => {
     if (visible !== this.props.loginVisible) {
@@ -29,7 +26,6 @@ class LayoutContainer extends Component {
   }
   setUser = (user) => {
     this.props.userLoggedIn(user);
-    console.log(user);
   }
   logoutUser = () => {
     this.props.userLoggedOut();
@@ -41,8 +37,8 @@ class LayoutContainer extends Component {
           <HeaderWrapper login={this.toggleLogin} user={this.props.user} logout={this.logoutUser} />
 
           <Layout>
-            <SiderWrapper collapsed={this.state.collapsed} user={this.props.user} />
-            <MainContainer toggleSider={this.toggleSider} user={this.props.user} />
+            <SiderWrapper collapsed={this.props.collapsed} user={this.props.user} />
+            <MainContainer toggleSider={this.toggleSider} siderState={this.props.collapsed} user={this.props.user} />
           </Layout>
 
           <FooterWrapper />
@@ -56,14 +52,16 @@ class LayoutContainer extends Component {
 const mapStateToProps = state => {
   return {
     loginVisible: state.loginVisible,
-    user: state.user
+    user: state.user,
+    collapsed: state.collapsed
   }
 }
 const mapDispatchToProps = dispatch => {
     return {
       logipopupToggled: (visible) => dispatch({type:ROOT_ACTIONS.TOGGLE_LOGIN_MODAL,visible: visible}),
       userLoggedIn: (user) => dispatch({type:ROOT_ACTIONS.LOG_USER_IN,user: user}),
-      userLoggedOut: () => dispatch({type: ROOT_ACTIONS.LOG_USER_OUT})
+      userLoggedOut: () => dispatch({type: ROOT_ACTIONS.LOG_USER_OUT}),
+      sidderToggled: () => dispatch({type: ROOT_ACTIONS.TOGGLE_SIDER})
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(LayoutContainer);

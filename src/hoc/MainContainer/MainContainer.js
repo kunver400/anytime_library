@@ -7,12 +7,11 @@ import classes from './MainContainer.css';
 
 class MainContainer extends Component {
     state = {
-        siderCollapsed: window.innerWidth<992,
         backdrop: false
     };
     siderController = () => {
         let sider = this.props.toggleSider();
-        this.setState({siderCollapsed: sider, backdrop: !sider});
+        this.setState({backdrop: !sider});
     }
     render() {
         return (
@@ -20,13 +19,10 @@ class MainContainer extends Component {
             <Backdrop visible={this.state.backdrop} callback={this.siderController}/>            
                 <Icon
                     className={classes.trigger}
-                    type={this.state.siderCollapsed?'right-square' : 'menu-fold'}
-                    style={this.state.siderCollapsed?{left:0}:{display: 'none'}}
+                    type={this.props.siderState?'right-square' : 'menu-fold'}
+                    style={this.props.siderState?{left:0}:{display: 'none'}}
                     onClick={this.siderController}
                 />
-                {/* <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Hi wanderer <Icon type="smile" style={{ 'fontSize': 14 }} /> , here's what you're looking for...</Breadcrumb.Item>
-                </Breadcrumb> */}
                 <ContentWrapper user={this.props.user}/>
             </Layout>
         )

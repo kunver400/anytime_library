@@ -2,6 +2,7 @@
 import ROOT_ACTIONS from '../actions/root_actions';
 
 const initState = {
+    collapsed: window.innerWidth < 992,
     loginVisible: false,
     user: {
         "email": "usdi@ss.com",
@@ -29,6 +30,11 @@ const rootReducer = (state=initState, action) => {
         return {
             ...state,
             user: null
+        }
+        case ROOT_ACTIONS.TOGGLE_SIDER:
+        return {
+            ...state,
+            collapsed: !state.collapsed
         }
         default:{
             return state
