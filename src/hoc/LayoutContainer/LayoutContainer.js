@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Layout } from 'antd';
+import { connect } from 'react-redux';
+
+import ROOT_ACTIONS from '../../redux/actions/root_actions';
+
 import Login from '../../components/Login/Login';
 import HeaderWrapper from '../HeaderWrapper/HeaderWrapper'
 import SiderWrapper from '../SiderWrapper/SiderWrapper';
@@ -13,7 +17,6 @@ import classes from './LayoutContainer.css';
 class LayoutContainer extends Component {
   state = {
     collapsed: window.innerWidth < 992,
-    loginVisible: false,
     user: {
       "email": "usdi@ss.com",
       "nickname": "nickfanchuli",
@@ -29,10 +32,8 @@ class LayoutContainer extends Component {
     return !this.state.collapsed;
   }
   toggleLogin = (visible) => {
-    if (visible !== this.state.loginVisible) {
-      this.setState({
-        loginVisible: visible
-      });
+    if (visible !== this.props.loginVisible) {
+      this.props.logipopupToggled(visible);
     }
   }
   setUser = (user) => {
@@ -58,11 +59,21 @@ class LayoutContainer extends Component {
           </Layout>
 
           <FooterWrapper />
-          <Login visible={this.state.loginVisible} toggle={this.toggleLogin} setUser={this.setUser} />
+          <Login visible={this.props.loginVisible} toggle={this.toggleLogin} setUser={this.setUser} />
         </Layout>
       </BrowserRouter>
     );
   }
 }
 
-export default LayoutContainer;
+const mapStateToProps = state => {
+  return {
+    loginVisible: state.loginVisible
+  }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+      logipopupToggled: (visible) => dispatch({type:ROOT_ACTIONS.TOGGLE_LOGIN_MODAL,visible: visible})
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(LayoutContainer);

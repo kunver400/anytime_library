@@ -1,0 +1,4 @@
+const ROOT_ACTIONS = {
+    TOGGLE_LOGIN_MODAL: 'TOGGLE_LOGIN_MODAL'
+}
+export default ROOT_ACTIONS;
