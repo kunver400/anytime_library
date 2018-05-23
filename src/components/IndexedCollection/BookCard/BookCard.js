@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'antd';
+import { Card, Button } from 'antd';
 import classes from './BookCard.css';
 import altimg from '../../../assets/books.jpg';
 
@@ -18,6 +18,9 @@ const BookCard = (props) => {
                 </li>
                 <li>
                 <label>About the book: {props.book.desc}</label>
+                </li>
+                <li style={{listStyleType:'none'}}>
+                <Button>Issue a Copy</Button>
                 </li>
                 </ul>
                 </Card.Grid>
