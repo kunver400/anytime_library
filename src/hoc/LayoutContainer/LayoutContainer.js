@@ -12,13 +12,21 @@ import classes from './LayoutContainer.css';
 
 class LayoutContainer extends Component {
   state = {
-    collapsed: window.innerWidth<992,
+    collapsed: window.innerWidth < 992,
     loginVisible: false,
-    user: null
+    user: {
+      "email": "usdi@ss.com",
+      "nickname": "nickfanchuli",
+      "password": "qwe",
+      "phone": "+864234234234",
+      "residence": ["zhejiang", "hangzhou", "xihu"],
+      "website": "bobo.bo",
+      "isAdmin": true
+    }
   }
   toggleSider = () => {
-      this.setState({collapsed: !this.state.collapsed})
-      return !this.state.collapsed;
+    this.setState({ collapsed: !this.state.collapsed })
+    return !this.state.collapsed;
   }
   toggleLogin = (visible) => {
     if (visible !== this.state.loginVisible) {
@@ -42,15 +50,15 @@ class LayoutContainer extends Component {
     return (
       <BrowserRouter>
         <Layout className={classes.top_layout}>
-          <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser}/>
+          <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser} />
 
           <Layout>
-            <SiderWrapper collapsed={this.state.collapsed} user={this.state.user}/>
-            <MainContainer toggleSider={this.toggleSider} user={this.state.user}/>
+            <SiderWrapper collapsed={this.state.collapsed} user={this.state.user} />
+            <MainContainer toggleSider={this.toggleSider} user={this.state.user} />
           </Layout>
 
           <FooterWrapper />
-          <Login visible={this.state.loginVisible} toggle={this.toggleLogin} setUser={this.setUser}/>
+          <Login visible={this.state.loginVisible} toggle={this.toggleLogin} setUser={this.setUser} />
         </Layout>
       </BrowserRouter>
     );

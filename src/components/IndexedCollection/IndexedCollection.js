@@ -3,7 +3,8 @@ import { Table, Icon } from 'antd';
 import Axios from 'axios';
 import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
-import classes from './IndexedCollection.css';
+import common from '../../utils/common';
+// import classes from './IndexedCollection.css';
 
 const columns = [{
     title: 'Title',
@@ -32,7 +33,7 @@ const columns = [{
         let adate = new Date(a.date_string), bdate = new Date(b.date_string);
         return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
     },
-    render: date_string => formatDate(date_string),
+    render: date_string => common.formatDate(date_string),
     key: 3
     // width: '20%',
 }, {
@@ -50,21 +51,6 @@ const columns = [{
 }
 ];
 
-const formatBooks = (data) => {
-    let books = [];
-    for (let key in data) {
-        books.push({
-            ...data[key],
-            key: key
-        });
-    }
-    console.log(books);
-    return books;
-};
-const formatDate = (date_string) => {
-    let date = new Date(date_string);
-    return date.getUTCDate() + '/' + date.getUTCMonth() + '/' + date.getUTCFullYear();
-}
 
 
 class IndexedCollection extends Component {
@@ -79,7 +65,7 @@ class IndexedCollection extends Component {
         this.setState({ loading: true });
         Axios.get('/books.json')
             .then(response => {
-                let formattedResponse = formatBooks(response.data);
+                let formattedResponse = common.formatBooks(response.data);
                 this.setState({
                     loading: false,
                     data: formattedResponse,
