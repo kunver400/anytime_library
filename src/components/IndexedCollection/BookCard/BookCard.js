@@ -1,14 +1,11 @@
 import React from 'react';
-import { Icon, Avatar, Card } from 'antd';
+import { Card } from 'antd';
 import classes from './BookCard.css';
 import altimg from '../../../assets/books.jpg';
 
 const BookCard = (props) => {
     return (
         <div className={classes.book_card}>
-            {/* Book one
-            <Icon type="setting" />
-            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> */}
             {props.book?
             <Card style={{backgroundColor: 'transparent',   border: 'none'}} title={props.book.title} bodyStyle={{padding: '12px', minHeight: '230px', backgroundColor: '#223333d1', color: '#ffffffcc'}}>
                 <Card.Grid className={classes.splash_card}>

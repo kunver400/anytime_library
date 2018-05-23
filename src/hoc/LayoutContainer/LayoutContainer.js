@@ -12,15 +12,14 @@ import classes from './LayoutContainer.css';
 
 class LayoutContainer extends Component {
   state = {
+    collapsed: window.innerWidth<992,
     loginVisible: false,
     user: null
   }
-  getToggle = (func) => {
-    this.toggle = func;
-  }
   toggleSider = () => {
-    return this.toggle();
-  };
+      this.setState({collapsed: !this.state.collapsed})
+      return !this.state.collapsed;
+  }
   toggleLogin = (visible) => {
     if (visible !== this.state.loginVisible) {
       this.setState({
@@ -46,7 +45,7 @@ class LayoutContainer extends Component {
           <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser}/>
 
           <Layout>
-            <SiderWrapper getToggle={this.getToggle} user={this.state.user}/>
+            <SiderWrapper collapsed={this.state.collapsed} user={this.state.user}/>
             <MainContainer toggleSider={this.toggleSider} user={this.state.user}/>
           </Layout>
 

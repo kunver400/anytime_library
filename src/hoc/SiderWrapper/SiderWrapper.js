@@ -11,12 +11,7 @@ class SiderWrapper extends Component {
     rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'subo1'];
     state = {
         openKeys: ['sub1'],
-        collapsed: window.innerWidth<992
     };
-    constructor(props) {
-        super();
-        props.getToggle(this.toggleSider);
-    }
     onOpenChange = (openKeys) => {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
         if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -27,16 +22,12 @@ class SiderWrapper extends Component {
             });
         }
     }
-    toggleSider = () => {
-        this.setState({collapsed: !this.state.collapsed})
-        return !this.state.collapsed;
-    }
     render() {
         return (
             <Sider width={200} breakpoint="lg"
                 trigger={null}
                 collapsible
-                collapsed={this.state.collapsed}
+                collapsed={this.props.collapsed}
                 collapsedWidth="0"
                 onCollapse={(collapsed, type) => { console.log(collapsed, type,this); }}>
                 <Menu theme='dark'
@@ -71,10 +62,6 @@ class SiderWrapper extends Component {
                         <Menu.Item key="search:1">Book search</Menu.Item>
                         <Menu.Item key="search:2">Asset search</Menu.Item>
                     </SubMenu>
-                    {/* {this.props.user?
-                    [<Menu.Item className={classes.menuitem_display} key="issue"><Icon type="book" />Issue</Menu.Item>,
-                    <Menu.Item className={classes.menuitem_display} key="return"><Icon type="layout" />Return</Menu.Item>]:null
-                    } */}
                 </Menu>
             </Sider>
         );
