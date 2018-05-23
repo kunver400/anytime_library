@@ -16,16 +16,7 @@ import classes from './LayoutContainer.css';
 
 class LayoutContainer extends Component {
   state = {
-    collapsed: window.innerWidth < 992,
-    user: {
-      "email": "usdi@ss.com",
-      "nickname": "nickfanchuli",
-      "password": "qwe",
-      "phone": "+864234234234",
-      "residence": ["zhejiang", "hangzhou", "xihu"],
-      "website": "bobo.bo",
-      "isAdmin": true
-    }
+    collapsed: window.innerWidth < 992
   }
   toggleSider = () => {
     this.setState({ collapsed: !this.state.collapsed })
@@ -37,25 +28,21 @@ class LayoutContainer extends Component {
     }
   }
   setUser = (user) => {
-    this.setState({
-      user: user
-    });
+    this.props.userLoggedIn(user);
     console.log(user);
   }
   logoutUser = () => {
-    this.setState({
-      user: null
-    });
+    this.props.userLoggedOut();
   }
   render() {
     return (
       <BrowserRouter>
         <Layout className={classes.top_layout}>
-          <HeaderWrapper login={this.toggleLogin} user={this.state.user} logout={this.logoutUser} />
+          <HeaderWrapper login={this.toggleLogin} user={this.props.user} logout={this.logoutUser} />
 
           <Layout>
-            <SiderWrapper collapsed={this.state.collapsed} user={this.state.user} />
-            <MainContainer toggleSider={this.toggleSider} user={this.state.user} />
+            <SiderWrapper collapsed={this.state.collapsed} user={this.props.user} />
+            <MainContainer toggleSider={this.toggleSider} user={this.props.user} />
           </Layout>
 
           <FooterWrapper />
@@ -68,12 +55,15 @@ class LayoutContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginVisible: state.loginVisible
+    loginVisible: state.loginVisible,
+    user: state.user
   }
 }
 const mapDispatchToProps = dispatch => {
     return {
-      logipopupToggled: (visible) => dispatch({type:ROOT_ACTIONS.TOGGLE_LOGIN_MODAL,visible: visible})
+      logipopupToggled: (visible) => dispatch({type:ROOT_ACTIONS.TOGGLE_LOGIN_MODAL,visible: visible}),
+      userLoggedIn: (user) => dispatch({type:ROOT_ACTIONS.LOG_USER_IN,user: user}),
+      userLoggedOut: () => dispatch({type: ROOT_ACTIONS.LOG_USER_OUT})
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(LayoutContainer);
