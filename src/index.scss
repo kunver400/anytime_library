@@ -25,9 +25,10 @@ body {
 }
 .ant-modal-content {
   background-color: #233238;
-  .ant-modal-header {
+  .ant-modal-header,.ant-modal-footer {
     background-color: inherit;
     border-bottom: none;
+    border-top: none!important;
   }
   .ant-confirm-title, .ant-confirm-content, .ant-modal-title, .ant-modal-close-x {
     color: #ffffffcc;

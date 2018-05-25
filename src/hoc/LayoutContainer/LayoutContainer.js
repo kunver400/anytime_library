@@ -51,9 +51,9 @@ class LayoutContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    loginVisible: state.loginVisible,
-    user: state.user,
-    collapsed: state.collapsed
+    loginVisible: state.rootReducer.loginVisible,
+    user: state.rootReducer.user,
+    collapsed: state.rootReducer.collapsed
   }
 }
 const mapDispatchToProps = dispatch => {

@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Table, Icon } from 'antd';
 import Axios from 'axios';
+import { connect } from 'react-redux';
+
+import BOOK_ACTIONS from '../../redux/actions/book_actions';
 import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
+import Issue from '../Issue/Issue';
 import common from '../../utils/common';
 // import classes from './IndexedCollection.css';
 
@@ -99,7 +103,7 @@ class IndexedCollection extends Component {
     render() {
         return (
             <Auxi>
-                <BookCard book={this.state.selectedBook} />
+                <BookCard book={this.state.selectedBook} {...this.props}/>
                 <Table columns={columns}
                     //rowKey={record => record.registered}
                     dataSource={this.state.data}
@@ -111,9 +115,22 @@ class IndexedCollection extends Component {
                     }}
                     // onChange={this.handleTableChange}
                     size='middle'
-                /></Auxi>
+                />
+                <Issue {...this.props}/>
+                </Auxi>
         )
     }
 }
 
-export default IndexedCollection;
+const mapStateToProps = state => {
+    return {
+      issueVisible: state.bookReducer.issueModalVisible,
+      selectedBook: state.bookReducer.currentBook
+    }
+  }
+  const mapDispatchToProps = dispatch => {
+      return {
+        issuepopupToggled: (book) => dispatch({type:BOOK_ACTIONS.TOGGLE_ISSUE_MODAL,book: book}),
+      }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(IndexedCollection);
