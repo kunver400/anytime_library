@@ -7,7 +7,6 @@ const common = {
                 key: key
             });
         }
-        console.log(books);
         return books;
     },
     formatDate: (date_string) => {

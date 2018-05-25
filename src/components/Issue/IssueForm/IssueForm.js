@@ -1,55 +1,41 @@
 import React from 'react';
-import { Form, Icon, InputNumber, Button, Checkbox } from 'antd';
-import Axios from 'axios';
+import { Form, InputNumber, Button } from 'antd';
 import classes from './IssueForm.css';
 const FormItem = Form.Item;
 
-class IssueForm extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        Axios.get('/user.json')
-          .then(response => {
-            let user;
-            for (let key in response.data) {
-              if (values.units === response.data[key].units && values.password === response.data[key].password) {
-                user = response.data[key];
-              }
-            }
-            if(user) {
-              this.props.setUser(user);
-              this.props.toggleModal(false);
-            }
-          })
-          .catch(response => {
-            console.log(response);
-          })
-      }
-    });
-  }
-  render() {
-    const { getFieldDecorator } = this.props.form;
-    return (
-      <Form onSubmit={this.handleSubmit} className={classes.issue_form}>
-        <FormItem label={(this.props.selectedBook||{title: 'placeholder book'}).title}>
-          {getFieldDecorator('units', {
-            rules: [{ required: true, message: 'Should be number smaller then 4' }],
-            initialValue: 1
-          })(
-            <InputNumber
+const IssueForm = (props) => {
+  const { getFieldDecorator } = props.form;
+  return (
+    <Form onSubmit={(e) => {
+      e.preventDefault();
+      props.form.validateFields((err, values) => {
+        if (!err) {
+          props.handleSubmit(values.units);
+        }
+      });
+    }} className={classes.issue_form}>
+      <FormItem label={(props.selectedBook || { title: 'placeholder book' }).title}>
+        {getFieldDecorator('units', {
+          rules: [{ required: true, message: 'Should be number smaller then 4' }],
+          initialValue: 1
+        })(
+          <InputNumber
             size='large'
             min={1}
             max={3}
             formatter={value => `${value} Unit(s)`}
             parser={value => value.replace(' Unit(s)', '')}
           />
-          )}
+        )}
+      </FormItem>
+      <FormItem
+          wrapperCol={{ span: 12, offset: 20 }}
+        >
+          <Button size='large' type="primary" htmlType="submit">Submit</Button>
         </FormItem>
-      </Form>
-    );
-  }
-}
+    </Form>
+  );
+};
 
 const WrappedIssueForm = Form.create()(IssueForm);
 

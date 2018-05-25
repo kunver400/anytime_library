@@ -29,7 +29,8 @@ class SiderWrapper extends Component {
                 collapsible
                 collapsed={this.props.collapsed}
                 collapsedWidth="0"
-                onCollapse={(collapsed, type) => { console.log(collapsed, type,this); }}>
+                //onCollapse={(collapsed, type) => { console.log(collapsed, type,this); }}
+                >
                 <Menu theme='dark'
                     mode="inline"
                     //defaultSelectedKeys={['1']}

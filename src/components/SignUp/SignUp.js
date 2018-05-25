@@ -37,11 +37,9 @@ class RegistrationForm extends React.Component {
         checked: false
     };
     handleSubmit = (e) => {
-        console.log(this.props.form);
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 Axios.post('user.json', {
                     nickname: values.nickname,
                     email: values.email,
@@ -51,7 +49,6 @@ class RegistrationForm extends React.Component {
                     website: values.website
                 })
                     .then(function (response) {
-                        console.log(response);
                         Modal.success({
                             title: 'Congratulations, you are a memeber now.',
                             content: 'Please login and continue.',
