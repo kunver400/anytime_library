@@ -9,12 +9,13 @@ const initState = {
     loginVisible: false,
     user: {
         "email": "usdi@ss.com",
+        "isAdmin": true,
         "nickname": "nickfanchuli",
         "password": "qwe",
         "phone": "+864234234234",
         "residence": ["zhejiang", "hangzhou", "xihu"],
         "website": "bobo.bo",
-        "isAdmin": true
+        "key": "-LCSPcllpbb2ciD4L8Tm"
     }
 }
 const rootReducer = (state = initState, action) => {

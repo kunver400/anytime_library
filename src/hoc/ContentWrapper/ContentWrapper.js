@@ -27,7 +27,7 @@ class ContentWrapper extends Component {
                 </Breadcrumb>
                 <Switch>
                 <Route path="/signup" component={SignUp} />
-                <Route path="/indexofbooks" component={IndexedCollection}/>
+                <Route path="/indexofbooks" render={()=><IndexedCollection user={this.props.user}/>}/>
                 <Route path="/" exact render={()=><Landing user={this.props.user}/>}/>
                 <Route component={NotFound}/>
                 </Switch>

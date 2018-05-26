@@ -15,6 +15,7 @@ class LoginForm extends React.Component {
             for (let key in response.data) {
               if (values.nickname === response.data[key].nickname && values.password === response.data[key].password) {
                 user = response.data[key];
+                user['key'] = key;
               }
             }
             if(user) {
