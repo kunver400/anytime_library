@@ -20,7 +20,7 @@ const BookCard = (props) => {
                 <label>About the book: {props.book.desc}</label>
                 </li>
                 <li style={{listStyleType:'none'}}>
-                <Button onClick={()=>{props.issuepopupToggled(props.book)}}>Issue this book</Button>
+                <Button onClick={()=>{props.bookIssueModal(props.book)}}>Issue this book</Button>
                 </li>
                 </ul>
                 </Card.Grid>

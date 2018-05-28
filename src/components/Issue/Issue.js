@@ -15,7 +15,6 @@ class Issue extends Component {
         };
         usermeta.getIssuedBooks()
             .then((data) => {
-                console.log(data);
                 if ((data || {}).issuedBooks) {
                     if (
                         data.issuedBooks.findIndex((el) => {
@@ -63,7 +62,7 @@ class Issue extends Component {
             <Modal
                 title="Issue"
                 visible={this.props.issueVisible}
-                onCancel={this.props.issuepopupToggled}
+                onCancel={this.props.bookIssueModal}
                 footer={null}
                 className={classes.Issue_modal}
                 okText="Confirm"
