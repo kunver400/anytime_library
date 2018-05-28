@@ -9,23 +9,36 @@ import classes from './Issue.css'
 
 class Issue extends Component {
     issueBook = (units) => {
+        let anIssue = {
+            bkey: this.props.selectedBook.key,
+            units: units
+        }
+        let noSuchBook;
         usermeta.getIssuedBooks()
             .then((data) => {
                 if (data) {
-                    console.log(data)
+                    noSuchBook = data.findIndex((el) => {
+                        return el.bkey === anIssue.bkey
+                    }) === -1;
+                    if(noSuchBook) {
+                        data.push(anIssue);
+                    }
+                    else {
+                        Modal.info({
+                            title: "Redundant issue prohibited.",
+                            content: "you've already issued this book.",
+                        });
+                    }
                 }
-                else {
+                if(!data || noSuchBook ) {
                     Axios.post('issues.json', {
                         ukey: this.props.user.key,
-                        issued: [{
-                            bkey: this.props.selectedBook.key,
-                            units: units
-                        }]
+                        issued: noSuchBook?data:[anIssue]
                     })
                         .then(function (response) {
                             Modal.success({
-                                title: 'Congratulations, you are a memeber now.',
-                                content: 'Please login and continue.',
+                                title: 'Thansk for using our services.',
+                                content: 'Our associate will reach you shortly.',
                             });
                         })
                         .catch(function (error) {
