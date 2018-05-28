@@ -51,6 +51,9 @@ class Issue extends Component {
                 }
             })
     }
+    issueBooks = (units) => {
+        console.log(units);
+    }
     popSuccess = (response) => {
         Modal.success({
             title: 'Thanks for using our services.',
@@ -67,7 +70,7 @@ class Issue extends Component {
                 className={classes.Issue_modal}
                 okText="Confirm"
             >
-                <IssueForm {...this.props} handleSubmit={this.issueBook} />
+                <IssueForm {...this.props} handleSubmit={this.props.selectedBook?this.issueBook: this.issueBooks} />
             </Modal>
         )
     }

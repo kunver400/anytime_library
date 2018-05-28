@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Icon } from 'antd';
+import { Table, Button } from 'antd';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -8,7 +8,7 @@ import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
 import Issue from '../Issue/Issue';
 import common from '../../utils/common';
-// import classes from './IndexedCollection.css';
+import classes from './IndexedCollection.css';
 
 const columns = [{
     title: 'Title',
@@ -51,6 +51,7 @@ class IndexedCollection extends Component {
         loading: false,
         selectedBook: null
     };
+    selectedBooks = [];
     fetchBooks = (params = {}) => {
         this.setState({ loading: true });
         Axios.get('/books.json')
@@ -68,7 +69,8 @@ class IndexedCollection extends Component {
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log('selectedRowKeys:', selectedRowKeys, 'selectedRows: ', selectedRows);
+            this.selectedBooks = selectedRows;
+            console.log(this.selectedBooks);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -97,6 +99,9 @@ class IndexedCollection extends Component {
                     size='middle'
                     pagination={false}
                 />
+                <Button className={classes.table_action_button} size='large' onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue All</Button>
+                <Button className={classes.table_action_button} size='large'>Delete Entries</Button>
+                <Button className={classes.table_action_button} size='large'>Edit Entries</Button>
                 <Issue {...this.props} />
             </Auxi>
         )
@@ -106,13 +111,14 @@ class IndexedCollection extends Component {
 const mapStateToProps = state => {
     return {
         issueVisible: state.bookReducer.issueModalVisible,
-        selectedBook: state.bookReducer.currentBook
+        selectedBook: state.bookReducer.currentBook,
+        selectedBooks: state.bookReducer.currentBooks
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
-
+        booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);
