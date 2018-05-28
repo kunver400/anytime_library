@@ -10,6 +10,6 @@ import 'antd/dist/antd.css?raw';
 import './index.css?raw';
 
 Axios.defaults.baseURL = 'https://anytime-lib.firebaseio.com/';
-console.log(store);
+console.log(store,Axios);
 ReactDOM.render(<Provider store={store}><LayoutContainer /></Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -12,16 +12,26 @@ class Issue extends Component {
         let anIssue = {
             bkey: this.props.selectedBook.key,
             units: units
-        }
-        let noSuchBook;
+        };
         usermeta.getIssuedBooks()
             .then((data) => {
-                if (data) {
-                    noSuchBook = data.findIndex((el) => {
-                        return el.bkey === anIssue.bkey
-                    }) === -1;
-                    if(noSuchBook) {
-                        data.push(anIssue);
+                console.log(data);
+                if ((data || {}).issuedBooks) {
+                    if (
+                        data.issuedBooks.findIndex((el) => {
+                            return el.bkey === anIssue.bkey
+                        }) === -1) {
+                        data.issuedBooks.push(anIssue);
+                        let newData = {};
+                        newData[data.key] = {
+                            issued: data.issuedBooks,
+                            ukey: this.props.user.key
+                        }
+                        Axios.patch('issues.json', newData)
+                            .then(this.popSuccess)
+                            .catch(function (error) {
+                                console.log(error);
+                            });
                     }
                     else {
                         Modal.info({
@@ -30,22 +40,23 @@ class Issue extends Component {
                         });
                     }
                 }
-                if(!data || noSuchBook ) {
+                else {
                     Axios.post('issues.json', {
                         ukey: this.props.user.key,
-                        issued: noSuchBook?data:[anIssue]
+                        issued: [anIssue]
                     })
-                        .then(function (response) {
-                            Modal.success({
-                                title: 'Thansk for using our services.',
-                                content: 'Our associate will reach you shortly.',
-                            });
-                        })
+                        .then(this.popSuccess)
                         .catch(function (error) {
                             console.log(error);
                         });
                 }
             })
+    }
+    popSuccess = (response) => {
+        Modal.success({
+            title: 'Thanks for using our services.',
+            content: 'Our associate will reach you shortly.',
+        });
     }
     render() {
         return (
