@@ -99,9 +99,9 @@ class IndexedCollection extends Component {
                     size='middle'
                     pagination={false}
                 />
-                <Button className={classes.table_action_button} size='large' onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue All</Button>
-                <Button className={classes.table_action_button} size='large'>Delete Entries</Button>
-                <Button className={classes.table_action_button} size='large'>Edit Entries</Button>
+                <Button className={classes.table_action_button}  onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue All</Button>
+                <Button className={classes.table_action_button} >Delete Entries</Button>
+                <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
             </Auxi>
         )

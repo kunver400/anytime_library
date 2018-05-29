@@ -47,7 +47,7 @@ module.exports = {
     // require.resolve('webpack/hot/dev-server'),
 
     require.resolve('react-dev-utils/webpackHotDevClient'),
-    // 'react-hot-loader/patch',
+    'react-hot-loader/patch',
 
 
     // Finally, this is your app's code:

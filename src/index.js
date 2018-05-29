@@ -13,3 +13,5 @@ Axios.defaults.baseURL = 'https://anytime-lib.firebaseio.com/';
 console.log(store,Axios);
 ReactDOM.render(<Provider store={store}><LayoutContainer /></Provider>, document.getElementById('root'));
 registerServiceWorker();
+
+module.hot.accept();
