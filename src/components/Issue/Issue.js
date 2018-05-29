@@ -8,10 +8,13 @@ import classes from './Issue.css'
 
 
 class Issue extends Component {
-    issueBook = (units) => {
+    booksAdded = [];
+    booksRedundant = [];
+    issueBook_s = (units, books) => {
+        let book = (books || { pop: () => null }).pop();
         let anIssue = {
-            bkey: this.props.selectedBook.key,
-            units: units
+            bkey: units ? this.props.selectedBook.key : book.key,
+            units: units || book.units
         };
         usermeta.getIssuedBooks()
             .then((data) => {
@@ -27,16 +30,27 @@ class Issue extends Component {
                             ukey: this.props.user.key
                         }
                         Axios.patch('issues.json', newData)
-                            .then(this.popSuccess)
-                            .catch(function (error) {
-                                console.log(error);
-                            });
+                            .then((response) => {
+                                if(book) {
+                                    this.booksAdded.push(book);
+                                    if(books.length > 0) this.issueBook_s(null, books);
+                                    else {
+                                        this.popSuccessMultiple();
+                                    }
+                                }
+                                else this.popSuccess(response)
+                            })
+                            .catch(this.handleError);
                     }
                     else {
-                        Modal.info({
-                            title: "Redundant issue prohibited.",
-                            content: "you've already issued this book.",
-                        });
+                        if(book) {
+                            this.booksRedundant.push(book);
+                            if(books.length > 0) this.issueBook_s(null, books);
+                            else {
+                                this.popSuccessMultiple();
+                            }
+                        }
+                        else this.popInfo();
                     }
                 }
                 else {
@@ -44,21 +58,40 @@ class Issue extends Component {
                         ukey: this.props.user.key,
                         issued: [anIssue]
                     })
-                        .then(this.popSuccess)
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                    .then((response) => {
+                        if(book) {
+                            this.booksAdded.push(book);
+                            if(books.length > 0) this.issueBook_s(null, books);
+                            else {
+                                this.popSuccessMultiple();
+                            }
+                        }
+                        else this.popSuccess(response)
+                    })
+                        .catch(this.handleError);
                 }
             })
-    }
-    issueBooks = (units) => {
-        console.log(units);
     }
     popSuccess = (response) => {
         Modal.success({
             title: 'Thanks for using our services.',
             content: 'Our associate will reach you shortly.',
         });
+    }
+    popSuccessMultiple = () => {
+        Modal.success({
+            title: 'Thanks for using our services.'
+        })
+        console.log(this.booksAdded,this.booksRedundant);
+    }
+    popInfo = () => {
+        Modal.info({
+            title: "Redundant issue prohibited.",
+            content: "you've already issued this book.",
+        });
+    }
+    handleError = (response) => {
+        console.log(response, 'something went wrong.');
     }
     render() {
         return (
@@ -70,7 +103,7 @@ class Issue extends Component {
                 className={classes.Issue_modal}
                 okText="Confirm"
             >
-                <IssueForm {...this.props} handleSubmit={this.props.selectedBook?this.issueBook: this.issueBooks} />
+                <IssueForm {...this.props} handleSubmit={this.issueBook_s} />
             </Modal>
         )
     }

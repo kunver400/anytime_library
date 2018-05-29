@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 
 const IssueForm = (props) => {
   const { getFieldDecorator } = props.form;
-  const BookItem_s = props.selectedBook?(
+  const BookItem_s = props.selectedBook ? (
     <FormItem label={(props.selectedBook || { title: 'placeholder book' }).title}>
       {getFieldDecorator('units', {
         rules: [{ required: true, message: 'Should be number smaller then 4' }],
@@ -20,22 +20,22 @@ const IssueForm = (props) => {
         />
       )}
     </FormItem>
-  ):props.selectedBooks && (
-    props.selectedBooks.map((book, index)=>
+  ) : props.selectedBooks && (
+    props.selectedBooks.map((book, index) =>
       <FormItem label={(book || { title: 'placeholder book' }).title} key={index}>
-      {getFieldDecorator('units+'+index, {
-        rules: [{ required: true, message: 'Should be number smaller then 4' }],
-        initialValue: 1
-      })(
-        <InputNumber
-          size='large'
-          min={1}
-          max={3}
-          formatter={value => `${value} Unit(s)`}
-          parser={value => value.replace(' Unit(s)', '')}
-        />
-      )}
-    </FormItem>
+        {getFieldDecorator('units+' + index, {
+          rules: [{ required: true, message: 'Should be number smaller then 4' }],
+          initialValue: 1
+        })(
+          <InputNumber
+            size='large'
+            min={1}
+            max={3}
+            formatter={value => `${value} Unit(s)`}
+            parser={value => value.replace(' Unit(s)', '')}
+          />
+        )}
+      </FormItem>
     )
   )
 
@@ -44,14 +44,20 @@ const IssueForm = (props) => {
       e.preventDefault();
       props.form.validateFields((err, values) => {
         if (!err) {
-          if(props.selectedBook) 
-          props.handleSubmit(values.units);
+          if (props.selectedBook)
+            props.handleSubmit(values.units);
           else {
             let units = [];
             for (let key in values) {
               key.startsWith('units') && units.push(values[key])
             }
-            props.handleSubmit(units);
+            units = units.map((unit, index) => {
+              return {
+                ...props.selectedBooks[index],
+                units: unit
+              }
+            })
+            props.handleSubmit(null, units);
           }
         }
       });
