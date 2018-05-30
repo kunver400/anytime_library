@@ -31,9 +31,9 @@ class Issue extends Component {
                         }
                         Axios.patch('issues.json', newData)
                             .then((response) => {
-                                if(book) {
+                                if (book) {
                                     this.booksAdded.push(book);
-                                    if(books.length > 0) this.issueBook_s(null, books);
+                                    if (books.length > 0) this.issueBook_s(null, books);
                                     else {
                                         this.popSuccessMultiple();
                                     }
@@ -43,9 +43,9 @@ class Issue extends Component {
                             .catch(this.handleError);
                     }
                     else {
-                        if(book) {
+                        if (book) {
                             this.booksRedundant.push(book);
-                            if(books.length > 0) this.issueBook_s(null, books);
+                            if (books.length > 0) this.issueBook_s(null, books);
                             else {
                                 this.popSuccessMultiple();
                             }
@@ -58,16 +58,16 @@ class Issue extends Component {
                         ukey: this.props.user.key,
                         issued: [anIssue]
                     })
-                    .then((response) => {
-                        if(book) {
-                            this.booksAdded.push(book);
-                            if(books.length > 0) this.issueBook_s(null, books);
-                            else {
-                                this.popSuccessMultiple();
+                        .then((response) => {
+                            if (book) {
+                                this.booksAdded.push(book);
+                                if (books.length > 0) this.issueBook_s(null, books);
+                                else {
+                                    this.popSuccessMultiple();
+                                }
                             }
-                        }
-                        else this.popSuccess(response)
-                    })
+                            else this.popSuccess(response)
+                        })
                         .catch(this.handleError);
                 }
             })
@@ -77,18 +77,29 @@ class Issue extends Component {
             title: 'Thanks for using our services.',
             content: 'Our associate will reach you shortly.',
         });
+        this.props.hideIssueModal();
     }
     popSuccessMultiple = () => {
         Modal.success({
-            title: 'Thanks for using our services.'
+            title: 'Thanks for using our services.',
+            content: (
+                <div>
+                <ul>
+                    <li>Books issued successfully: {this.booksAdded.length} unit(s)</li>
+                    <li>you've already issued: {this.booksRedundant.length} books</li>
+                </ul>
+                Our associate will reach you shortly.
+                </div>
+            )
         })
-        console.log(this.booksAdded,this.booksRedundant);
+        this.props.hideIssueModal();
     }
     popInfo = () => {
         Modal.info({
             title: "Redundant issue prohibited.",
             content: "you've already issued this book.",
         });
+        this.props.hideIssueModal();
     }
     handleError = (response) => {
         console.log(response, 'something went wrong.');
