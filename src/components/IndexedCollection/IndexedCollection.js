@@ -118,7 +118,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
-        booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books})
+        booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books}),
+        hideIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);

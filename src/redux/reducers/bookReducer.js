@@ -22,6 +22,11 @@ const bookReducer = (state=initState, action) => {
             issueModalVisible: !state.issueModalVisible,
             currentBook: null
         }
+        case BOOK_ACTIONS.TOGGLE_ISSUE_MODAL:
+        return {
+            ...state,
+            issueModalVisible: !state.issueModalVisible
+        }
         default:{
             return state
         }

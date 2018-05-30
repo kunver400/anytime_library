@@ -22,7 +22,7 @@ const IssueForm = (props) => {
     </FormItem>
   ) : props.selectedBooks && (
     props.selectedBooks.map((book, index) =>
-      <FormItem label={(book || { title: 'placeholder book' }).title} key={index}>
+      <FormItem label={book.title} key={index}>
         {getFieldDecorator('units+' + index, {
           rules: [{ required: true, message: 'Should be number smaller then 4' }],
           initialValue: 1

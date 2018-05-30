@@ -98,7 +98,7 @@ class Issue extends Component {
             <Modal
                 title="Issue"
                 visible={this.props.issueVisible}
-                onCancel={this.props.bookIssueModal}
+                onCancel={this.props.hideIssueModal}
                 footer={null}
                 className={classes.Issue_modal}
                 okText="Confirm"
