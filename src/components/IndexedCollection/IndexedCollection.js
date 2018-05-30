@@ -70,7 +70,6 @@ class IndexedCollection extends Component {
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             this.selectedBooks = selectedRows;
-            console.log(this.selectedBooks);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked

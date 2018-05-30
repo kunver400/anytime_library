@@ -93,6 +93,8 @@ class Issue extends Component {
             )
         })
         this.props.hideIssueModal();
+        this.booksAdded = [];
+        this.booksRedundant = [];
     }
     popInfo = () => {
         Modal.info({
