@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import GoogleLogin from 'react-google-login';
 import Axios from 'axios';
+import Auxi from '../../../hoc/Auxi/Auxi';
 import classes from './LoginForm.css';
 const FormItem = Form.Item;
 
@@ -9,25 +11,69 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        Axios.get('/user.json')
+        this.validateUser(values.nickname, values.password)
           .then(response => {
-            let user;
-            for (let key in response.data) {
-              if (values.nickname === response.data[key].nickname && values.password === response.data[key].password) {
-                user = response.data[key];
-                user['key'] = key;
-              }
-            }
-            if(user) {
-              this.props.setUser(user);
+            if (response.user) {
+              this.props.setUser(response.user);
               this.props.toggleModal(false);
             }
           })
           .catch(response => {
-            console.log(response);
+            console.log(response, 'something went wrong.');
           })
       }
     });
+  }
+  validateUser = (nickname, password) => {
+    return new Promise((resolveP, rejectP) => {
+      Axios.get('/user.json')
+        .then(response => {
+          let user;
+          for (let key in response.data) {
+            if (nickname === response.data[key].nickname && password === response.data[key].password) {
+              user = response.data[key];
+              user['key'] = key;
+            }
+          }
+          resolveP({ user: user });
+        })
+        .catch(response => {
+          rejectP(response);
+        })
+    });
+  }
+  handleGoogleUser = (response) => {
+    this.validateUser(response.profileObj.givenName, response.profileObj.googleId)
+      .then(reponse => {
+        if (response.user) {
+          this.props.setUser(response.user);
+          this.props.toggleModal(false);
+        }
+        else {
+          let user = {
+            nickname: response.profileObj.givenName,
+            email: response.profileObj.email,
+            password: response.profileObj.googleId,
+            phone: 'NA',
+            residence: 'NA',
+            website: 'NA',
+            isGoogled: true
+          };
+          Axios.post('user.json', user)
+            .then(response => {
+              this.props.setUser(user);
+              this.props.toggleModal(false);
+            })
+            .catch(error => {
+              console.log(error, 'unable to create user.');
+            });
+        }
+      })
+      .catch(response => {
+        console.log(response, 'something went wrong.');
+      })
+
+
   }
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -58,6 +104,12 @@ class LoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className={classes.login_form_button}>
             Log in
           </Button>
+          <GoogleLogin className={[classes.login_form_button, classes.login_form_gbutton].join(' ')}
+            clientId="313435702070-h0c4eqgonsdjmi65tn3ghmihgje9lpja.apps.googleusercontent.com"
+            buttonText={<Auxi>Use <Icon type="google" />oogle</Auxi>}
+            onSuccess={this.handleGoogleUser}
+            onFailure={(r) => { console.log(r, 'something went wrong') }}
+          />
         </FormItem>
       </Form>
     );
