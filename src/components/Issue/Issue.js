@@ -10,11 +10,12 @@ import classes from './Issue.css'
 class Issue extends Component {
     booksAdded = [];
     booksRedundant = [];
-    issueBook_s = (units, books) => {
+    issueBook_s = (abook, books) => {
         let book = (books || { pop: () => null }).pop();
         let anIssue = {
-            bkey: units ? this.props.selectedBook.key : book.key,
-            units: units || book.units
+            bkey: abook ? this.props.selectedBook.key : book.key,
+            units: abook?abook.units : book.units,
+            rdate: abook? abook.rdate : book.rdate
         };
         usermeta.getIssuedBooks()
             .then((data) => {
