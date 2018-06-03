@@ -16,7 +16,8 @@ class AddBook extends Component {
             desc: data.desc,
             availablity: data.units,
             date_added: data.date,
-            times_issued: 0
+            times_issued: 0,
+            cover: data.cover
         })
         .then((response)=>{this.popSuccess(response, data)})
         .catch(this.handleError)

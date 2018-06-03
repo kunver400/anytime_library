@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, InputNumber, Button, Input } from 'antd';
+import { Form, InputNumber, Button, Input, Icon, Upload, message } from 'antd';
 import Auxi from '../../../hoc/Auxi/Auxi';
 import classes from './AddBookForm.css';
 const FormItem = Form.Item;
 const { TextArea } = Input;
+const { Dragger } = Upload;
 const formItemLayout = {
     labelCol: {
         xs: { span: 0 },
@@ -14,15 +15,36 @@ const formItemLayout = {
         sm: { span: 14 },
     },
 };
+let coverImage;
 const AddBookForm = (props) => {
     const { getFieldDecorator } = props.form;
+    const UploadProps = {
+        name: 'file',
+        beforeUpload: (file) => {
+            const isJPG = file.type === 'image/jpeg';
+            if (!isJPG) {
+              message.error('You can only upload JPG file!');
+            }
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+              message.error('Image must smaller than 2MB!');
+            }
+            let fr = new FileReader();
+            fr.onloadend = () =>{
+                coverImage = fr.result;
+            }
+            fr.readAsDataURL(file);
+            return false;
+        }
+    };
 
     return (
         <Form hideRequiredMark onSubmit={(e) => {
             e.preventDefault();
             props.form.validateFields((err, values) => {
                 if (!err) {
-                    props.handleSubmit({ ...values, date: Date() });
+                    props.handleSubmit({ ...values, date: Date(), cover: coverImage });
+                    props.form.resetFields();
                 }
             });
         }} className={classes.addBook_form}
@@ -56,6 +78,21 @@ const AddBookForm = (props) => {
                         rules: [{ message: 'About the book', whitespace: true }],
                     })(
                         <TextArea rows={4} />
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="Cover"
+                >
+                    {getFieldDecorator('cover', {
+                    })(
+                        <Dragger {...UploadProps}>
+                            <p className="ant-upload-drag-icon">
+                                <Icon type="inbox"/>
+                            </p>
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-hint">Upload the book's cover</p>
+                        </Dragger>
                     )}
                 </FormItem>
                 <FormItem {...formItemLayout} label="No of Books">

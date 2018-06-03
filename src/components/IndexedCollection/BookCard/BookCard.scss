@@ -21,6 +21,7 @@
     height: 100%;
     width: 60%!important;
     box-shadow: none!important;
+    padding: 24px 0px 0px 0px!important;
     @media screen and (max-width: 1030px) {
         width: 100%!important;
     }
@@ -29,7 +30,12 @@
     }
 }
 .the_book {
-    height: 250px;
-    width: 200px;
+    height: 360px;
+    width: 250px;
+    border: 1px solid white;
     align-self: center;
+}
+.desc {
+    max-height: 200px;
+    overflow: auto;
 }

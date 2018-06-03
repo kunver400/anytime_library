@@ -92,6 +92,7 @@ const IssueForm = (props) => {
             })
             props.handleSubmit(null, units);
           }
+          props.form.resetFields();
         }
       });
     }} className={classes.issue_form}
