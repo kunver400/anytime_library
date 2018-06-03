@@ -7,11 +7,11 @@ const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {
       xs: { span: 0 },
-      sm: { span: 10 },
+      sm: { span: 12 },
   },
   wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 14 },
+      sm: { span: 12 },
   },
 };
 const IssueForm = (props) => {
