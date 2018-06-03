@@ -44,9 +44,9 @@ class LoginForm extends React.Component {
   }
   handleGoogleUser = (response) => {
     this.validateUser(response.profileObj.givenName, response.profileObj.googleId)
-      .then(reponse => {
-        if (response.user) {
-          this.props.setUser(response.user);
+      .then(data => {
+        if (data.user) {
+          this.props.setUser(data.user);
           this.props.toggleModal(false);
         }
         else {
