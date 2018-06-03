@@ -17,10 +17,14 @@ body {
     color: #051529!important;
   }
 }
+.ant-form-inline .ant-form-item {
+  width: 100%;
+  margin-bottom: 8px!important;
+  }
 .ant-form-item-label label, .ant-form-explain, .ant-form-extra, .ant-checkbox-wrapper{
   color:#ffffffcc!important;
 }
-.ant-input,.ant-select,.ant-cascader-picker,.ant-cascader-menus {
+.ant-input,.ant-select,.ant-cascader-picker,.ant-cascader-menus, .ant-input-number-input {
   background-color:#f8fcff!important;
 }
 .ant-modal-content {

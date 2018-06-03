@@ -78,7 +78,7 @@ class Issue extends Component {
             title: 'Thanks for using our services.',
             content: 'Our associate will reach you shortly.',
         });
-        this.props.hideIssueModal();
+        this.props.ToggleIssueModal();
     }
     popSuccessMultiple = () => {
         Modal.success({
@@ -93,7 +93,7 @@ class Issue extends Component {
                 </div>
             )
         })
-        this.props.hideIssueModal();
+        this.props.ToggleIssueModal();
         this.booksAdded = [];
         this.booksRedundant = [];
     }
@@ -102,7 +102,7 @@ class Issue extends Component {
             title: "Redundant issue prohibited.",
             content: "you've already issued this book.",
         });
-        this.props.hideIssueModal();
+        this.props.ToggleIssueModal();
     }
     handleError = (response) => {
         console.log(response, 'something went wrong.');
@@ -112,7 +112,7 @@ class Issue extends Component {
             <Modal
                 title="Issue"
                 visible={this.props.issueVisible}
-                onCancel={this.props.hideIssueModal}
+                onCancel={this.props.ToggleIssueModal}
                 footer={null}
                 className={classes.Issue_modal}
                 okText="Confirm"

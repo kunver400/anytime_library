@@ -7,6 +7,7 @@ import BOOK_ACTIONS from '../../redux/actions/book_actions';
 import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
 import Issue from '../Issue/Issue';
+import AddBook from '../AddBook/AddBook';
 import common from '../../utils/common';
 import classes from './IndexedCollection.css';
 
@@ -49,7 +50,8 @@ class IndexedCollection extends Component {
     state = {
         data: [],
         loading: false,
-        selectedBook: null
+        selectedBook: null,
+        addBookModalVisisble: false
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
@@ -84,6 +86,9 @@ class IndexedCollection extends Component {
     componentDidMount() {
         this.fetchBooks();
     };
+    ToggleAddBookModal = () => {
+        this.setState({addBookModalVisisble: !this.state.addBookModalVisisble});
+    }
     render() {
         return (
             <Auxi>
@@ -99,10 +104,11 @@ class IndexedCollection extends Component {
                     pagination={false}
                 />
                 <Button className={classes.table_action_button}  onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue</Button>
-                <Button className={classes.table_action_button} >Add Book</Button>
+                <Button className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
                 <Button className={classes.table_action_button} >Delete Entries</Button>
                 <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
+                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal}/>
             </Auxi>
         )
     }
@@ -119,7 +125,7 @@ const mapDispatchToProps = dispatch => {
     return {
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
         booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books}),
-        hideIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL})
+        ToggleIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);

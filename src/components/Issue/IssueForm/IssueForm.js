@@ -6,19 +6,19 @@ import classes from './IssueForm.css';
 const FormItem = Form.Item;
 const formItemLayout = {
   labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
+      xs: { span: 0 },
+      sm: { span: 10 },
   },
   wrapperCol: {
       xs: { span: 24 },
-      sm: { span: 24 },
+      sm: { span: 14 },
   },
 };
 const IssueForm = (props) => {
   const { getFieldDecorator } = props.form;
   const BookItem_s = props.selectedBook ? (
     <Auxi>
-      <FormItem label={(props.selectedBook || { title: 'placeholder book' }).title}>
+      <FormItem {...formItemLayout} label={(props.selectedBook || { title: 'placeholder book' }).title}>
         {getFieldDecorator('units', {
           rules: [{ required: true, message: 'Should be number smaller then 4' }],
           initialValue: 1
