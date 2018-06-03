@@ -116,6 +116,7 @@ class Issue extends Component {
                 footer={null}
                 className={classes.Issue_modal}
                 okText="Confirm"
+                style={{ top: 20 }}
             >
                 <IssueForm {...this.props} handleSubmit={this.issueBook_s} />
             </Modal>
