@@ -18,7 +18,7 @@ const AddBookForm = (props) => {
     const { getFieldDecorator } = props.form;
 
     return (
-        <Form onSubmit={(e) => {
+        <Form hideRequiredMark onSubmit={(e) => {
             e.preventDefault();
             props.form.validateFields((err, values) => {
                 if (!err) {
@@ -53,7 +53,7 @@ const AddBookForm = (props) => {
                     label="Description"
                 >
                     {getFieldDecorator('desc', {
-                        rules: [{ required: true, message: 'About the book', whitespace: true }],
+                        rules: [{ message: 'About the book', whitespace: true }],
                     })(
                         <TextArea rows={4} />
                     )}

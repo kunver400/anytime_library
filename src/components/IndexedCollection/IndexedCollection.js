@@ -108,7 +108,7 @@ class IndexedCollection extends Component {
                 <Button className={classes.table_action_button} >Delete Entries</Button>
                 <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
-                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal}/>
+                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks}/>
             </Auxi>
         )
     }

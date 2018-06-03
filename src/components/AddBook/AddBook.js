@@ -10,21 +10,24 @@ class AddBook extends Component {
     booksAdded = [];
     booksRedundant = [];
     AddBook = (data) => {
-        console.log(data);
+        Axios.post('books.json',{
+            title: data.title,
+            author: data.author,
+            desc: data.desc,
+            availablity: data.units,
+            date_added: data.date,
+            times_issued: 0
+        })
+        .then((response)=>{this.popSuccess(response, data)})
+        .catch(this.handleError)
     }
-    popSuccess = (response) => {
+    popSuccess = (response, data) => {
         Modal.success({
-            title: 'Thanks for using our services.',
-            content: 'Our associate will reach you shortly.',
+            title: 'Book Added.',
+            content: data.title+': added to the collection',
         });
-        this.props.hideAddBookModal();
-    }
-    popInfo = () => {
-        Modal.info({
-            title: "Redundant AddBook prohibited.",
-            content: "you've already AddBookd this book.",
-        });
-        this.props.hideAddBookModal();
+        this.props.reloadTable();
+            this.props.ToggleAddBookModal();
     }
     handleError = (response) => {
         console.log(response, 'something went wrong.');

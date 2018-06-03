@@ -70,7 +70,7 @@ const IssueForm = (props) => {
     )
 
   return (
-    <Form onSubmit={(e) => {
+    <Form hideRequiredMark onSubmit={(e) => {
       e.preventDefault();
       props.form.validateFields((err, values) => {
         console.log(values)
