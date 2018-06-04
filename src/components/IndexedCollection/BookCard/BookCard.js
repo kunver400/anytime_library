@@ -12,12 +12,12 @@ const BookCard = (props) => {
                 <img alt={props.book.title} src={props.book.cover?props.book.cover:altimg} className={classes.the_book}/>
                 </Card.Grid>
                 <Card.Grid className={classes.desc_card}>
-                <ul>
+                <ul style={{paddingLeft: '25px'}}>
                 <li>
-                <label>Author: {props.book.author}</label>
+                <label><b>Author:</b> {props.book.author}</label>
                 </li>
                 <li className={classes.desc}>
-                <label>About the book: {props.book.desc}</label>
+                <label><b>About the book:</b> {props.book.desc}</label>
                 </li>
                 <li style={{listStyleType:'none'}}>
                 <Button size='large' onClick={()=>{props.bookIssueModal(props.book)}}>Issue this book</Button>

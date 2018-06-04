@@ -15,14 +15,16 @@ const columns = [{
     title: 'Title',
     dataIndex: 'title',
     sorter: (a, b) => a.title.localeCompare(b.title),
-    key: 0
+    key: 0,
+    width: '35%'
 }, {
     title: 'Author',
     dataIndex: 'author',
     sorter: (a, b) => a.title.localeCompare(b.title),
-    key: 1
+    key: 1,
+    width: '25%'
 },
-{
+window.innerWidth > 992?{
     title: 'Date Added',
     dataIndex: 'date_added',
     sorter: (a, b) => {
@@ -31,13 +33,15 @@ const columns = [{
     },
     render: date_string => common.formatDate(date_string),
     key: 3
-}, {
+}:{}, 
+window.innerWidth > 992?{
     title: 'Available units',
     dataIndex: 'availablity',
     sorter: (a, b) => a.availablity - b.availablity,
     key: 4
-}, {
-    title: 'Popularity',
+}:{}, 
+{
+    title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
     key: 5
