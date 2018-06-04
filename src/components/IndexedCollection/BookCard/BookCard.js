@@ -9,7 +9,7 @@ const BookCard = (props) => {
             {props.book?
             <Card style={{backgroundColor: 'transparent',   border: 'none'}} title={props.book.title} bodyStyle={{padding: '12px', minHeight: '230px', backgroundColor: '#223333d1', color: '#ffffffcc'}}>
                 <Card.Grid className={classes.splash_card}>
-                <img src={props.book.cover?props.book.cover:altimg} className={classes.the_book}/>
+                <img alt={props.book.title} src={props.book.cover?props.book.cover:altimg} className={classes.the_book}/>
                 </Card.Grid>
                 <Card.Grid className={classes.desc_card}>
                 <ul>

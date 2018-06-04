@@ -16,18 +16,20 @@ const formItemLayout = {
     },
 };
 let coverImage;
+let fileList = [];
 const AddBookForm = (props) => {
     const { getFieldDecorator } = props.form;
     const UploadProps = {
         name: 'file',
+        multiple: false,
         beforeUpload: (file) => {
             const isJPG = file.type === 'image/jpeg';
             if (!isJPG) {
               message.error('You can only upload JPG file!');
             }
-            const isLt2M = file.size / 1024 / 1024 < 2;
+            const isLt2M = file.size / 1024 / 1024 < 0.5;
             if (!isLt2M) {
-              message.error('Image must smaller than 2MB!');
+              message.error('Image must smaller than 0.5MB!');
             }
             let fr = new FileReader();
             fr.onloadend = () =>{
@@ -35,7 +37,11 @@ const AddBookForm = (props) => {
             }
             fr.readAsDataURL(file);
             return false;
-        }
+        },
+        onChange: (info) => {
+            fileList = info.fileList.slice(-1);
+        
+            }
     };
 
     return (
@@ -86,12 +92,12 @@ const AddBookForm = (props) => {
                 >
                     {getFieldDecorator('cover', {
                     })(
-                        <Dragger {...UploadProps}>
+                        <Dragger {...UploadProps} fileList={fileList}>
                             <p className="ant-upload-drag-icon">
                                 <Icon type="inbox"/>
                             </p>
                             <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            <p className="ant-upload-hint">Upload the book's cover</p>
+                            <p className="ant-upload-hint">Upload the book's cover(JPG)</p>
                         </Dragger>
                     )}
                 </FormItem>
