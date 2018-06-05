@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import Axios from 'axios';
 
 import classes from './Delete.css'
@@ -18,6 +18,13 @@ class Delete extends Component {
         console.log(response, 'something went wrong.');
     }
     render() {
+        let books = this.props.selectedBooks.map((item, index)=>{
+            return (
+                <li>
+                    {item.title}
+                </li>
+            )
+        });
         return (
             <Modal
                 title="Delete"
@@ -28,6 +35,13 @@ class Delete extends Component {
                 okText="Confirm"
                 style={{ top: 20 }}
             >
+            <div className={classes.message}>Following entries will be <span>annihilated</span>, mind your actions!</div>
+            <ol>
+            {books}
+            </ol>
+            <div style={{marginTop: '25px', textAlign: 'center'}}>
+            <Button type='danger'>Confirm</Button>
+            </div>
             </Modal>
         )
     }

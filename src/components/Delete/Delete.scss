@@ -1,3 +1,15 @@
 .Delete_modal {
     margin: auto !important;
+    ol {
+        color: white;
+    }
+}
+.message {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+    span {
+        color: red;
+        font-weight: bold;
+    }
 }
