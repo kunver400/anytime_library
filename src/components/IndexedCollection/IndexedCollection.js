@@ -33,18 +33,21 @@ window.innerWidth > 992?{
         return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
     },
     render: date_string => common.formatDate(date_string),
+    width: '12.5%',
     key: 3
 }:{}, 
 window.innerWidth > 992?{
     title: 'Available units',
     dataIndex: 'availablity',
     sorter: (a, b) => a.availablity - b.availablity,
+    width: '12.5%',
     key: 4
 }:{}, 
 {
     title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
+    width: '15%',
     key: 5
 }
 ];
