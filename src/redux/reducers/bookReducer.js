@@ -32,12 +32,12 @@ const bookReducer = (state=initState, action) => {
         return {
             ...state,
             currentBooks: !state.deleteModalVisible?action.books:[],
-            deleteModalVisible: !state.deleteModalVisible,
+            deleteModalVisible: !state.deleteModalVisible
         }
         case BOOK_ACTIONS.TOGGLE_DELETE_MODAL:
         return {
             ...state,
-            deleteModalVisible: !state.deleteModalVisible,
+            deleteModalVisible: !state.deleteModalVisible
         }
         default:{
             return state

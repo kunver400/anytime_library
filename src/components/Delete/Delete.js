@@ -4,19 +4,20 @@ import Axios from 'axios';
 
 import classes from './Delete.css'
 
-let deleted = [], failed = [];
 class Delete extends Component {
+    deleted = [];
+    failed = [];
     DeleteBooks = () => {
         new Promise((resolve, reject) => {
             this.props.selectedBooks.forEach((book) => {
                 Axios.delete('books/' + book.key + '.json')
                     .then((response) => {
-                        deleted.push(book);
-                        if (deleted.length + failed.length === this.props.selectedBooks.length) resolve();
+                        this.deleted.push(book);
+                        if (this.deleted.length + this.failed.length === this.props.selectedBooks.length) resolve();
                     })
                     .catch((error) => {
-                        failed.push(book);
-                        if (deleted.length + failed.length === this.props.selectedBooks.length) resolve();
+                        this.failed.push(book);
+                        if (this.deleted.length + this.failed.length === this.props.selectedBooks.length) resolve();
                     })
             });
         })
@@ -27,15 +28,17 @@ class Delete extends Component {
             title: 'Operation completed.',
             content: (
                 <div>
-                    <span>Following entries deleted:</span>
+                    <span>Following entries this.deleted:</span>
                     <ol>
-                        {deleted.map(book => <li key={book.key}>{book.title}</li>)}
+                        {this.deleted.map(book => <li key={book.key}>{book.title}</li>)}
                     </ol>
                 </div>
             ),
         });
         this.props.ToggleDeleteModal();
         this.props.reloadTable();
+        this.deleted = [];
+        this.failed = [];
     }
 
     render() {

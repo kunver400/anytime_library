@@ -63,6 +63,7 @@ class IndexedCollection extends Component {
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
+        this.selectedBooks = [];
         this.setState({ loading: true });
         Axios.get('/books.json')
             .then(response => {
@@ -79,6 +80,7 @@ class IndexedCollection extends Component {
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
+            console.log(selectedRows);
             this.selectedBooks = selectedRows;
         },
         getCheckboxProps: record => ({
