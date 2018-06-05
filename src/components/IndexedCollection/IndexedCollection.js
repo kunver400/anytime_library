@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, message } from 'antd';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -25,7 +25,7 @@ const columns = [{
     key: 1,
     width: '25%'
 },
-window.innerWidth > 992?{
+window.innerWidth > 992 ? {
     title: 'Date Added',
     dataIndex: 'date_added',
     sorter: (a, b) => {
@@ -35,14 +35,14 @@ window.innerWidth > 992?{
     render: date_string => common.formatDate(date_string),
     //width: '12.5%',
     key: 3
-}:{}, 
-window.innerWidth > 992?{
+} : {},
+window.innerWidth > 992 ? {
     title: 'Available units',
     dataIndex: 'availablity',
     sorter: (a, b) => a.availablity - b.availablity,
     //width: '12.5%',
     key: 4
-}:{}, 
+} : {},
 {
     title: 'Fame',
     dataIndex: 'times_issued',
@@ -97,7 +97,14 @@ class IndexedCollection extends Component {
         this.fetchBooks();
     };
     ToggleAddBookModal = () => {
-        this.setState({addBookModalVisisble: !this.state.addBookModalVisisble});
+        this.setState({ addBookModalVisisble: !this.state.addBookModalVisisble });
+    }
+    ifSelected = () => {
+        if (this.selectedBooks.length === 0) {
+            message.warning('No entries selected.');
+            return false;
+        }
+        else return true;
     }
     render() {
         return (
@@ -111,15 +118,15 @@ class IndexedCollection extends Component {
                         return { onClick: () => this.onRowClick(record) };
                     }}
                     size='middle'
-                    pagination={{position: 'top'}}
+                    pagination={{ position: 'top' }}
                 />
-                <Button className={classes.table_action_button}  onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue</Button>
+                <Button className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
                 <Button className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
-                <Button className={classes.table_action_button} onClick={()=>{this.props.booksDeleteModal(this.selectedBooks)}}>Delete Entries</Button>
+                <Button className={classes.table_action_button} onClick={() => {this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
                 <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
-                <Delete {...this.props} reloadTable={this.fetchBooks}/>
-                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks}/>
+                <Delete {...this.props} reloadTable={this.fetchBooks} />
+                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
             </Auxi>
         )
     }
@@ -136,10 +143,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
-        booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books}),
-        booksDeleteModal: (books) => dispatch({type: BOOK_ACTIONS.DELETE_BOOKS, books: books}),
-        ToggleIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL}),
-        ToggleDeleteModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_DELETE_MODAL})
+        booksIssueModal: (books) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOKS, books: books }),
+        booksDeleteModal: (books) => dispatch({ type: BOOK_ACTIONS.DELETE_BOOKS, books: books }),
+        ToggleIssueModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL }),
+        ToggleDeleteModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_DELETE_MODAL })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);
