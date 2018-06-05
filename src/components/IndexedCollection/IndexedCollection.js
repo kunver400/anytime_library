@@ -116,7 +116,7 @@ class IndexedCollection extends Component {
                 <Button className={classes.table_action_button} onClick={()=>{this.props.booksDeleteModal(this.selectedBooks)}}>Delete Entries</Button>
                 <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
-                <Delete {...this.props}/>
+                <Delete {...this.props} reloadTable={this.fetchBooks}/>
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks}/>
             </Auxi>
         )
