@@ -7,6 +7,7 @@ import BOOK_ACTIONS from '../../redux/actions/book_actions';
 import Auxi from '../../hoc/Auxi/Auxi';
 import BookCard from './BookCard/BookCard';
 import Issue from '../Issue/Issue';
+import Delete from '../Delete/Delete';
 import AddBook from '../AddBook/AddBook';
 import common from '../../utils/common';
 import classes from './IndexedCollection.css';
@@ -109,9 +110,10 @@ class IndexedCollection extends Component {
                 />
                 <Button className={classes.table_action_button}  onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue</Button>
                 <Button className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
-                <Button className={classes.table_action_button} >Delete Entries</Button>
+                <Button className={classes.table_action_button} onClick={()=>{this.props.booksDeleteModal(this.selectedBooks)}}>Delete Entries</Button>
                 <Button className={classes.table_action_button} >Edit Entries</Button>
                 <Issue {...this.props} />
+                <Delete {...this.props}/>
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks}/>
             </Auxi>
         )
@@ -122,14 +124,17 @@ const mapStateToProps = state => {
     return {
         issueVisible: state.bookReducer.issueModalVisible,
         selectedBook: state.bookReducer.currentBook,
-        selectedBooks: state.bookReducer.currentBooks
+        selectedBooks: state.bookReducer.currentBooks,
+        deleteVisible: state.bookReducer.deleteModalVisible
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
         booksIssueModal: (books) => dispatch({type: BOOK_ACTIONS.ISSUE_BOOKS, books: books}),
-        ToggleIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL})
+        booksDeleteModal: (books) => dispatch({type: BOOK_ACTIONS.DELETE_BOOKS, books: books}),
+        ToggleIssueModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL}),
+        ToggleDeleteModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_DELETE_MODAL})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);

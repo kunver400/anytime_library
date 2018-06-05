@@ -3,6 +3,7 @@ import BOOK_ACTIONS from '../actions/book_actions';
 
 const initState = {
     issueModalVisible: false,
+    deleteModalVisible: false,
     currentBook: null,
     currentBooks: null
 }
@@ -25,7 +26,18 @@ const bookReducer = (state=initState, action) => {
         case BOOK_ACTIONS.TOGGLE_ISSUE_MODAL:
         return {
             ...state,
-            issueModalVisible: !state.issueModalVisible
+            issueModalVisible: !state.issueModalVisible,
+        }
+        case BOOK_ACTIONS.DELETE_BOOKS:
+        return {
+            ...state,
+            currentBooks: !state.deleteModalVisible?action.books:null,
+            deleteModalVisible: !state.deleteModalVisible,
+        }
+        case BOOK_ACTIONS.TOGGLE_DELETE_MODAL:
+        return {
+            ...state,
+            deleteModalVisible: !state.deleteModalVisible,
         }
         default:{
             return state
