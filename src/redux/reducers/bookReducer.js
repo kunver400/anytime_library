@@ -5,7 +5,7 @@ const initState = {
     issueModalVisible: false,
     deleteModalVisible: false,
     currentBook: null,
-    currentBooks: null
+    currentBooks: []
 }
 const bookReducer = (state=initState, action) => {
     switch (action.type) {
@@ -14,12 +14,12 @@ const bookReducer = (state=initState, action) => {
             ...state,
             currentBook: !state.issueModalVisible?action.book:null,
             issueModalVisible: !state.issueModalVisible,
-            currentBooks: null
+            currentBooks: []
         }
         case BOOK_ACTIONS.ISSUE_BOOKS:
         return {
             ...state,
-            currentBooks: !state.issueModalVisible?action.books:null,
+            currentBooks: !state.issueModalVisible?action.books:[],
             issueModalVisible: !state.issueModalVisible,
             currentBook: null
         }
@@ -31,7 +31,7 @@ const bookReducer = (state=initState, action) => {
         case BOOK_ACTIONS.DELETE_BOOKS:
         return {
             ...state,
-            currentBooks: !state.deleteModalVisible?action.books:null,
+            currentBooks: !state.deleteModalVisible?action.books:[],
             deleteModalVisible: !state.deleteModalVisible,
         }
         case BOOK_ACTIONS.TOGGLE_DELETE_MODAL:

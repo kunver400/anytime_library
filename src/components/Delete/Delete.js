@@ -20,7 +20,7 @@ class Delete extends Component {
     render() {
         let books = this.props.selectedBooks.map((item, index)=>{
             return (
-                <li>
+                <li key={index}>
                     {item.title}
                 </li>
             )
