@@ -105,7 +105,7 @@ class IndexedCollection extends Component {
                         return { onClick: () => this.onRowClick(record) };
                     }}
                     size='middle'
-                    pagination={false}
+                    pagination={{position: 'top'}}
                 />
                 <Button className={classes.table_action_button}  onClick={()=>{this.props.booksIssueModal(this.selectedBooks)}}>Issue</Button>
                 <Button className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>

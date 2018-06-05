@@ -65,6 +65,14 @@ body {
   }
   margin: 12px;
 }
+.ant-pagination-item, .ant-pagination-next,  .ant-pagination-prev {
+  a{
+  color: #f8fcff!important;
+  }
+}
+.ant-pagination-item-active{
+  background-color: #051529;
+}
 .ant-upload-list-item-name {
   color: #ffffffcc;
 }
