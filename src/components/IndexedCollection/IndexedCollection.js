@@ -9,6 +9,7 @@ import BookCard from './BookCard/BookCard';
 import Issue from '../Issue/Issue';
 import Delete from '../Delete/Delete';
 import AddBook from '../AddBook/AddBook';
+import EditBook from '../EditBook/EditBook';
 import common from '../../utils/common';
 import classes from './IndexedCollection.css';
 
@@ -59,7 +60,8 @@ class IndexedCollection extends Component {
         data: [],
         loading: false,
         selectedBook: null,
-        addBookModalVisisble: false
+        addBookModalVisisble: false,
+        editBookModalVisisble: false
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
@@ -80,7 +82,6 @@ class IndexedCollection extends Component {
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(selectedRows);
             this.selectedBooks = selectedRows;
         },
         getCheckboxProps: record => ({
@@ -99,6 +100,9 @@ class IndexedCollection extends Component {
     ToggleAddBookModal = () => {
         this.setState({ addBookModalVisisble: !this.state.addBookModalVisisble });
     }
+    ToggleEditBookModal = () => {
+        this.setState({ editBookModalVisisble: !this.state.editBookModalVisisble });
+    }
     ifSelected = () => {
         if (this.selectedBooks.length === 0) {
             message.warning('No entries selected.');
@@ -109,7 +113,7 @@ class IndexedCollection extends Component {
     render() {
         return (
             <Auxi>
-                <BookCard book={this.state.selectedBook} {...this.props} />
+                <BookCard book={this.state.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal}/>
                 <Table columns={columns}
                     dataSource={this.state.data}
                     loading={this.state.loading}
@@ -126,6 +130,7 @@ class IndexedCollection extends Component {
                 <Issue {...this.props} />
                 <Delete {...this.props} reloadTable={this.fetchBooks} />
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
+                <EditBook book={this.state.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={this.fetchBooks}/>
             </Auxi>
         )
     }
