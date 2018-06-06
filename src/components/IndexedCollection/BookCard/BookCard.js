@@ -20,7 +20,8 @@ const BookCard = (props) => {
                 <label><b>About the book:</b> {props.book.desc}</label>
                 </li>
                 <li style={{listStyleType:'none'}}>
-                <Button size='large' onClick={()=>{props.bookIssueModal(props.book)}}>Issue this book</Button>
+                <Button size='large' className={classes.card_button} onClick={()=>{props.bookIssueModal(props.book)}}>Issue this book</Button>
+                <Button size='large' className={classes.card_button} style={{marginLeft: '15px'}} disabled={!props.user || !props.user.isAdmin}>Edit Entry</Button>
                 </li>
                 </ul>
                 </Card.Grid>

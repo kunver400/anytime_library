@@ -120,10 +120,9 @@ class IndexedCollection extends Component {
                     size='middle'
                     pagination={{ position: 'top' }}
                 />
-                <Button className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
-                <Button className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
-                <Button className={classes.table_action_button} onClick={() => {this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
-                <Button className={classes.table_action_button} >Edit Entries</Button>
+                <Button disabled = {!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
+                <Button disabled={!this.props.user || !this.props.user.isAdmin}className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
+                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => {this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
                 <Issue {...this.props} />
                 <Delete {...this.props} reloadTable={this.fetchBooks} />
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />

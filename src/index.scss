@@ -79,6 +79,10 @@ body {
 }
 .ant-message-notice-content {
   background: #f9ffb4;
+  border: 2px solid #ffed4f;
+}
+.ant-btn[disabled]{
+  opacity: 0.7;
 }
 #root {
   height: 100%;
