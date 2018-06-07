@@ -57,7 +57,6 @@ window.innerWidth > 992 ? {
 
 class IndexedCollection extends Component {
     state = {
-        data: [],
         loading: false,
         selectedBook: null,
         addBookModalVisisble: false,
@@ -65,20 +64,28 @@ class IndexedCollection extends Component {
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
-        this.selectedBooks = [];
-        this.setState({ loading: true });
-        Axios.get('/books.json')
-            .then(response => {
-                let formattedResponse = common.formatBooks(response.data);
+        new Promise((resolve, reject) => {
+            if (this.props.allBooks.length === 0 || params.force) {
+                this.selectedBooks = [];
+                this.setState({ loading: true });
+                Axios.get('/books.json')
+                    .then(response => {
+                        let formattedResponse = common.formatBooks(response.data);
+                        this.props.SetBooks(formattedResponse);
+                        resolve();
+                    })
+                    .catch(response => {
+                        console.log('something went wrong.');
+                    });
+            }
+            else resolve();
+        })
+            .then(() => {
                 this.setState({
                     loading: false,
-                    data: formattedResponse,
-                    selectedBook: formattedResponse[0]
+                    selectedBook: this.props.allBooks[0]
                 });
             })
-            .catch(response => {
-                console.log('something went wrong.');
-            });
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -113,9 +120,9 @@ class IndexedCollection extends Component {
     render() {
         return (
             <Auxi>
-                <BookCard book={this.state.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal}/>
+                <BookCard book={this.state.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
                 <Table columns={columns}
-                    dataSource={this.state.data}
+                    dataSource={this.props.allBooks}
                     loading={this.state.loading}
                     rowSelection={this.rowSelection}
                     onRow={(record) => {
@@ -124,13 +131,13 @@ class IndexedCollection extends Component {
                     size='middle'
                     pagination={{ position: 'top' }}
                 />
-                <Button disabled = {!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
-                <Button disabled={!this.props.user || !this.props.user.isAdmin}className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
-                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => {this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
+                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
+                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
+                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
                 <Issue {...this.props} />
-                <Delete {...this.props} reloadTable={this.fetchBooks} />
-                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
-                <EditBook book={this.state.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={this.fetchBooks}/>
+                <Delete {...this.props} reloadTable={() => this.fetchBooks({ force: true })} />
+                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={() => this.fetchBooks({ force: true })} />
+                <EditBook book={this.state.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={() => this.fetchBooks({ force: true })} />
             </Auxi>
         )
     }
@@ -138,6 +145,7 @@ class IndexedCollection extends Component {
 
 const mapStateToProps = state => {
     return {
+        allBooks: state.bookReducer.allBooks,
         issueVisible: state.bookReducer.issueModalVisible,
         selectedBook: state.bookReducer.currentBook,
         selectedBooks: state.bookReducer.currentBooks,
@@ -146,6 +154,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
+        SetBooks: (books) => dispatch({ type: BOOK_ACTIONS.SET_BOOKS, books: books }),
         bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
         booksIssueModal: (books) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOKS, books: books }),
         booksDeleteModal: (books) => dispatch({ type: BOOK_ACTIONS.DELETE_BOOKS, books: books }),

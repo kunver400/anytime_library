@@ -2,6 +2,7 @@
 import BOOK_ACTIONS from '../actions/book_actions';
 
 const initState = {
+    allBooks: [],
     issueModalVisible: false,
     deleteModalVisible: false,
     currentBook: null,
@@ -9,6 +10,11 @@ const initState = {
 }
 const bookReducer = (state=initState, action) => {
     switch (action.type) {
+        case BOOK_ACTIONS.SET_BOOKS:
+        return {
+            ...state,
+            allBooks: action.books
+        }
         case BOOK_ACTIONS.ISSUE_BOOK:
         return {
             ...state,
