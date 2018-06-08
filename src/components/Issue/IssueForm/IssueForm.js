@@ -16,7 +16,7 @@ const formItemLayout = {
 };
 const IssueForm = (props) => {
   const { getFieldDecorator } = props.form;
-  const BookItem_s = props.selectedBook ? (
+  const BookItem_s = props.selectedBooks.length === 0 ? (
     <Auxi>
       <FormItem {...formItemLayout} label={(props.selectedBook || { title: 'placeholder book' }).title}>
         {getFieldDecorator('units', {

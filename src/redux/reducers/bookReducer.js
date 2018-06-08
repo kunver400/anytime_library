@@ -13,21 +13,27 @@ const bookReducer = (state=initState, action) => {
         case BOOK_ACTIONS.SET_BOOKS:
         return {
             ...state,
-            allBooks: action.books
+            allBooks: action.books,
+            currentBook: action.books[0]
         }
-        case BOOK_ACTIONS.ISSUE_BOOK:
+        case BOOK_ACTIONS.SET_CURRENT_BOOK:
         return {
             ...state,
-            currentBook: !state.issueModalVisible?action.book:null,
+            currentBook: action.book
+        }
+        case BOOK_ACTIONS.ISSUE_BOOK:
+        let newState = {
+            ...state,
             issueModalVisible: !state.issueModalVisible,
             currentBooks: []
         }
+        if(action.book) newState['currentBook'] = action.book
+        return newState
         case BOOK_ACTIONS.ISSUE_BOOKS:
         return {
             ...state,
             currentBooks: !state.issueModalVisible?action.books:[],
             issueModalVisible: !state.issueModalVisible,
-            currentBook: null
         }
         case BOOK_ACTIONS.TOGGLE_ISSUE_MODAL:
         return {

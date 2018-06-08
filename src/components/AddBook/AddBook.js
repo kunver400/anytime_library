@@ -27,7 +27,7 @@ class AddBook extends Component {
             title: 'Book Added.',
             content: data.title+': added to the collection',
         });
-        this.props.reloadTable();
+        this.props.reloadTable({force: true});
             this.props.ToggleAddBookModal();
     }
     handleError = (response) => {

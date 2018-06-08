@@ -18,7 +18,6 @@ const formItemLayout = {
 let coverImage;
 let fileList = [];
 const EditBookForm = (props) => {
-    console.log(props.book);
     coverImage = props.book.cover;
     const { getFieldDecorator } = props.form;
     const UploadProps = {

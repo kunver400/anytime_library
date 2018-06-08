@@ -36,7 +36,7 @@ class Delete extends Component {
             ),
         });
         this.props.ToggleDeleteModal();
-        this.props.reloadTable();
+        this.props.reloadTable({force: true});
         this.deleted = [];
         this.failed = [];
     }

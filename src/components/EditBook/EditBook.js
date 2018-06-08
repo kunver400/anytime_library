@@ -29,7 +29,7 @@ class EditBook extends Component {
             title: 'Book updated.',
             content: data.title+': was updated in place',
         });
-        this.props.reloadTable();
+        this.props.reloadTable({force: true});
             this.props.ToggleEditBookModal();
     }
     handleError = (response) => {

@@ -48,7 +48,7 @@ window.innerWidth > 992 ? {
     title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
-    width: '15%',
+    width: '10%',
     key: 5
 }
 ];
@@ -58,13 +58,11 @@ window.innerWidth > 992 ? {
 class IndexedCollection extends Component {
     state = {
         loading: false,
-        selectedBook: null,
         addBookModalVisisble: false,
         editBookModalVisisble: false
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
-        new Promise((resolve, reject) => {
             if (this.props.allBooks.length === 0 || params.force) {
                 this.selectedBooks = [];
                 this.setState({ loading: true });
@@ -72,20 +70,12 @@ class IndexedCollection extends Component {
                     .then(response => {
                         let formattedResponse = common.formatBooks(response.data);
                         this.props.SetBooks(formattedResponse);
-                        resolve();
+                        this.setState({loading: false});
                     })
                     .catch(response => {
                         console.log('something went wrong.');
                     });
             }
-            else resolve();
-        })
-            .then(() => {
-                this.setState({
-                    loading: false,
-                    selectedBook: this.props.allBooks[0]
-                });
-            })
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -97,9 +87,7 @@ class IndexedCollection extends Component {
         }),
     };
     onRowClick = (record) => {
-        this.setState({
-            selectedBook: record
-        })
+        this.props.SetCurrentBook(record);
     };
     componentDidMount() {
         this.fetchBooks();
@@ -120,7 +108,7 @@ class IndexedCollection extends Component {
     render() {
         return (
             <Auxi>
-                <BookCard book={this.state.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
+                <BookCard book={this.props.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
                 <Table columns={columns}
                     dataSource={this.props.allBooks}
                     loading={this.state.loading}
@@ -135,9 +123,9 @@ class IndexedCollection extends Component {
                 <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
                 <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
                 <Issue {...this.props} />
-                <Delete {...this.props} reloadTable={() => this.fetchBooks({ force: true })} />
-                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={() => this.fetchBooks({ force: true })} />
-                <EditBook book={this.state.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={() => this.fetchBooks({ force: true })} />
+                <Delete {...this.props} reloadTable={this.fetchBooks} />
+                <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
+                <EditBook book={this.props.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={this.fetchBooks} />
             </Auxi>
         )
     }
@@ -154,8 +142,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        SetBooks: (books) => dispatch({ type: BOOK_ACTIONS.SET_BOOKS, books: books }),
-        bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK, book: book }),
+        SetBooks: (allbooks) => dispatch({ type: BOOK_ACTIONS.SET_BOOKS, books: allbooks }),
+        SetCurrentBook: (book) => dispatch({ type: BOOK_ACTIONS.SET_CURRENT_BOOK, book: book }),
+        bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK }),
         booksIssueModal: (books) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOKS, books: books }),
         booksDeleteModal: (books) => dispatch({ type: BOOK_ACTIONS.DELETE_BOOKS, books: books }),
         ToggleIssueModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL }),
