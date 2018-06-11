@@ -1,3 +1,4 @@
+import moment from 'moment';
 const common = {
     formatBooks: (data) => {
         let books = [];
@@ -10,8 +11,8 @@ const common = {
         return books;
     },
     formatDate: (date_string) => {
-        let date = new Date(date_string);
-        return date.getUTCDate() + '/' + date.getUTCMonth() + '/' + date.getUTCFullYear();
+        let date = new moment(date_string);
+        return date.format("MMM Do YY");
     }
 }
 

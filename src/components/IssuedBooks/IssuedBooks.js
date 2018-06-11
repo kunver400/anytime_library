@@ -73,9 +73,10 @@ class IssuedBooks extends Component {
             .then((response) => {
                 usermeta.getIssuedBooks()
                     .then((data) => {
+                        let issuedBooks=[];
                         if (data.issuedBooks) {
                             this.issueKey = data.key;
-                            let issuedBooks = this.props.allBooks.filter(book => {
+                            issuedBooks = this.props.allBooks.filter(book => {
                                 let isIssued = false;
                                 data.issuedBooks.forEach(item => { if (item.bkey === book.key) isIssued = true });
                                 return isIssued;
@@ -87,8 +88,8 @@ class IssuedBooks extends Component {
                                     rdate: data.issuedBooks[index].rdate
                                 };
                             })
-                            this.setState({ issuedBooks: issuedBooks, loading: false });
                         }
+                        this.setState({ issuedBooks: issuedBooks, loading: false });
                     })
             })
     }

@@ -26,7 +26,6 @@ class Issue extends Component {
                             return el.bkey === anIssue.bkey
                         }) === -1) { // append to the exisiting list
                         data.issuedBooks.push(anIssue);
-                        console.log(data.issuedBooks);
                         let newData = {};
                         newData[data.key] = {
                             issued: data.issuedBooks,
@@ -109,7 +108,7 @@ class Issue extends Component {
             content: (
                 <div>
                     <ul>
-                        <li>Books issued successfully: {this.booksAdded.length} unit(s)</li>
+                        {this.booksAdded.length>0?<li>Books issued successfully: {this.booksAdded.length} unit(s)</li>:null}
                         {this.booksReissued.length > 0 ? <li>Books re-issued successfully: {this.booksReissued.length} books</li> : null}
                         {this.booksFailed.length > 0 ? <li>Books re-issue required for: {this.booksFailed.length} books</li> : null}
                     </ul>
