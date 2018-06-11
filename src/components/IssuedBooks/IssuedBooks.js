@@ -121,7 +121,7 @@ class IssuedBooks extends Component {
                 />
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Return</Button>
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Re-Issue</Button>
-                <Issue {...this.props} reissue={true}/>
+                <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks}/>
             </Auxi>
         )
     }

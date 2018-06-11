@@ -24,7 +24,6 @@ const IssueForm = (props) => {
           initialValue: 1
         })(
           <InputNumber
-            // size='large'
             min={1}
             max={3}
             formatter={value => `${value} Unit(s)`}
@@ -36,7 +35,7 @@ const IssueForm = (props) => {
             rules: [{ required: true }],
             initialValue: moment().add(2, 'days')
           })(
-            <DatePicker onChange={(d, ds) => { console.log(d, ds) }} />)}
+            <DatePicker/>)}
         </FormItem>
       </FormItem>
     </Auxi>
@@ -47,13 +46,13 @@ const IssueForm = (props) => {
             <FormItem label={book.title} key={index} {...formItemLayout} style={{marginBottom: 20}}>
               {getFieldDecorator('units+' + index, {
                 rules: [{ required: true, message: 'Should be number smaller then 4' }],
-                initialValue: 1
+                initialValue: book.units || 1
               })(
                 <InputNumber
-                  // size='large'
                   min={1}
                   max={3}
                   formatter={value => `${value} Unit(s)`}
+                  disabled={book.units?true:false}
                   parser={value => value.replace(' Unit(s)', '')}
                 />
               )}
@@ -62,7 +61,7 @@ const IssueForm = (props) => {
                   rules: [{ required: true }],
                   initialValue: moment().add(2, 'days')
                 })(
-                  <DatePicker onChange={(d, ds) => { console.log(d, ds) }} />)}
+                  <DatePicker/>)}
               </FormItem>
             </FormItem>
           )}
@@ -73,9 +72,8 @@ const IssueForm = (props) => {
     <Form hideRequiredMark onSubmit={(e) => {
       e.preventDefault();
       props.form.validateFields((err, values) => {
-        console.log(values)
         if (!err) {
-          if (props.selectedBook)
+          if (props.selectedBooks.length === 0)
             props.handleSubmit({units:values.units, rdate: values.date});
           else {
             let units = [],rdates=[];

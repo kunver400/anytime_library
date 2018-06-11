@@ -9,13 +9,14 @@ import classes from './Issue.css'
 
 class Issue extends Component {
     booksAdded = [];
-    booksRedundant = [];
+    booksReissued = [];
+    booksFailed = [];
     issueBook_s = (abook, books) => {
         let book = (books || { pop: () => null }).pop();
         let anIssue = {
             bkey: abook ? this.props.selectedBook.key : book.key,
-            units: abook?abook.units : book.units,
-            rdate: abook? abook.rdate : book.rdate
+            units: abook ? abook.units : book.units,
+            rdate: abook ? abook.rdate : book.rdate
         };
         usermeta.getIssuedBooks()
             .then((data) => {
@@ -23,7 +24,7 @@ class Issue extends Component {
                     if (
                         data.issuedBooks.findIndex((el) => {
                             return el.bkey === anIssue.bkey
-                        }) === -1) {
+                        }) === -1) { // append to the exisiting list
                         data.issuedBooks.push(anIssue);
                         let newData = {};
                         newData[data.key] = {
@@ -43,18 +44,38 @@ class Issue extends Component {
                             })
                             .catch(this.handleError);
                     }
-                    else {
-                        if (book) {
-                            this.booksRedundant.push(book);
-                            if (books.length > 0) this.issueBook_s(null, books);
-                            else {
-                                this.popSuccessMultiple();
-                            }
+                    else { // extend issue date (Reissue)
+                        if (this.props.reissue) {
+                            let newIssued = data.issuedBooks.map(issue => {
+                                if (issue.bkey === anIssue.bkey) {
+                                    issue.rdate = anIssue.rdate;
+                                }
+                                return issue;
+                            })
+                            Axios.patch('issues/' + data.key + '.json', { issued: newIssued, ukey: this.props.user.key })
+                                .then((response) => {
+                                    if (book) { //incase reissue func. required else where
+                                        this.booksReissued.push(book);
+                                        if (books.length > 0) this.issueBook_s(null, books);
+                                        else {
+                                            this.popSuccessMultiple();
+                                        }
+                                    }
+                                    else this.popInfo(response)
+                                })
+                                .catch(this.handleError);
                         }
-                        else this.popInfo();
+                        else {
+                            if (book) {
+                                this.booksFailed.push(book);
+                                if (books.length > 0) this.issueBook_s(null, books);
+                                else this.popSuccessMultiple();
+                            }
+                            else this.popInfo();
+                        }
                     }
                 }
-                else {
+                else { //create issues object for user
                     Axios.post('issues.json', {
                         ukey: this.props.user.key,
                         issued: [anIssue]
@@ -78,6 +99,7 @@ class Issue extends Component {
             title: 'Thanks for using our services.',
             content: 'Our associate will reach you shortly.',
         });
+        this.props.reload && this.props.reload();
         this.props.ToggleIssueModal();
     }
     popSuccessMultiple = () => {
@@ -85,22 +107,25 @@ class Issue extends Component {
             title: 'Thanks for using our services.',
             content: (
                 <div>
-                <ul>
-                    <li>Books issued successfully: {this.booksAdded.length} unit(s)</li>
-                    <li>you've already issued: {this.booksRedundant.length} books</li>
-                </ul>
-                Our associate will reach you shortly.
+                    <ul>
+                        <li>Books issued successfully: {this.booksAdded.length} unit(s)</li>
+                        {this.booksReissued.length > 0 ? <li>Books re-issued successfully: {this.booksReissued.length} books</li> : null}
+                        {this.booksFailed.length > 0 ? <li>Books re-issue required for: {this.booksFailed.length} books</li> : null}
+                    </ul>
+                    Our associate will reach you shortly.
                 </div>
             )
         })
         this.props.ToggleIssueModal();
+        this.props.reload && this.props.reload();
         this.booksAdded = [];
-        this.booksRedundant = [];
+        this.booksFailed = [];
+        this.booksReissued = [];
     }
     popInfo = () => {
         Modal.info({
-            title: "Redundant issue prohibited.",
-            content: "you've already issued this book.",
+            title: "Book already issued.",
+            content: "Please use the re-issue feature.",
         });
         this.props.ToggleIssueModal();
     }
