@@ -1,20 +1,21 @@
+@import './assets/colors.scss';
 body {
   font-family: 'Biryani', sans-serif;
-  background-color: #051529;
+  background-color: $bg_main;
   background-image:url('./assets/more_books.jpg');
   background-repeat: repeat-x;
 }
 .ant-layout {
-  background:linear-gradient( #05152950, #05152938,#051529);
+  background:linear-gradient( transparentize($bg_main,0.75),transparentize($bg_main,0.75),$bg_main);
 }
 .ant-layout-footer {
-  background: #051529;
+  background: $bg_main;
 }
 .ant-menu-item-selected {
-  background-color: #f8fcff!important;
-  color: #051529!important;
+  background-color: $text_main!important;
+  color: $bg_main!important;
   a{
-    color: #051529!important;
+    color: $bg_main!important;
   }
 }
 .ant-form-inline .ant-form-item {
@@ -22,24 +23,24 @@ body {
   margin-bottom: 16px!important;
   }
 .ant-form-item-label label, .ant-form-explain, .ant-form-extra, .ant-checkbox-wrapper{
-  color:#ffffffcc!important;
+  color:$text_sec!important;
 }
 .ant-input,.ant-select,.ant-cascader-picker,.ant-cascader-menus, .ant-input-number-input, .ant-upload {
-  background-color:#f8fcff!important;
+  background-color:$text_main!important;
 }
 .ant-modal-content {
-  background-color: #233238;
+  background-color: $modal_bg;
   .ant-modal-header,.ant-modal-footer {
     background-color: inherit;
     border-bottom: none;
     border-top: none!important;
   }
   .ant-confirm-title, .ant-confirm-content, .ant-modal-title, .ant-modal-close-x {
-    color: #ffffffcc;
+    color: $text_sec;
   }
 }
 .ant-table-row {
-  color: #ffffffcc;
+  color: $text_main;
   background-color: transparent//#223333a6;
 }
 .ant-table-tbody > tr > td, .ant-table-thead > tr > th > span {
@@ -51,38 +52,38 @@ body {
 .ant-table-thead > tr:hover > td,
 .ant-table-tbody > tr:hover > td,
 .ant-table-tbody > tr.ant-table-row-selected td {
-  background-color: #3f5369;
+  background-color: $titem_sel;
 }
 .ant-table-thead > tr:first-child > th:first-child, .ant-table-thead > tr:first-child > th:last-child {
   border-radius: 0px;
 }
 .ant-card-head {
-  background-color: #051529;
+  background-color: $bg_main;
   border-bottom: none;
   .ant-card-head-title{
-    color: #ffffffcc;
+    color: $text_sec;
   }
 }
 .ant-breadcrumb {
   a,span{
-  color: #ffffffcc;
+  color: $text_sec;
   }
   margin: 12px;
 }
 .ant-pagination-item, .ant-pagination-next,  .ant-pagination-prev {
   a{
-  color: #f8fcff!important;
+  color: $text_main!important;
   }
 }
 .ant-pagination-item-active{
-  background-color: #051529;
+  background-color: $bg_main;
 }
 .ant-upload-list-item-name {
-  color: #ffffffcc;
+  color: $text_sec;
 }
 .ant-message-notice-content {
-  background: #f9ffb4;
-  border: 2px solid #ffed4f;
+  background: $msg_bg;
+  border: 2px solid $msg_bor;
 }
 .ant-btn[disabled]{
   opacity: 0.7;
