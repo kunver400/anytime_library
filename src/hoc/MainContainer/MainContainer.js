@@ -20,7 +20,7 @@ class MainContainer extends Component {
                 <Icon
                     className={classes.trigger}
                     type={this.props.siderState?'right-square' : 'menu-fold'}
-                    style={this.props.siderState?{left:0}:{display: 'none'}}
+                    style={this.props.siderState?null:{display: 'none'}}
                     onClick={this.siderController}
                 />
                 <ContentWrapper user={this.props.user}/>

@@ -119,7 +119,7 @@ class IssuedBooks extends Component {
                     dataSource={this.state.issuedBooks}
                     loading={this.state.loading}
                     rowSelection={this.rowSelection}
-                    size='small'
+                    size='middle'
                     pagination={false}
                 />
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Return</Button>
