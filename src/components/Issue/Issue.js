@@ -12,7 +12,7 @@ class Issue extends Component {
     booksReissued = [];
     booksFailed = [];
     issueBook_s = (abook, books) => {
-        let book = (books || { pop: () => null }).pop();
+        let book = (books || { shift: () => null }).shift();
         let anIssue = {
             bkey: abook ? this.props.selectedBook.key : book.key,
             units: abook ? abook.units : book.units,
@@ -26,6 +26,7 @@ class Issue extends Component {
                             return el.bkey === anIssue.bkey
                         }) === -1) { // append to the exisiting list
                         data.issuedBooks.push(anIssue);
+                        console.log(data.issuedBooks);
                         let newData = {};
                         newData[data.key] = {
                             issued: data.issuedBooks,

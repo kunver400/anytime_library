@@ -39,7 +39,7 @@ const columns = [{
     },
     render: date_string => common.formatDate(date_string),
     key: 3
-} 
+}
 ];
 
 
@@ -51,7 +51,7 @@ class IssuedBooks extends Component {
     selectedBooks = [];
     issueKey;
     fetchBooks = (params = {}) => {
-        return new Promise((resolve)=>{
+        return new Promise((resolve) => {
             if (this.props.allBooks.length === 0 || params.force) {
                 this.selectedBooks = [];
                 Axios.get('/books.json')
@@ -70,25 +70,27 @@ class IssuedBooks extends Component {
     fetchIssuedBooks = () => {
         this.setState({ loading: true });
         this.fetchBooks()
-        .then((response)=>{
-            usermeta.getIssuedBooks()
-            .then((data)=>{
-                this.issueKey = data.key;
-                let issuedBooks = this.props.allBooks.filter(book => {
-                    let isIssued = false;
-                    data.issuedBooks.forEach(item => {if(item.bkey === book.key) isIssued=true});
-                    return isIssued;
-                })
-                issuedBooks = issuedBooks.map((item,index)=>{
-                    return {
-                        ...item,
-                        units: data.issuedBooks[index].units,
-                        rdate: data.issuedBooks[index].rdate
-                    };
-                })
-                this.setState({issuedBooks: issuedBooks, loading: false});
+            .then((response) => {
+                usermeta.getIssuedBooks()
+                    .then((data) => {
+                        if (data.issuedBooks) {
+                            this.issueKey = data.key;
+                            let issuedBooks = this.props.allBooks.filter(book => {
+                                let isIssued = false;
+                                data.issuedBooks.forEach(item => { if (item.bkey === book.key) isIssued = true });
+                                return isIssued;
+                            })
+                            issuedBooks = issuedBooks.map((item, index) => {
+                                return {
+                                    ...item,
+                                    units: data.issuedBooks[index].units,
+                                    rdate: data.issuedBooks[index].rdate
+                                };
+                            })
+                            this.setState({ issuedBooks: issuedBooks, loading: false });
+                        }
+                    })
             })
-        })
     }
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -121,7 +123,7 @@ class IssuedBooks extends Component {
                 />
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Return</Button>
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Re-Issue</Button>
-                <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks}/>
+                <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks} />
             </Auxi>
         )
     }
