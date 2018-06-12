@@ -1,6 +1,7 @@
+@import '_colors.scss';
 .SignUp {
     width: 60%;
-    color: rgba(255, 255, 255, 0.65);
+    color: $text_sec;
     @media screen and (max-width: 992px) {
         width: 90%;
         margin: 0 auto;
@@ -8,5 +9,5 @@
 }
 .form_head {
     font-size: 36px;
-    color: #ffffffcc;
+    color: $text_sec;
 }

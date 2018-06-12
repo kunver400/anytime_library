@@ -1,5 +1,6 @@
+@import '_colors.scss';
 .trigger { 
-    color: #8f3738;
+    color: $trigger;
     z-index:3;
     font-size: 24px;
     line-height: 64px!important;
@@ -10,7 +11,7 @@
     cursor: pointer;
     transition: color .3s;
     &:hover {
-        color: #ffffff;
+        color: $text_main;
       }
     @media screen and (min-width: 992px) {
         display: none!important;

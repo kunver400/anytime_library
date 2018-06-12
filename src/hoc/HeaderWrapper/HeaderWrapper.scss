@@ -1,15 +1,16 @@
+@import '_colors.scss';
 .menuitem_right {
     float: right !important;
 }
 .light_item_group {
-    color: #ffffff;
-    background-color: #233238;
+    color: $text_main;
+    background-color: $modal_bg;
 }
 .logo {
     width: 42px;
     height: 42px;
     margin: 12px 12px 12px 12px;
-    border: white 2px solid;
+    border: $text_main 2px solid;
     border-radius: 30px;
     padding: 5px;
     float: left;

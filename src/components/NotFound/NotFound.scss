@@ -1,8 +1,9 @@
+@import '_colors.scss';
 h1,h3 {
-    color: white !important;
+    color: $text_main !important;
     text-align: center;
 }
 p{
-    color: white;
+    color: $text_main;
     text-align: center;
 }

@@ -1,3 +1,4 @@
+@import '_colors.scss';
 .landing_splash {
     margin-top: 0px;
     width: 100%;
@@ -13,12 +14,12 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: linear-gradient(to bottom right,#002f4b,#99321d);
+        background-image: linear-gradient(to bottom right,$bg_main,$trigger);
         opacity: .6; 
       }
     .splash_head {
-        color: white;
-        text-shadow:  2px 2px #000000;
+        color: $text_main;
+        text-shadow:  2px 2px black;
         font-size: 32px;
         position: relative;
         text-align: center;

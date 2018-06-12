@@ -55,7 +55,7 @@
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/ --include-path src/assets/styles/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --include-path src/assets/styles/ --watch --recursive",
     "start-js": "node scripts/start.js",
     "build-js": "node scripts/build.js",
     "start": "npm-run-all -p watch-css start-js",

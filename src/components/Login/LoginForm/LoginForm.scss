@@ -1,3 +1,4 @@
+@import '_colors.scss';
 .login_form {
     max-width: 350px;
     margin-right: auto!important;
@@ -11,8 +12,8 @@
   }
   .login_form_gbutton {
     margin-top: 12px;
-    background-color: #ce3535f0;
-    border-color: #ce3535f0;
+    background-color: $gbutton;
+    border-color: $gbutton;
     border-radius: 4px;
-    color: white;
+    color: $text_main;
   }

@@ -1,5 +1,6 @@
+@import '_colors.scss';
 .book_card {
-    color: white!important;
+    color: $text_main!important;
     min-width: 100%;
     min-height: 250px;
     margin-bottom: 14px;
@@ -32,7 +33,7 @@
 .the_book {
     height: 360px;
     width: 250px;
-    border: 1px solid white;
+    border: 1px solid $text_main;
     align-self: center;
 }
 .desc {
@@ -41,5 +42,5 @@
 }
 .card_button {
     background-color: transparent!important;
-    color: white!important;
+    color: $text_main!important;
 }

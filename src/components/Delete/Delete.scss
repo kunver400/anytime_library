@@ -1,11 +1,12 @@
+@import '_colors.scss';
 .Delete_modal {
     margin: auto !important;
     ol {
-        color: #ffffffcc;
+        color: $text_sec;
     }
 }
 .message {
-    color: #ffffffcc;
+    color: $text_sec;
     font-size: 18px;
     margin-bottom: 20px;
     span {
