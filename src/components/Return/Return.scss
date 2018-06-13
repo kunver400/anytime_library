@@ -1,0 +1,12 @@
+@import '_colors.scss';
+.Return_modal {
+    margin: auto !important;
+    ol {
+        color: $text_sec;
+    }
+}
+.message {
+    color: $text_sec;
+    font-size: 18px;
+    margin-bottom: 20px;
+}

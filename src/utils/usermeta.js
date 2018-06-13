@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import store from '../redux/store';
+import BOOK_ACTIONS from '../redux/actions/book_actions';
 
 
 const usermeta = {
@@ -16,6 +17,7 @@ const usermeta = {
                             thisKey = key;
                         }
                     }
+                    store.dispatch({ type: BOOK_ACTIONS.SET_ISSUE_KEY,issueKey: thisKey});
                     resolve({issuedBooks: issuedBooks, key: thisKey});
                 })
                 .catch(response => {

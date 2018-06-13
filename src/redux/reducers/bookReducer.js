@@ -5,7 +5,9 @@ const initState = {
     allBooks: [],
     issueModalVisible: false,
     deleteModalVisible: false,
+    returnModalVisisble: false,
     currentBook: null,
+    issueKey: null,
     currentBooks: []
 }
 const bookReducer = (state=initState, action) => {
@@ -50,6 +52,22 @@ const bookReducer = (state=initState, action) => {
         return {
             ...state,
             deleteModalVisible: !state.deleteModalVisible
+        }
+        case BOOK_ACTIONS.TOGGLE_RETURN_MODAL:
+        return {
+            ...state,
+            returnModalVisisble: !state.returnModalVisisble
+        }
+        case BOOK_ACTIONS.RETURN_BOOKS:
+        return {
+            ...state,
+            currentBooks: !state.returnModalVisisble?action.books:[],
+            returnModalVisisble: !state.returnModalVisisble
+        }
+        case BOOK_ACTIONS.SET_ISSUE_KEY:
+        return {
+            ...state,
+            issueKey: action.issueKey
         }
         default:{
             return state

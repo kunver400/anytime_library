@@ -7,10 +7,10 @@ import BOOK_ACTIONS from '../../redux/actions/book_actions';
 import Auxi from '../../hoc/Auxi/Auxi';
 
 import Issue from '../Issue/Issue';
-
+import Return from '../Return/Return';
 import common from '../../utils/common';
-import classes from './IssuedBooks.css';
 import usermeta from '../../utils/usermeta';
+import classes from './IssuedBooks.css';
 
 const columns = [{
     title: 'Title',
@@ -49,7 +49,6 @@ class IssuedBooks extends Component {
         issuedBooks: [],
     };
     selectedBooks = [];
-    issueKey;
     fetchBooks = (params = {}) => {
         return new Promise((resolve) => {
             if (this.props.allBooks.length === 0 || params.force) {
@@ -73,9 +72,8 @@ class IssuedBooks extends Component {
             .then((response) => {
                 usermeta.getIssuedBooks()
                     .then((data) => {
-                        let issuedBooks=[];
+                        let issuedBooks = [];
                         if (data.issuedBooks) {
-                            this.issueKey = data.key;
                             issuedBooks = this.props.allBooks.filter(book => {
                                 let isIssued = false;
                                 data.issuedBooks.forEach(item => { if (item.bkey === book.key) isIssued = true });
@@ -122,9 +120,10 @@ class IssuedBooks extends Component {
                     size='middle'
                     pagination={false}
                 />
-                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Return</Button>
+                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksReturnModal(this.selectedBooks) }}>Return</Button>
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Re-Issue</Button>
                 <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks} />
+                <Return {...this.props} reload={this.fetchIssuedBooks} allIssued={this.state.issuedBooks}/>
             </Auxi>
         )
     }
@@ -134,14 +133,18 @@ const mapStateToProps = state => {
     return {
         allBooks: state.bookReducer.allBooks,
         issueVisible: state.bookReducer.issueModalVisible,
-        selectedBooks: state.bookReducer.currentBooks
+        returnVisible: state.bookReducer.returnModalVisisble,
+        selectedBooks: state.bookReducer.currentBooks,
+        issueKey: state.bookReducer.issueKey
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
         SetBooks: (allbooks) => dispatch({ type: BOOK_ACTIONS.SET_BOOKS, books: allbooks }),
         booksIssueModal: (books) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOKS, books: books }),
+        booksReturnModal: (books) => dispatch({ type: BOOK_ACTIONS.RETURN_BOOKS, books: books }),
         ToggleIssueModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL }),
+        ToggleReturnModal: () => dispatch({type: BOOK_ACTIONS.TOGGLE_RETURN_MODAL})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(IssuedBooks);

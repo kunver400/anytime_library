@@ -28,7 +28,7 @@ class Delete extends Component {
             title: 'Operation completed.',
             content: (
                 <div>
-                    <span>Following entries this.deleted:</span>
+                    <span>Following entries deleted:</span>
                     <ol>
                         {this.deleted.map(book => <li key={book.key}>{book.title}</li>)}
                     </ol>
