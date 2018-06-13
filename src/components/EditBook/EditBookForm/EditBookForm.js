@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, InputNumber, Button, Input, Icon, Upload, message } from 'antd';
+import moment from 'moment';
 import Auxi from '../../../hoc/Auxi/Auxi';
 import classes from './EditBookForm.css';
 const FormItem = Form.Item;
@@ -50,7 +51,7 @@ const EditBookForm = (props) => {
             e.preventDefault();
             props.form.validateFields((err, values) => {
                 if (!err) {
-                    props.handleSubmit({ ...values, date: Date(), cover: coverImage });
+                    props.handleSubmit({ ...values, date: moment(), cover: coverImage });
                     props.form.resetFields();
                 }
             });
