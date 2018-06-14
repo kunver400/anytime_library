@@ -4,12 +4,20 @@ import { Route, Switch } from 'react-router-dom';
 
 import Landing from '../../components/Landing/Landing';
 import NotFound from '../../components/NotFound/NotFound';
-import SignUp from '../../components/SignUp/SignUp';
-import IndexedCollection from '../../components/IndexedCollection/IndexedCollection';
-import IssuedBooks from '../../components/IssuedBooks/IssuedBooks';
 
+import AsyncLoader from '../AsyncLoader/AsyncLoader';
 import classes from './ContentWrapper.css'
+
 const { Content } = Layout;
+const AsyncIndexedCollection = AsyncLoader(()=>{
+    return import('../../components/IndexedCollection/IndexedCollection');
+})
+const AsyncIssuedBooks = AsyncLoader(()=>{
+    return import('../../components/IssuedBooks/IssuedBooks');
+})
+const AsyncSignUp = AsyncLoader(()=>{
+    return import('../../components/SignUp/SignUp');
+})
 
 class ContentWrapper extends Component {
     render() {
@@ -37,9 +45,9 @@ class ContentWrapper extends Component {
                 </Switch>
 
                 <Switch>
-                    <Route path="/signup" component={SignUp} />
-                    <Route path="/indexofbooks" render={() => <IndexedCollection user={this.props.user} />} />
-                    <Route path="/issuedbooks" render={() => <IssuedBooks user={this.props.user} />} />
+                    <Route path="/signup" component={AsyncSignUp} />
+                    <Route path="/indexofbooks" render={() => <AsyncIndexedCollection user={this.props.user} />} />
+                    <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
                     <Route path="/" exact render={() => <Landing user={this.props.user} />} />
                     <Route component={NotFound} />
                 </Switch>
