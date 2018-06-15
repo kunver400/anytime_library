@@ -4,6 +4,7 @@ import Axios from 'axios';
 
 import IssueForm from './IssueForm/IssueForm';
 import usermeta from './../../utils/usermeta';
+import booksExtensive from '../../utils/booksExtensive';
 import classes from './Issue.css'
 
 
@@ -11,9 +12,10 @@ class Issue extends Component {
     booksAdded = [];
     booksReissued = [];
     booksFailed = [];
+    anIssue = {};
     issueBook_s = (abook, books) => {
         let book = (books || { shift: () => null }).shift();
-        let anIssue = {
+        this.anIssue = {
             bkey: abook ? this.props.selectedBook.key : book.key,
             units: abook ? abook.units : book.units,
             rdate: abook ? abook.rdate : book.rdate
@@ -23,9 +25,9 @@ class Issue extends Component {
                 if ((data || {}).issuedBooks) {
                     if (
                         data.issuedBooks.findIndex((el) => {
-                            return el.bkey === anIssue.bkey
+                            return el.bkey === this.anIssue.bkey
                         }) === -1) { // append to the exisiting list
-                        data.issuedBooks.push(anIssue);
+                        data.issuedBooks.push(this.anIssue);
                         let newData = {};
                         newData[data.key] = {
                             issued: data.issuedBooks,
@@ -34,7 +36,7 @@ class Issue extends Component {
                         Axios.patch('issues.json', newData)
                             .then((response) => {
                                 if (book) {
-                                    this.booksAdded.push(book);
+                                    this.booksAdded.push(this.anIssue);
                                     if (books.length > 0) this.issueBook_s(null, books);
                                     else {
                                         this.popSuccessMultiple();
@@ -47,8 +49,8 @@ class Issue extends Component {
                     else { // extend issue date (Reissue)
                         if (this.props.reissue) {
                             let newIssued = data.issuedBooks.map(issue => {
-                                if (issue.bkey === anIssue.bkey) {
-                                    issue.rdate = anIssue.rdate;
+                                if (issue.bkey === this.anIssue.bkey) {
+                                    issue.rdate = this.anIssue.rdate;
                                 }
                                 return issue;
                             })
@@ -78,11 +80,11 @@ class Issue extends Component {
                 else { //create issues object for user
                     Axios.post('issues.json', {
                         ukey: this.props.user.key,
-                        issued: [anIssue]
+                        issued: [this.anIssue]
                     })
                         .then((response) => {
                             if (book) {
-                                this.booksAdded.push(book);
+                                this.booksAdded.push(this.anIssue);
                                 if (books.length > 0) this.issueBook_s(null, books);
                                 else {
                                     this.popSuccessMultiple();
@@ -101,6 +103,7 @@ class Issue extends Component {
         });
         this.props.reload && this.props.reload();
         this.props.ToggleIssueModal();
+        booksExtensive.updateFame([this.anIssue]);
     }
     popSuccessMultiple = () => {
         Modal.success({
@@ -118,6 +121,8 @@ class Issue extends Component {
         })
         this.props.ToggleIssueModal();
         this.props.reload && this.props.reload();
+        if(this.booksAdded.length > 0)
+        booksExtensive.updateFame(this.booksAdded);
         this.booksAdded = [];
         this.booksFailed = [];
         this.booksReissued = [];
