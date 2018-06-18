@@ -15,7 +15,20 @@ const booksExtensive = {
                     }
                 })
                 EditBooks(issuedBooks);
+    },
+    getMaxFame: () => {
+        let books = store.getState().bookReducer.allBooks;
+        if(books.length > 0) {
+        let max_issued = books[0].times_issued;
+        books.forEach(element => {
+            if(element.times_issued > max_issued)
+            max_issued = element.times_issued;
+        });
+        return max_issued;
+        }
+        else return 1;
     }
+
 };
 
 const EditBooks = (books) => {

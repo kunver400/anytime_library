@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, message } from 'antd';
+import { Table, Button, message, Icon } from 'antd';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -11,6 +11,7 @@ import Delete from '../Delete/Delete';
 import AddBook from '../AddBook/AddBook';
 import EditBook from '../EditBook/EditBook';
 import common from '../../utils/common';
+import booksExtensive from '../../utils/booksExtensive';
 import classes from './IndexedCollection.css';
 
 const columns = [{
@@ -26,34 +27,45 @@ const columns = [{
     key: 1,
     width: '25%'
 },
-window.innerWidth > 992 ? {
-    title: 'Date Added',
-    dataIndex: 'date_added',
-    sorter: (a, b) => {
-        let adate = new Date(a.date_string), bdate = new Date(b.date_string);
-        return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
-    },
-    render: date_string => common.formatDate(date_string),
-    //width: '12.5%',
-    key: 3
-} : {},
-window.innerWidth > 992 ? {
-    title: 'Available units',
-    dataIndex: 'availablity',
-    sorter: (a, b) => a.availablity - b.availablity,
-    //width: '12.5%',
-    key: 4
-} : {},
 {
     title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
-    width: '10%',
-    key: 5
+    width: window.innerWidth > 992?'10%':'30%',
+    key: 5,
+    render: val => {
+        let stars =  [];
+        let max_issued = booksExtensive.getMaxFame();
+        let nostars = Math.floor((val/max_issued) *5);
+        for (let i=0;i<nostars;i++) {
+            stars.push(<Icon type="star" key={i}/>);
+        }
+        for (let i=0;i<5-nostars;i++) {
+            stars.push(<Icon type="star-o" key={'spacer'+i}/>);
+        }
+        return stars;
+    }
 }
 ];
 
-
+if(window.innerWidth > 992) {
+    columns.splice(2,0,{
+            title: 'Date Added',
+            dataIndex: 'date_added',
+            sorter: (a, b) => {
+                let adate = new Date(a.date_string), bdate = new Date(b.date_string);
+                return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
+            },
+            render: date_string => common.formatDate(date_string),
+            key: 3
+        });
+    columns.splice(2,0,{
+            title: 'Available units',
+            dataIndex: 'availablity',
+            sorter: (a, b) => a.availablity - b.availablity,
+            key: 4
+        });
+}
 
 class IndexedCollection extends Component {
     state = {
@@ -63,19 +75,19 @@ class IndexedCollection extends Component {
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
-            if (this.props.allBooks.length === 0 || params.force) {
-                this.selectedBooks = [];
-                this.setState({ loading: true });
-                Axios.get('/books.json')
-                    .then(response => {
-                        let formattedResponse = common.formatBooks(response.data);
-                        this.props.SetBooks(formattedResponse);
-                        this.setState({loading: false});
-                    })
-                    .catch(response => {
-                        console.log('something went wrong.');
-                    });
-            }
+        if (this.props.allBooks.length === 0 || params.force) {
+            this.selectedBooks = [];
+            this.setState({ loading: true });
+            Axios.get('/books.json')
+                .then(response => {
+                    let formattedResponse = common.formatBooks(response.data);
+                    this.props.SetBooks(formattedResponse);
+                    this.setState({ loading: false });
+                })
+                .catch(response => {
+                    console.log('something went wrong.');
+                });
+        }
     };
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -122,7 +134,7 @@ class IndexedCollection extends Component {
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks) }}>Issue</Button>
                 <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
                 <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks) }}>Delete Entries</Button>
-                <Issue {...this.props} reissue={false}/>
+                <Issue {...this.props} reissue={false} />
                 <Delete {...this.props} reloadTable={this.fetchBooks} />
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
                 <EditBook book={this.props.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={this.fetchBooks} />
