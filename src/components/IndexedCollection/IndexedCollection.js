@@ -31,7 +31,7 @@ const columns = [{
     title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
-    width: window.innerWidth > 992?'10%':'30%',
+    width: window.innerWidth > 992?'12%':'30%',
     key: 5,
     render: val => {
         let stars =  [];
