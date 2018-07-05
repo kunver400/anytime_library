@@ -19,15 +19,7 @@ class HeaderWrapper extends Component {
                     style={{ lineHeight: '64px' }}
                 >
                     <Menu.Item key="1"><Link to="/"><Icon type="home" />Home</Link></Menu.Item>
-                    <SubMenu className={classes.menuitem_display} title={<span><Icon type="search" />Search</span>}>
-                        <Menu.Item key="search:1">Book search</Menu.Item>
-                        <Menu.Item key="search:2">Asset search</Menu.Item>
-                    </SubMenu>
-                    {/* {
-                    this.props.user ?
-                    [<Menu.Item className={classes.menuitem_display} key="2"><Icon type="book" />Issue</Menu.Item>,
-                    <Menu.Item className={classes.menuitem_display} key="3"><Icon type="layout" />Return</Menu.Item>]:null
-                    } */}
+                    <Menu.Item key="2"><span><Icon type="search" />Search</span></Menu.Item>
                     <SubMenu className={classes.menuitem_right} title={<Icon type="idcard" />}>
                         
                             {this.props.user ?

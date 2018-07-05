@@ -15,12 +15,6 @@
     padding: 5px;
     float: left;
 }
-.menuitem_display {
-    display: unset;
-    @media screen and (max-width: 992px) {
-    display: none!important;
-      }
-}
 .header {
     padding: 0px 36px !important;
     z-index: 3;
