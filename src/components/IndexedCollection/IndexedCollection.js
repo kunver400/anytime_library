@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button, message, Icon } from 'antd';
 import Axios from 'axios';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import BOOK_ACTIONS from '../../redux/actions/book_actions';
 import Auxi from '../../hoc/Auxi/Auxi';
@@ -31,47 +32,48 @@ const columns = [{
     title: 'Fame',
     dataIndex: 'times_issued',
     sorter: (a, b) => a.times_issued - b.times_issued,
-    width: window.innerWidth > 992?'12%':'30%',
+    width: window.innerWidth > 992 ? '12%' : '30%',
     key: 5,
     render: val => {
-        let stars =  [];
+        let stars = [];
         let max_issued = booksExtensive.getMaxFame();
-        let nostars = Math.floor((val/max_issued) *5);
-        for (let i=0;i<nostars;i++) {
-            stars.push(<Icon type="star" key={i}/>);
+        let nostars = Math.floor((val / max_issued) * 5);
+        for (let i = 0; i < nostars; i++) {
+            stars.push(<Icon type="star" key={i} />);
         }
-        for (let i=0;i<5-nostars;i++) {
-            stars.push(<Icon type="star-o" key={'spacer'+i}/>);
+        for (let i = 0; i < 5 - nostars; i++) {
+            stars.push(<Icon type="star-o" key={'spacer' + i} />);
         }
         return stars;
     }
 }
 ];
 
-if(window.innerWidth > 992) {
-    columns.splice(2,0,{
-            title: 'Date Added',
-            dataIndex: 'date_added',
-            sorter: (a, b) => {
-                let adate = new Date(a.date_string), bdate = new Date(b.date_string);
-                return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
-            },
-            render: date_string => common.formatDate(date_string),
-            key: 3
-        });
-    columns.splice(2,0,{
-            title: 'Available units',
-            dataIndex: 'availablity',
-            sorter: (a, b) => a.availablity - b.availablity,
-            key: 4
-        });
+if (window.innerWidth > 992) {
+    columns.splice(2, 0, {
+        title: 'Date Added',
+        dataIndex: 'date_added',
+        sorter: (a, b) => {
+            let adate = new Date(a.date_string), bdate = new Date(b.date_string);
+            return (adate < bdate ? 1 : (adate === bdate ? 0 : -1));
+        },
+        render: date_string => common.formatDate(date_string),
+        key: 3
+    });
+    columns.splice(2, 0, {
+        title: 'Available units',
+        dataIndex: 'availablity',
+        sorter: (a, b) => a.availablity - b.availablity,
+        key: 4
+    });
 }
 
 class IndexedCollection extends Component {
     state = {
         loading: false,
         addBookModalVisisble: false,
-        editBookModalVisisble: false
+        editBookModalVisisble: false,
+        data: null
     };
     selectedBooks = [];
     fetchBooks = (params = {}) => {
@@ -82,11 +84,19 @@ class IndexedCollection extends Component {
                 .then(response => {
                     let formattedResponse = common.formatBooks(response.data);
                     this.props.SetBooks(formattedResponse);
-                    this.setState({ loading: false });
+                    this.setState({
+                        loading: false,
+                        data: this.props.allBooks
+                    });
                 })
                 .catch(response => {
                     console.log('something went wrong.');
                 });
+        }
+        else {
+            this.setState({
+                data: this.props.allBooks
+            });
         }
     };
     rowSelection = {
@@ -103,7 +113,11 @@ class IndexedCollection extends Component {
     };
     componentDidMount() {
         this.fetchBooks();
+        this.filterResults(this.props.match.params.search)
     };
+    componentWillReceiveProps(newProps) {
+        this.filterResults(newProps.match.params.search)
+    }
     ToggleAddBookModal = () => {
         this.setState({ addBookModalVisisble: !this.state.addBookModalVisisble });
     }
@@ -117,12 +131,28 @@ class IndexedCollection extends Component {
         }
         else return true;
     }
+    filterResults = (searchText, column = ['title', 'author']) => {
+        const reg = new RegExp(searchText, 'gi');
+        this.setState({
+            data: this.props.allBooks.map((record) => {
+                let match = false;
+                column.forEach(col => {
+                    if (!match)
+                        match = record[col].match(reg)
+                })
+                if (!match) {
+                    return null;
+                }
+                return record;
+            }).filter(record => !!record),
+        });
+    }
     render() {
         return (
             <Auxi>
                 <BookCard book={this.props.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
                 <Table columns={columns}
-                    dataSource={this.props.allBooks}
+                    dataSource={this.state.data}
                     loading={this.state.loading}
                     rowSelection={this.rowSelection}
                     onRow={(record) => {
@@ -163,4 +193,4 @@ const mapDispatchToProps = dispatch => {
         ToggleDeleteModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_DELETE_MODAL })
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(IndexedCollection);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(IndexedCollection));

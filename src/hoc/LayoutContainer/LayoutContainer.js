@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, withRouter } from 'react-router-dom';
 import { Layout } from 'antd';
 import { connect } from 'react-redux';
 
@@ -12,6 +12,7 @@ import FooterWrapper from '../FooterWrapper/FooterWrapper';
 import MainContainer from '../MainContainer/MainContainer'
 import classes from './LayoutContainer.css';
 
+const HeaderWrapperRouted = withRouter(HeaderWrapper);
 
 
 class LayoutContainer extends Component {
@@ -34,7 +35,7 @@ class LayoutContainer extends Component {
     return (
       <BrowserRouter>
         <Layout className={classes.top_layout}>
-          <HeaderWrapper login={this.toggleLogin} user={this.props.user} logout={this.logoutUser} />
+          <HeaderWrapperRouted login={this.toggleLogin} user={this.props.user} logout={this.logoutUser} />
 
           <Layout>
             <SiderWrapper collapsed={this.props.collapsed} user={this.props.user} />

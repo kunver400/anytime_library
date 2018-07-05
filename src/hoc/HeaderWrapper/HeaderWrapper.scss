@@ -2,9 +2,18 @@
 .menuitem_right {
     float: right !important;
 }
+.menuitem_nopadding {
+    padding: 0px!important;
+}
 .light_item_group {
     color: $text_main;
     background-color: $modal_bg;
+}
+.search_input {
+    input {
+    background-color: #49555d!important;
+    color: white;
+    }
 }
 .logo {
     width: 42px;
