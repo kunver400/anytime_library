@@ -88,6 +88,7 @@ class IndexedCollection extends Component {
                         loading: false,
                         data: this.props.allBooks
                     });
+                    this.filterResults(this.props.match.params.search)
                 })
                 .catch(response => {
                     console.log('something went wrong.');
@@ -97,6 +98,7 @@ class IndexedCollection extends Component {
             this.setState({
                 data: this.props.allBooks
             });
+            this.filterResults(this.props.match.params.search)
         }
     };
     rowSelection = {
@@ -113,7 +115,6 @@ class IndexedCollection extends Component {
     };
     componentDidMount() {
         this.fetchBooks();
-        this.filterResults(this.props.match.params.search)
     };
     componentWillReceiveProps(newProps) {
         this.filterResults(newProps.match.params.search)

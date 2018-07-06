@@ -11,8 +11,8 @@
 }
 .search_input {
     input {
-    background-color: #49555d!important;
-    color: white;
+    background-color: lighten($modal_bg,10%)!important;
+    color: $text_main;
     }
 }
 .logo {
