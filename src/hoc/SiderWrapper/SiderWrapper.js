@@ -41,11 +41,11 @@ class SiderWrapper extends Component {
 
                     <SubMenu key="sub1" title={<span><Icon type="database" />All Books</span>}>
                         <Menu.Item key="1">Top Rated</Menu.Item>
-                        <Menu.Item key="2">Fresh arrivals</Menu.Item>
-                        <Menu.Item key="4"><Link to='/indexofbooks'>Indexed collection</Link></Menu.Item>
+                        <Menu.Item key="2"><Link to='/fresharrivals'>Fresh Arrivals</Link></Menu.Item>
+                        <Menu.Item key="4"><Link to='/indexofbooks'>Indexed Collection</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" title={<span><Icon type="barcode" />My Books</span>}>
-                        <Menu.Item key="5">Active subscriptions</Menu.Item>
+                        <Menu.Item key="5">Subscribed Authors</Menu.Item>
                         <Menu.Item key="6"><Link to='/issuedBooks'>Issued Books</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub3" title={<span><Icon type="team" />Social</span>}>
