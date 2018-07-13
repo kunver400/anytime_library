@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'antd';
+import Subscribe from '../../Subscribe/Subscribe';
 import classes from './BookCard.css';
 import altimg from '../../../assets/books.jpg';
 
@@ -16,6 +17,9 @@ const BookCard = (props) => {
                 <li>
                 <label><b>Author:</b> {props.book.author}</label>
                 </li>
+                {props.user?<li style={{listStyleType:'none',paddingBottom:'0',paddingTop:'0'}}>
+                <Subscribe book={props.book} user={props.user}/>
+                </li>:null}
                 <li className={classes.desc}>
                 <label><b>About the book:</b> {props.book.desc}</label>
                 </li>
