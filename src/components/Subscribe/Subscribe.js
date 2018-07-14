@@ -17,7 +17,7 @@ class Subscribe extends Component {
                 })
     }
     componentDidUpdate(prevProps) {
-        if(prevProps.book.title !== this.props.book.title) {
+        if(prevProps.book.author !== this.props.book.author) {
             this.updateSubbed();
         }
     }

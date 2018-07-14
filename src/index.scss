@@ -92,3 +92,14 @@ body {
   height: 100%;
   min-height: 800px;
 }
+.ant-list {
+  color: $text_main;
+.ant-list-item {
+  border-bottom: none !important;
+}
+}
+.ant-list-item-meta-title {
+  a {
+    color: $text_main;
+  }
+}

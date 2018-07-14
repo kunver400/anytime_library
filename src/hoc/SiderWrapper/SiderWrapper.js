@@ -45,7 +45,7 @@ class SiderWrapper extends Component {
                         <Menu.Item key="4"><Link to='/indexofbooks'>Indexed Collection</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" title={<span><Icon type="barcode" />My Books</span>}>
-                        <Menu.Item key="5">Subscribed Authors</Menu.Item>
+                        <Menu.Item key="5"><Link to='/subscriptions'>Subscribed Authors</Link></Menu.Item>
                         <Menu.Item key="6"><Link to='/issuedBooks'>Issued Books</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub3" title={<span><Icon type="team" />Social</span>}>

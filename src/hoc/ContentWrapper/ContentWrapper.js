@@ -19,7 +19,9 @@ const AsyncIssuedBooks = AsyncLoader(() => {
 const AsyncSignUp = AsyncLoader(() => {
     return import('../../components/SignUp/SignUp');
 })
-
+const AsyncSubscribedAuthors = AsyncLoader(()=>{
+    return import('../../components/SubscribedAuthors/SubscribedAuthors');
+})
 class ContentWrapper extends Component {
     render() {
         return (
@@ -40,6 +42,11 @@ class ContentWrapper extends Component {
                         <Breadcrumb.Item><span>My Books</span></Breadcrumb.Item>
                         <Breadcrumb.Item><span>Issued Books</span></Breadcrumb.Item></Breadcrumb>
                     } />
+                    <Route path="/subscriptions" render={() => <Breadcrumb>
+                        <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
+                        <Breadcrumb.Item><span>My Books</span></Breadcrumb.Item>
+                        <Breadcrumb.Item><span>Subscribed Authors</span></Breadcrumb.Item></Breadcrumb>
+                    } />
                     <Route path="/fresharrivals" render={() => <Breadcrumb>
                         <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
                         <Breadcrumb.Item><span>All Books</span></Breadcrumb.Item>
@@ -56,6 +63,7 @@ class ContentWrapper extends Component {
                     <Route path="/indexofbooks/:search" render={() => <AsyncIndexedCollection user={this.props.user} />} />
                     <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection user={this.props.user} />} />
                     <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
+                    <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors user={this.props.user} />} />
                     <Route path="/fresharrivals" exact render={() => <FreshArrivals user={this.props.user} />} />
                     <Route path="/" exact render={() => <Landing user={this.props.user} />} />
                     <Route component={NotFound} />
