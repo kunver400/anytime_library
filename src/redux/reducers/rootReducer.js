@@ -7,6 +7,7 @@ import bookReducer from './bookReducer';
 const initState = {
     collapsed: window.innerWidth < 992,
     loginVisible: false,
+    spinning: false,
     user: {
         "email": "usdi@ss.com",
         "isAdmin": true,
@@ -46,6 +47,11 @@ const rootReducer = (state = initState, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case ROOT_ACTIONS.TOGGLE_SPINNY:
+            return {
+                ...state,
+                spinning: !state.spinning
             }
         default: {
             return state

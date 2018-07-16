@@ -39,7 +39,7 @@ class LayoutContainer extends Component {
 
           <Layout>
             <SiderWrapper collapsed={this.props.collapsed} user={this.props.user} />
-            <MainContainer toggleSider={this.toggleSider} siderState={this.props.collapsed} user={this.props.user} />
+            <MainContainer toggleSider={this.toggleSider} siderState={this.props.collapsed} user={this.props.user} spinnyVisible={this.props.spinning}/>
           </Layout>
 
           <FooterWrapper />
@@ -54,7 +54,8 @@ const mapStateToProps = state => {
   return {
     loginVisible: state.rootReducer.loginVisible,
     user: state.rootReducer.user,
-    collapsed: state.rootReducer.collapsed
+    collapsed: state.rootReducer.collapsed,
+    spinning: state.rootReducer.spinning
   }
 }
 const mapDispatchToProps = dispatch => {

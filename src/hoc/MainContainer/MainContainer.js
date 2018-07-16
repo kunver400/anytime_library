@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Icon} from 'antd';
 import Backdrop from '../Backdrop/Backdrop';
+import Spinner from '../Spinner/Spinner';
 import ContentWrapper from '../ContentWrapper/ContentWrapper';
 
 import classes from './MainContainer.css';
@@ -16,7 +17,8 @@ class MainContainer extends Component {
     render() {
         return (
             <Layout>
-            <Backdrop visible={this.state.backdrop} callback={this.siderController}/>            
+            <Backdrop visible={this.state.backdrop} callback={this.siderController}/>
+            <Spinner visible={this.props.spinnyVisible}/>             
                 <Icon
                     className={classes.trigger}
                     type={this.props.siderState?'right-square' : 'menu-fold'}

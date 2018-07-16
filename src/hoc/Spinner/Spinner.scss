@@ -1,0 +1,19 @@
+@import '_colors.scss';
+.Spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%!important;
+    height: 100%!important;
+    min-height: 800px;
+    background: darken($backd,20%);
+    z-index: 1001;
+    text-align: center;
+    border-radius: 4px;
+}
+.Spin {
+    margin-top: 17%!important;
+    border-radius: 8px!important;
+    padding: 12px!important;
+    background-color: rgba($modal_bg,0.87);
+}
