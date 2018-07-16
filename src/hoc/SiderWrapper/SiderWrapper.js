@@ -49,8 +49,8 @@ class SiderWrapper extends Component {
                         <Menu.Item key="6"><Link to='/issuedBooks'>Issued Books</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub3" title={<span><Icon type="team" />Social</span>}>
-                        <Menu.Item key="9">Chatrooms</Menu.Item>
-                        <Menu.Item key="11">Recommend a Book</Menu.Item>
+                        <Menu.Item key="9"><span style={{textDecoration:'line-through'}}>Chatrooms</span></Menu.Item>
+                        <Menu.Item key="11"><span style={{textDecoration:'line-through'}}>Recommend a Book</span></Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>

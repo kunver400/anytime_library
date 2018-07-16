@@ -117,6 +117,7 @@ class IndexedCollection extends Component {
         this.fetchBooks();
     };
     componentWillReceiveProps(newProps) {
+        if(newProps.match.params.search !== this.props.match.params.search)
         this.filterResults(newProps.match.params.search)
     }
     ToggleAddBookModal = () => {
@@ -146,6 +147,8 @@ class IndexedCollection extends Component {
                 }
                 return record;
             }).filter(record => !!record),
+        },()=>{
+            this.props.SetCurrentBook(this.state.data[0]);
         });
     }
     render() {
