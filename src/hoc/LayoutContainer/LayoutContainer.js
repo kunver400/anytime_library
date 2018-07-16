@@ -13,6 +13,7 @@ import MainContainer from '../MainContainer/MainContainer'
 import classes from './LayoutContainer.css';
 
 const HeaderWrapperRouted = withRouter(HeaderWrapper);
+const LoginRouted = withRouter(Login);
 
 
 class LayoutContainer extends Component {
@@ -43,7 +44,7 @@ class LayoutContainer extends Component {
           </Layout>
 
           <FooterWrapper />
-          <Login visible={this.props.loginVisible} toggle={this.toggleLogin} setUser={this.setUser} />
+          <LoginRouted visible={this.props.loginVisible} toggle={this.toggleLogin} setUser={this.setUser} />
         </Layout>
       </BrowserRouter>
     );

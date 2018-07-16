@@ -7,6 +7,10 @@ import classes from './LoginForm.css';
 const FormItem = Form.Item;
 
 class LoginForm extends React.Component {
+  setUserAndRedirect = (user) => {
+    this.props.setUser(user);
+    this.props.history.push('/');
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -14,7 +18,7 @@ class LoginForm extends React.Component {
         this.validateUser(values.nickname, values.password)
           .then(response => {
             if (response.user) {
-              this.props.setUser(response.user);
+              this.setUserAndRedirect(response.user);
               this.props.toggleModal(false);
             }
           })
@@ -46,7 +50,7 @@ class LoginForm extends React.Component {
     this.validateUser(response.profileObj.givenName, response.profileObj.googleId)
       .then(data => {
         if (data.user) {
-          this.props.setUser(data.user);
+          this.setUserAndRedirect(data.user);
           this.props.toggleModal(false);
         }
         else {
@@ -61,7 +65,7 @@ class LoginForm extends React.Component {
           };
           Axios.post('user.json', user)
             .then(response => {
-              this.props.setUser(user);
+              this.setUserAndRedirect(user);
               this.props.toggleModal(false);
             })
             .catch(error => {

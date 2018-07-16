@@ -14,7 +14,7 @@ class Login extends Component {
                 footer={null}
                 className={classes.login_modal}
             >
-            <LoginForm toggleModal={this.props.toggle} setUser={this.props.setUser}/>
+            <LoginForm toggleModal={this.props.toggle} {...this.props}/>
             </Modal>
         )
     }
