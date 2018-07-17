@@ -70,7 +70,6 @@ if (window.innerWidth > 992) {
 
 class IndexedCollection extends Component {
     state = {
-        loading: false,
         addBookModalVisisble: false,
         editBookModalVisisble: false,
         data: null
@@ -79,13 +78,11 @@ class IndexedCollection extends Component {
     fetchBooks = (params = {}) => {
         if (this.props.allBooks.length === 0 || params.force) {
             this.selectedBooks = [];
-            this.setState({ loading: true });
             Axios.get('/books.json')
                 .then(response => {
                     let formattedResponse = common.formatBooks(response.data);
                     this.props.SetBooks(formattedResponse);
                     this.setState({
-                        loading: false,
                         data: this.props.allBooks
                     });
                     this.filterResults(this.props.match.params.search)
@@ -157,7 +154,6 @@ class IndexedCollection extends Component {
                 <BookCard book={this.props.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
                 <Table columns={columns}
                     dataSource={this.state.data}
-                    loading={this.state.loading}
                     rowSelection={this.rowSelection}
                     onRow={(record) => {
                         return { onClick: () => this.onRowClick(record) };

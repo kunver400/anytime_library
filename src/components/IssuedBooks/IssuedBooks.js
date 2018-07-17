@@ -45,7 +45,6 @@ const columns = [{
 
 class IssuedBooks extends Component {
     state = {
-        loading: false,
         issuedBooks: [],
     };
     selectedBooks = [];
@@ -67,7 +66,6 @@ class IssuedBooks extends Component {
         })
     };
     fetchIssuedBooks = () => {
-        this.setState({ loading: true });
         this.fetchBooks()
             .then((response) => {
                 usermeta.getIssuedBooks()
@@ -87,7 +85,7 @@ class IssuedBooks extends Component {
                                 };
                             })
                         }
-                        this.setState({ issuedBooks: issuedBooks, loading: false });
+                        this.setState({ issuedBooks: issuedBooks });
                     })
             })
     }
@@ -115,7 +113,6 @@ class IssuedBooks extends Component {
             <Auxi>
                 <Table columns={columns}
                     dataSource={this.state.issuedBooks}
-                    loading={this.state.loading}
                     rowSelection={this.rowSelection}
                     size='middle'
                     pagination={false}
