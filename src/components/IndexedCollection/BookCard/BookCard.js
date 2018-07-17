@@ -24,7 +24,7 @@ const BookCard = (props) => {
                 <label><b>About the book:</b> {props.book.desc}</label>
                 </li>
                 <li style={{listStyleType:'none'}}>
-                <Button size='large' className={classes.card_button} disabled = {!props.user} onClick={()=>{props.bookIssueModal(props.book)}}>Issue this book</Button>
+                <Button size='large' className={classes.card_button} disabled = {!props.user} onClick={()=>{props.bookIssueModal()}}>Issue this book</Button>
                 <Button size='large' className={classes.card_button} style={{marginLeft: '15px'}} disabled={!props.user || !props.user.isAdmin} onClick={props.toogleEditModal}>Edit Entry</Button>
                 </li>
                 </ul>

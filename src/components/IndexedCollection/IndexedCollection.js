@@ -186,7 +186,7 @@ const mapDispatchToProps = dispatch => {
     return {
         SetBooks: (allbooks) => dispatch({ type: BOOK_ACTIONS.SET_BOOKS, books: allbooks }),
         SetCurrentBook: (book) => dispatch({ type: BOOK_ACTIONS.SET_CURRENT_BOOK, book: book }),
-        bookIssueModal: (book) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK }),
+        bookIssueModal: () => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOK }),
         booksIssueModal: (books) => dispatch({ type: BOOK_ACTIONS.ISSUE_BOOKS, books: books }),
         booksDeleteModal: (books) => dispatch({ type: BOOK_ACTIONS.DELETE_BOOKS, books: books }),
         ToggleIssueModal: () => dispatch({ type: BOOK_ACTIONS.TOGGLE_ISSUE_MODAL }),
