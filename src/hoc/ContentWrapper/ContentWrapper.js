@@ -52,7 +52,7 @@ class ContentWrapper extends Component {
                         <Breadcrumb.Item><span>My Books</span></Breadcrumb.Item>
                         <Breadcrumb.Item><span>Subscribed Authors</span></Breadcrumb.Item></Breadcrumb>
                     } />
-                    <Route path="/fresharrivals" render={() => <Breadcrumb>
+                    <Route path="/tiledisplay" render={() => <Breadcrumb>
                         <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
                         <Breadcrumb.Item><span>All Books</span></Breadcrumb.Item>
                         <Breadcrumb.Item><span>Fresh Arrivals</span></Breadcrumb.Item>
@@ -69,7 +69,7 @@ class ContentWrapper extends Component {
                     <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection user={this.props.user} />} />
                     <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
                     <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors user={this.props.user} />} />
-                    <Route path="/fresharrivals" exact render={() => <AsyncFreshArrivals user={this.props.user} />} />
+                    <Route path="/tiledisplay/:sorter" exact render={() => <AsyncFreshArrivals user={this.props.user} />} />
                     <Route path="/" exact render={() => <Landing user={this.props.user} />} />
                     <Route component={NotFound} />
                 </Switch>

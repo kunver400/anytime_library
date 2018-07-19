@@ -12,6 +12,7 @@ import altimg from '../../assets/books.jpg';
 import classes from './FreshArrivals.css'
 import './FreshArrivals.raw.css?raw';
 const { Meta } = Card;
+const MAX_ENTRIES = 12;
 class FreshArrivals extends Component {
     state = {
         books: []
@@ -40,12 +41,20 @@ class FreshArrivals extends Component {
         this.props.SetCurrentBook(book);
         this.props.bookIssueModal();
     }
-    componentDidMount() {
+    setBooks = () => {
         this.fetchBooks()
-            .then((data) => {
-                let books = common.getLatestBooks(data);
-                this.setState({ books: books });
-            })
+        .then((data) => {
+            let books = common.getSortedBooks(data,this.props.match.params.sorter);
+            books = books.splice(0,MAX_ENTRIES);
+            this.setState({ books: books });
+        })
+    }
+    componentDidMount() {
+        this.setBooks();
+    }
+    componentWillReceiveProps(newProps) {
+        if(newProps.match.params.sorter !== this.props.match.params.sorter)
+        this.setBooks();
     }
     render() {
         let bookCards = this.state.books.map((item, index) => {

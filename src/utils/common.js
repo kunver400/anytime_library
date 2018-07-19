@@ -12,8 +12,18 @@ const common = {
         }
         return books;
     },
-    getLatestBooks: (books) => {
-        return books
+    getSortedBooks: (books,sorter) => {
+        let sortedBoooks = [...books];
+        for(let i = 0;i<sortedBoooks.length;i++) {
+            for(let j=i;j<sortedBoooks.length;j++) {
+                if(sortedBoooks[i][sorter]<sortedBoooks[j][sorter]) {
+                    let temp = sortedBoooks[i];
+                    sortedBoooks[i] = sortedBoooks[j];
+                    sortedBoooks[j] = temp;
+                }
+            }
+        }
+        return sortedBoooks
     },
     formatDate: (date_string) => {
         let date = new moment(date_string);

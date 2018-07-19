@@ -40,8 +40,8 @@ class SiderWrapper extends Component {
                 >
 
                     <SubMenu key="sub1" title={<span><Icon type="database" />All Books</span>}>
-                        <Menu.Item key="1">Top Rated</Menu.Item>
-                        <Menu.Item key="2"><Link to='/fresharrivals'>Fresh Arrivals</Link></Menu.Item>
+                        <Menu.Item key="1"><Link to='/tiledisplay/times_issued'>Most Issued</Link></Menu.Item>
+                        <Menu.Item key="2"><Link to='/tiledisplay/date_added'>Fresh Arrivals</Link></Menu.Item>
                         <Menu.Item key="4"><Link to='/indexofbooks'>Indexed Collection</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub2" title={<span><Icon type="barcode" />My Books</span>}>
