@@ -3,7 +3,7 @@ import { Layout, Breadcrumb, Icon } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 
 import Landing from '../../components/Landing/Landing';
-import FreshArrivals from '../../components/FreshArrivals/FreshArrivals';
+//import FreshArrivals from '../../components/FreshArrivals/FreshArrivals';
 import NotFound from '../../components/NotFound/NotFound';
 
 import AsyncLoader from '../AsyncLoader/AsyncLoader';
@@ -22,6 +22,11 @@ const AsyncSignUp = AsyncLoader(() => {
 const AsyncSubscribedAuthors = AsyncLoader(()=>{
     return import('../../components/SubscribedAuthors/SubscribedAuthors');
 })
+
+const AsyncFreshArrivals = AsyncLoader(()=>{
+    return import('../../components/FreshArrivals/FreshArrivals');
+})
+
 class ContentWrapper extends Component {
     render() {
         return (
@@ -64,7 +69,7 @@ class ContentWrapper extends Component {
                     <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection user={this.props.user} />} />
                     <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
                     <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors user={this.props.user} />} />
-                    <Route path="/fresharrivals" exact render={() => <FreshArrivals user={this.props.user} />} />
+                    <Route path="/fresharrivals" exact render={() => <AsyncFreshArrivals user={this.props.user} />} />
                     <Route path="/" exact render={() => <Landing user={this.props.user} />} />
                     <Route component={NotFound} />
                 </Switch>

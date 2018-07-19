@@ -145,6 +145,7 @@ class IndexedCollection extends Component {
                 return record;
             }).filter(record => !!record),
         },()=>{
+            if(this.props.match.params.search)
             this.props.SetCurrentBook(this.state.data[0]);
         });
     }

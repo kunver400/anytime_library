@@ -1,45 +1,15 @@
 @import '_colors.scss';
-.FreshArrivals_splash {
-    margin-top: 0px;
-    width: 100%;
-    border-radius: 4px;
-    height: 370px;
-    background-image: url(../../assets/bg-gallery-2.png);
-    background-size: cover;
-    position: relative;
-    &:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-image: linear-gradient(to bottom right,$bg_main,$trigger);
-        opacity: .6; 
-      }
-    .splash_head {
-        color: $text_main;
-        text-shadow:  2px 2px black;
-        font-size: 32px;
-        position: relative;
-        text-align: center;
-        margin-bottom: 0px;
+.cards {
+    margin-bottom: 45px!important;
+    width: 225px;
+    @media screen and (max-width: 1100px) {
+        width: 180px;
     }
-    .splash_subhead {
-        font-size: 16px;
-    }
-    .splash_welcome {
-        font-size: 14px;
-        position: relative;
-        text-align: left;
-        padding: 14px;
-        margin-bottom: 32px;
-    }
-
 }
-.logo {
-    width: 170px;
-    position: relative;
-    display: block;
-    margin: auto;
+.FreshArrivals {
+    margin-top: 45px;
+    background: white;
+    @media screen and (max-width: 992px) and ( min-width: 450px) {
+        padding-left: 45px;
+    }
 }

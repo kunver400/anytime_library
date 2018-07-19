@@ -1,0 +1,19 @@
+@import '_colors.scss';
+.ant-card-cover {
+    img {
+      height: 320px!important;
+      @media screen and (max-width: 1100px) {
+        height: 280px!important;
+    }
+    }
+  }
+  .ant-card {
+    background: $text_main;
+  }
+  .ant-card-actions {
+    background-color: lighten($titem_sel,60);
+    li{
+      margin-top: 7px;
+      margin-bottom: 7px;
+    }
+  }

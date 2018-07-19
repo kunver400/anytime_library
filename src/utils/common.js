@@ -12,12 +12,15 @@ const common = {
         }
         return books;
     },
+    getLatestBooks: (books) => {
+        return books
+    },
     formatDate: (date_string) => {
         let date = new moment(date_string);
         return date.format("MMM Do YY");
     },
     toggleSpinny: () => {
-        store.dispatch({ type: ROOT_ACTIONS.TOGGLE_SPINNY});
+        store.dispatch({ type: ROOT_ACTIONS.TOGGLE_SPINNY });
     }
 }
 
