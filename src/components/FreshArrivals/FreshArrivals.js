@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Icon } from 'antd';
+import { Card, Col, Icon, Tooltip } from 'antd';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -32,9 +32,13 @@ class FreshArrivals extends Component {
             else resolve(this.props.allBooks);
         })
     };
-    handleCardClick = (book) => {
+    handleTitleClick = (book) => {
         this.props.SetCurrentBook(book);
         this.props.history.push('/indexofbooks');
+    }
+    handleIssue = (book) => {
+        this.props.SetCurrentBook(book);
+        this.props.bookIssueModal();
     }
     componentDidMount() {
         this.fetchBooks()
@@ -48,15 +52,14 @@ class FreshArrivals extends Component {
             return (
                 <Col md={6} xs={12} sm={8} key={index}>
                     <Card
-                        hoverable
-                        cover={<img alt="example" src={item.cover ? item.cover : altimg} />}
+                        cover={<img style={{cursor: 'pointer'}} onClick={()=>this.handleTitleClick(item)} alt="example" src={item.cover ? item.cover : altimg} />}
                         className={classes.cards}
                         bodyStyle={{padding: '12px'}}
-                        onClick={()=>this.handleCardClick(item)}
-                        actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                        actions={[<Tooltip placement="topLeft" title="Issue this Book"><Icon type="tag-o" onClick={()=>this.handleIssue(item)}/></Tooltip>,
+                        <Tooltip placement="topLeft" title="More from the Author"><Icon type="layout" onClick={()=>{this.props.history.push('/indexofbooks/'+item.author)}}/></Tooltip>]}
                     >
                         <Meta
-                            title={item.title}
+                            title={<span style={{cursor: 'pointer'}} onClick={()=>this.handleTitleClick(item)}>{item.title}</span>}
                             description={item.author}
                         />
                     </Card>
@@ -74,7 +77,9 @@ class FreshArrivals extends Component {
 const mapStateToProps = state => {
     return {
         allBooks: state.bookReducer.allBooks,
-        issueVisible: state.bookReducer.issueModalVisible
+        issueVisible: state.bookReducer.issueModalVisible,
+        selectedBook: state.bookReducer.currentBook,
+        selectedBooks: state.bookReducer.currentBooks
     }
 }
 const mapDispatchToProps = dispatch => {
