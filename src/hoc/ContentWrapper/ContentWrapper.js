@@ -52,10 +52,16 @@ class ContentWrapper extends Component {
                         <Breadcrumb.Item><span>My Books</span></Breadcrumb.Item>
                         <Breadcrumb.Item><span>Subscribed Authors</span></Breadcrumb.Item></Breadcrumb>
                     } />
-                    <Route path="/tiledisplay" render={() => <Breadcrumb>
+                    <Route path="/tiledisplay/date_added" render={() => <Breadcrumb>
                         <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
                         <Breadcrumb.Item><span>All Books</span></Breadcrumb.Item>
                         <Breadcrumb.Item><span>Fresh Arrivals</span></Breadcrumb.Item>
+                    </Breadcrumb>
+                    } />
+                    <Route path="/tiledisplay/times_issued" render={() => <Breadcrumb>
+                        <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
+                        <Breadcrumb.Item><span>All Books</span></Breadcrumb.Item>
+                        <Breadcrumb.Item><span>Most Issued</span></Breadcrumb.Item>
                     </Breadcrumb>
                     } />
                     <Route path="/" render={() => <Breadcrumb>
