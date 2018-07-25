@@ -13,6 +13,9 @@ import './index.css?raw';
 Axios.defaults.baseURL = 'https://anytime-lib.firebaseio.com/';
 Axios.interceptors.request.use(function (config) {
     common.toggleSpinny();
+    let user =  store.getState().rootReducer.user;
+    if(user && user.token)
+    config.url = config.url+'?auth='+user.token;
     return config;
   }, function (error) {
     return Promise.reject(error);

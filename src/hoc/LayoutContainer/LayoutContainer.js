@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import { connect } from 'react-redux';
 
 import ROOT_ACTIONS from '../../redux/actions/root_actions';
-
+import firebase from '../../firebase/config';
 import Login from '../../components/Login/Login';
 import HeaderWrapper from '../HeaderWrapper/HeaderWrapper'
 import SiderWrapper from '../SiderWrapper/SiderWrapper';
@@ -31,6 +31,7 @@ class LayoutContainer extends Component {
   }
   logoutUser = () => {
     this.props.userLoggedOut();
+    firebase.auth().signOut();
   }
   render() {
     return (
