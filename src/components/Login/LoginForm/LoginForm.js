@@ -128,13 +128,7 @@ class LoginForm extends React.Component {
           <Button type="primary" htmlType="submit" className={classes.login_form_button}>
             Log in
           </Button>
-          {/* <GoogleLogin className={[classes.login_form_button, classes.login_form_gbutton].join(' ')}
-            clientId="313435702070-h0c4eqgonsdjmi65tn3ghmihgje9lpja.apps.googleusercontent.com"
-            buttonText={<Auxi>Use <Icon type="google" />oogle</Auxi>}
-            onSuccess={this.handleGoogleUser}
-            onFailure={(r) => { console.log(r, 'something went wrong') }}
-          /> */}
-          <Button type="primary" className={classes.login_form_button} onClick={this.handleGoogleUser}>
+          <Button type="primary" className={classes.login_form_gbutton} onClick={this.handleGoogleUser}>
             <Auxi>Use <Icon type="google" />oogle</Auxi>
           </Button>
         </FormItem>

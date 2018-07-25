@@ -10,10 +10,14 @@
 .login_form_button {
     width: 100%;
   }
-  .login_form_gbutton {
+.login_form_gbutton {
+    width: 100%;
     margin-top: 12px;
-    background-color: $gbutton;
-    border-color: $gbutton;
-    border-radius: 4px;
+    background-color: $gbutton!important;
+    border-color: $gbutton!important;
+    border-radius: 2px!important;
     color: $text_main;
+    &:hover {
+      background-color: lighten($gbutton,10)!important;
+    }
   }
