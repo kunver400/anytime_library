@@ -41,7 +41,7 @@ class LayoutContainer extends Component {
 
           <Layout>
             <SiderWrapper collapsed={this.props.collapsed} user={this.props.user} />
-            <MainContainer toggleSider={this.toggleSider} siderState={this.props.collapsed} user={this.props.user} spinnyVisible={this.props.spinning}/>
+            <MainContainer toggleSider={this.toggleSider} siderState={this.props.collapsed} user={this.props.user} spinnyVisible={this.props.spinning} setUser={this.setUser}/>
           </Layout>
 
           <FooterWrapper />

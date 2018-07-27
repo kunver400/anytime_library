@@ -25,7 +25,7 @@ class MainContainer extends Component {
                     style={this.props.siderState?null:{display: 'none'}}
                     onClick={this.siderController}
                 />
-                <ContentWrapper user={this.props.user}/>
+                <ContentWrapper user={this.props.user} setUser={this.props.setUser}/>
             </Layout>
         )
     }

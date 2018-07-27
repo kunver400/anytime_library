@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete, Modal } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete } from 'antd';
 import Axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import firebase from '../../firebase/config';
 import classes from './SignUp.css';
 
 const FormItem = Form.Item;
@@ -34,29 +36,21 @@ class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
-        checked: false
+        checked: false,
+        validValues: null
     };
+    setUserAndRedirect = (user) => {
+        this.props.setUser(user);
+        this.props.history.push('/');
+      }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                Axios.post('user.json', {
-                    nickname: values.nickname,
-                    email: values.email,
-                    password: values.password,
-                    phone: '+' + values.prefix + values.phone,
-                    residence: values.residence,
-                    website: values.website
-                })
-                    .then(function (response) {
-                        Modal.success({
-                            title: 'Congratulations, you are a memeber now.',
-                            content: 'Please login and continue.',
-                        });
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                this.setState({validValues: values});
+                firebase.auth().createUserWithEmailAndPassword(values.email, values.password).catch(function (error) {
+                    console.log(error);
+                });
             }
         });
 
@@ -95,7 +89,36 @@ class RegistrationForm extends React.Component {
             checked: !check
         });
     }
-
+    componentDidMount = () => {
+        let _this = this;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user && _this.state.validValues) {
+                let newUser = {
+                    nickname: _this.state.validValues.nickname,
+                    email: _this.state.validValues.email,
+                    phone: '+' + _this.state.validValues.prefix + _this.state.validValues.phone,
+                    residence: _this.state.validValues.residence,
+                    website: _this.state.validValues.website
+                };
+              user.getIdToken().then((idtoken) => {
+                Axios.post('user.json?auth='+idtoken, newUser)
+                    .then(function (response) {
+                        newUser['key'] = response.data.name;
+                        newUser['token'] = idtoken;
+                        _this.setUserAndRedirect(newUser);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+              })
+            } else {
+              console.log('User Logged Out')
+            }
+          });
+    }
+    componentWillUnmount() {
+        this.setState({validValues: null});
+    }
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
@@ -137,7 +160,7 @@ class RegistrationForm extends React.Component {
 
         return (
             <div className={classes.SignUp}>
-            <p className={classes.form_head}>Create your account:</p>
+                <p className={classes.form_head}>Create your account:</p>
                 <Form onSubmit={this.handleSubmit}>
                     <FormItem
                         {...formItemLayout}
@@ -252,4 +275,4 @@ class RegistrationForm extends React.Component {
 }
 
 const SignUp = Form.create()(RegistrationForm);
-export default SignUp;
+export default withRouter(SignUp);

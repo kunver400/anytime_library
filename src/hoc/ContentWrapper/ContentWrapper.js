@@ -3,7 +3,6 @@ import { Layout, Breadcrumb, Icon } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 
 import Landing from '../../components/Landing/Landing';
-//import FreshArrivals from '../../components/FreshArrivals/FreshArrivals';
 import NotFound from '../../components/NotFound/NotFound';
 
 import AsyncLoader from '../AsyncLoader/AsyncLoader';
@@ -70,8 +69,8 @@ class ContentWrapper extends Component {
                 </Switch>
 
                 <Switch>
-                    <Route path="/signup" component={AsyncSignUp} />
-                    <Route path="/indexofbooks/:search" render={() => <AsyncIndexedCollection user={this.props.user} />} />
+                    <Route path="/signup" render={()=><AsyncSignUp setUser={this.props.setUser}/>} />
+                    <Route path="/indexofbooks/:search" render={() => <AsyncIndexedCollection user={this.props.user}/>} />
                     <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection user={this.props.user} />} />
                     <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
                     <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors user={this.props.user} />} />
