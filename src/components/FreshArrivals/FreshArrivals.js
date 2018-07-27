@@ -43,32 +43,35 @@ class FreshArrivals extends Component {
     }
     setBooks = () => {
         this.fetchBooks()
-        .then((data) => {
-            let books = common.getSortedBooks(data,this.props.match.params.sorter);
-            books = books.splice(0,MAX_ENTRIES);
-            this.setState({ books: books });
-        })
+            .then((data) => {
+                let books = common.getSortedBooks(data, this.props.match.params.sorter);
+                books = books.splice(0, MAX_ENTRIES);
+                this.setState({ books: books });
+            })
     }
     componentDidMount() {
         this.setBooks();
     }
     componentWillReceiveProps(newProps) {
-        if(newProps.match.params.sorter !== this.props.match.params.sorter)
-        this.setBooks();
+        if (newProps.match.params.sorter !== this.props.match.params.sorter)
+            this.setBooks();
     }
     render() {
         let bookCards = this.state.books.map((item, index) => {
             return (
                 <Col md={6} xs={12} sm={8} key={index}>
                     <Card
-                        cover={<img style={{cursor: 'pointer'}} onClick={()=>this.handleTitleClick(item)} alt="example" src={item.cover ? item.cover : altimg} />}
+                        cover={<img style={{ cursor: 'pointer' }} onClick={() => this.handleTitleClick(item)} alt="example" src={item.cover ? item.cover : altimg} />}
                         className={classes.cards}
-                        bodyStyle={{padding: '12px'}}
-                        actions={[<Tooltip placement="topLeft" title="Issue this Book"><Icon type="tag-o" onClick={()=>this.handleIssue(item)}/></Tooltip>,
-                        <Tooltip placement="topLeft" title="More from the Author"><Icon type="layout" onClick={()=>{this.props.history.push('/indexofbooks/'+item.author)}}/></Tooltip>]}
+                        bodyStyle={{ padding: '12px' }}
+                        actions={[<Tooltip placement="topLeft" title={!this.props.user?"You should login first":"Issue this Book"}><Icon type="tag-o" style={!this.props.user?{cursor:'not-allowed'}:null} onClick={() => {
+                            if(this.props.user)
+                            this.handleIssue(item)
+                        }} /></Tooltip>,
+                        <Tooltip placement="topLeft" title="More from the Author"><Icon type="layout" onClick={() => { this.props.history.push('/indexofbooks/' + item.author) }} /></Tooltip>]}
                     >
                         <Meta
-                            title={<span style={{cursor: 'pointer'}} onClick={()=>this.handleTitleClick(item)}>{item.title}</span>}
+                            title={<span style={{ cursor: 'pointer' }} onClick={() => this.handleTitleClick(item)}>{item.title}</span>}
                             description={item.author}
                         />
                     </Card>
