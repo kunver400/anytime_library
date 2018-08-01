@@ -10,3 +10,5 @@ Just a pet project, made using react and other essentials ui stuff.
 - Services are firebase RDB.
 - Google login via firebase is used.
 - Jest is used as test-runner and Enzyme for testing react components.
+- Async/ Lazy loading is implemented.
+- Uses ant design react UI library.
