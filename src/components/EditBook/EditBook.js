@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Modal } from 'antd';
-import Axios from 'axios';
+import React, { Component } from "react";
+import { Modal } from "antd";
+import Axios from "axios";
 
-import EditBookForm from './EditBookForm/EditBookForm';
-import classes from './EditBook.css';
+import EditBookForm from "./EditBookForm/EditBookForm";
+import classes from "./EditBook.css";
 
 
 class EditBook extends Component {
@@ -20,20 +20,20 @@ class EditBook extends Component {
             times_issued: 0,
             cover: data.cover
         };
-        Axios.patch('books.json',newbook)
-        .then((response)=>{this.popSuccess(response, data)})
-        .catch(this.handleError)
+        Axios.patch("books.json",newbook)
+            .then((response)=>{this.popSuccess(response, data);})
+            .catch(this.handleError);
     }
     popSuccess = (response, data) => {
         Modal.success({
-            title: 'Book updated.',
-            content: data.title+': was updated in place',
+            title: "Book updated.",
+            content: data.title+": was updated in place",
         });
         this.props.reloadTable({force: true});
-            this.props.ToggleEditBookModal();
+        this.props.ToggleEditBookModal();
     }
     handleError = (response) => {
-        console.log(response, 'something went wrong.');
+        console.log(response, "something went wrong.");
     }
     render() {
         return (
@@ -48,7 +48,7 @@ class EditBook extends Component {
             >
                 <EditBookForm {...this.props} handleSubmit={this.EditBook} />
             </Modal>
-        )
+        );
     }
 }
 

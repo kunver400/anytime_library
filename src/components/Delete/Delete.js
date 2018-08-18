@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
-import Axios from 'axios';
+import React, { Component } from "react";
+import { Modal, Button } from "antd";
+import Axios from "axios";
 
-import classes from './Delete.css'
+import classes from "./Delete.css";
 
 class Delete extends Component {
     deleted = [];
     failed = [];
     DeleteBooks = () => {
-        new Promise((resolve, reject) => {
+        new Promise((resolve) => {
             this.props.selectedBooks.forEach((book) => {
-                Axios.delete('books/' + book.key + '.json')
-                    .then((response) => {
+                Axios.delete("books/" + book.key + ".json")
+                    .then(() => {
                         this.deleted.push(book);
                         if (this.deleted.length + this.failed.length === this.props.selectedBooks.length) resolve();
                     })
-                    .catch((error) => {
+                    .catch(() => {
                         this.failed.push(book);
                         if (this.deleted.length + this.failed.length === this.props.selectedBooks.length) resolve();
-                    })
+                    });
             });
         })
-            .then(this.popSuccess)
+            .then(this.popSuccess);
     }
-    popSuccess = (response) => {
+    popSuccess = () => {
         Modal.success({
-            title: 'Operation completed.',
+            title: "Operation completed.",
             content: (
                 <div>
                     <span>Following entries deleted:</span>
@@ -47,7 +47,7 @@ class Delete extends Component {
                 <li key={index}>
                     {item.title}
                 </li>
-            )
+            );
         });
         return (
             <Modal
@@ -63,11 +63,11 @@ class Delete extends Component {
                 <ol>
                     {books}
                 </ol>
-                <div style={{ marginTop: '25px', textAlign: 'center' }}>
+                <div style={{ marginTop: "25px", textAlign: "center" }}>
                     <Button type='danger' onClick={this.DeleteBooks}>Confirm</Button>
                 </div>
             </Modal>
-        )
+        );
     }
 }
 

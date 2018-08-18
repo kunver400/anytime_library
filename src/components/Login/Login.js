@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Modal } from 'antd';
-import LoginForm from './LoginForm/LoginForm';
-import classes from './Login.css'
+import React, { Component } from "react";
+import { Modal } from "antd";
+import LoginForm from "./LoginForm/LoginForm";
+import classes from "./Login.css";
 
 
 class Login extends Component {
@@ -14,9 +14,9 @@ class Login extends Component {
                 footer={null}
                 className={classes.login_modal}
             >
-            <LoginForm toggleModal={this.props.toggle} {...this.props}/>
+                <LoginForm toggleModal={this.props.toggle} {...this.props}/>
             </Modal>
-        )
+        );
     }
 }
 

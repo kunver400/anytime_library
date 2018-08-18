@@ -1,34 +1,34 @@
-import React from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete } from 'antd';
-import Axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import firebase from '../../firebase/config';
-import classes from './SignUp.css';
+import React from "react";
+import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete } from "antd";
+import Axios from "axios";
+import { withRouter } from "react-router-dom";
+import firebase from "../../firebase/config";
+import classes from "./SignUp.css";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
+    value: "zhejiang",
+    label: "Zhejiang",
     children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
+        value: "hangzhou",
+        label: "Hangzhou",
         children: [{
-            value: 'xihu',
-            label: 'West Lake',
+            value: "xihu",
+            label: "West Lake",
         }],
     }],
 }, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
+    value: "jiangsu",
+    label: "Jiangsu",
     children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
+        value: "nanjing",
+        label: "Nanjing",
         children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
+            value: "zhonghuamen",
+            label: "Zhong Hua Men",
         }],
     }],
 }];
@@ -41,8 +41,8 @@ class RegistrationForm extends React.Component {
     };
     setUserAndRedirect = (user) => {
         this.props.setUser(user);
-        this.props.history.push('/');
-      }
+        this.props.history.push("/");
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -61,8 +61,8 @@ class RegistrationForm extends React.Component {
     }
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
+        if (value && value !== form.getFieldValue("password")) {
+            callback("Two passwords that you enter is inconsistent!");
         } else {
             callback();
         }
@@ -70,7 +70,7 @@ class RegistrationForm extends React.Component {
     validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
+            form.validateFields(["confirm"], { force: true });
         }
         callback();
     }
@@ -79,7 +79,7 @@ class RegistrationForm extends React.Component {
         if (!value) {
             autoCompleteResult = [];
         } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+            autoCompleteResult = [".com", ".org", ".net"].map(domain => `${value}${domain}`);
         }
         this.setState({ autoCompleteResult });
     }
@@ -96,25 +96,25 @@ class RegistrationForm extends React.Component {
                 let newUser = {
                     nickname: _this.state.validValues.nickname,
                     email: _this.state.validValues.email,
-                    phone: '+' + _this.state.validValues.prefix + _this.state.validValues.phone,
+                    phone: "+" + _this.state.validValues.prefix + _this.state.validValues.phone,
                     residence: _this.state.validValues.residence,
                     website: _this.state.validValues.website
                 };
-              user.getIdToken().then((idtoken) => {
-                Axios.post('user.json?auth='+idtoken, newUser)
-                    .then(function (response) {
-                        newUser['key'] = response.data.name;
-                        newUser['token'] = idtoken;
-                        _this.setUserAndRedirect(newUser);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-              })
+                user.getIdToken().then((idtoken) => {
+                    Axios.post("user.json?auth="+idtoken, newUser)
+                        .then(function (response) {
+                            newUser["key"] = response.data.name;
+                            newUser["token"] = idtoken;
+                            _this.setUserAndRedirect(newUser);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                });
             } else {
-              console.log('User Logged Out')
+                console.log("User Logged Out");
             }
-          });
+        });
     }
     componentWillUnmount() {
         this.setState({validValues: null});
@@ -145,8 +145,8 @@ class RegistrationForm extends React.Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
+        const prefixSelector = getFieldDecorator("prefix", {
+            initialValue: "86",
         })(
             <Select style={{ width: 70 }}>
                 <Option value="86">+86</Option>
@@ -166,11 +166,11 @@ class RegistrationForm extends React.Component {
                         {...formItemLayout}
                         label="E-mail"
                     >
-                        {getFieldDecorator('email', {
+                        {getFieldDecorator("email", {
                             rules: [{
-                                type: 'email', message: 'The input is not valid E-mail!',
+                                type: "email", message: "The input is not valid E-mail!",
                             }, {
-                                required: true, message: 'Please input your E-mail!',
+                                required: true, message: "Please input your E-mail!",
                             }],
                         })(
                             <Input />
@@ -180,9 +180,9 @@ class RegistrationForm extends React.Component {
                         {...formItemLayout}
                         label="Password"
                     >
-                        {getFieldDecorator('password', {
+                        {getFieldDecorator("password", {
                             rules: [{
-                                required: true, message: 'Please input your password!',
+                                required: true, message: "Please input your password!",
                             }, {
                                 validator: this.validateToNextPassword,
                             }],
@@ -194,9 +194,9 @@ class RegistrationForm extends React.Component {
                         {...formItemLayout}
                         label="Confirm Password"
                     >
-                        {getFieldDecorator('confirm', {
+                        {getFieldDecorator("confirm", {
                             rules: [{
-                                required: true, message: 'Please confirm your password!',
+                                required: true, message: "Please confirm your password!",
                             }, {
                                 validator: this.compareToFirstPassword,
                             }],
@@ -209,14 +209,14 @@ class RegistrationForm extends React.Component {
                         label={(
                             <span>
                                 Nickname&nbsp;
-                <Tooltip title="What do you want others to call you?">
+                                <Tooltip title="What do you want others to call you?">
                                     <Icon type="question-circle-o" />
                                 </Tooltip>
                             </span>
                         )}
                     >
-                        {getFieldDecorator('nickname', {
-                            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                        {getFieldDecorator("nickname", {
+                            rules: [{ required: true, message: "Please input your nickname!", whitespace: true }],
                         })(
                             <Input />
                         )}
@@ -225,9 +225,9 @@ class RegistrationForm extends React.Component {
                         {...formItemLayout}
                         label="Habitual Residence"
                     >
-                        {getFieldDecorator('residence', {
-                            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-                            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
+                        {getFieldDecorator("residence", {
+                            initialValue: ["zhejiang", "hangzhou", "xihu"],
+                            rules: [{ type: "array", required: true, message: "Please select your habitual residence!" }],
                         })(
                             <Cascader options={residences} />
                         )}
@@ -236,18 +236,18 @@ class RegistrationForm extends React.Component {
                         {...formItemLayout}
                         label="Phone Number"
                     >
-                        {getFieldDecorator('phone', {
-                            rules: [{ required: true, message: 'Please input your phone number!' }],
+                        {getFieldDecorator("phone", {
+                            rules: [{ required: true, message: "Please input your phone number!" }],
                         })(
-                            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+                            <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Website"
                     >
-                        {getFieldDecorator('website', {
-                            rules: [{ message: 'Please input website!' }],
+                        {getFieldDecorator("website", {
+                            rules: [{ message: "Please input website!" }],
                         })(
                             <AutoComplete
                                 dataSource={websiteOptions}
@@ -259,8 +259,8 @@ class RegistrationForm extends React.Component {
                         )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
-                        {getFieldDecorator('agreement', {
-                            valuePropName: 'checked',
+                        {getFieldDecorator("agreement", {
+                            valuePropName: "checked",
                         })(
                             <Checkbox onChange={this.toggleChecked}>I have read the <a href="">agreement</a></Checkbox>
                         )}

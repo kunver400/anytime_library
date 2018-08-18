@@ -1,6 +1,6 @@
-import moment from 'moment';
-import store from '../redux/store';
-import ROOT_ACTIONS from '../redux/actions/root_actions';
+import moment from "moment";
+import store from "../redux/store";
+import ROOT_ACTIONS from "../redux/actions/root_actions";
 const common = {
     formatBooks: (data) => {
         let books = [];
@@ -23,7 +23,7 @@ const common = {
                 }
             }
         }
-        return sortedBoooks
+        return sortedBoooks;
     },
     formatDate: (date_string) => {
         let date = new moment(date_string);
@@ -32,6 +32,6 @@ const common = {
     toggleSpinny: () => {
         store.dispatch({ type: ROOT_ACTIONS.TOGGLE_SPINNY });
     }
-}
+};
 
 export default common;

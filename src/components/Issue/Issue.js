@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Modal } from 'antd';
-import Axios from 'axios';
+import React, { Component } from "react";
+import { Modal } from "antd";
+import Axios from "axios";
 
-import IssueForm from './IssueForm/IssueForm';
-import usermeta from './../../utils/usermeta';
-import booksExtensive from '../../utils/booksExtensive';
-import classes from './Issue.css'
+import IssueForm from "./IssueForm/IssueForm";
+import usermeta from "./../../utils/usermeta";
+import booksExtensive from "../../utils/booksExtensive";
+import classes from "./Issue.css";
 
 
 class Issue extends Component {
@@ -25,15 +25,15 @@ class Issue extends Component {
                 if ((data || {}).issuedBooks) {
                     if (
                         data.issuedBooks.findIndex((el) => {
-                            return el.bkey === this.anIssue.bkey
+                            return el.bkey === this.anIssue.bkey;
                         }) === -1) { // append to the exisiting list
                         data.issuedBooks.push(this.anIssue);
                         let newData = {};
                         newData[data.key] = {
                             issued: data.issuedBooks,
                             ukey: this.props.user.key
-                        }
-                        Axios.patch('issues.json', newData)
+                        };
+                        Axios.patch("issues.json", newData)
                             .then((response) => {
                                 if (book) {
                                     this.booksAdded.push(this.anIssue);
@@ -42,7 +42,7 @@ class Issue extends Component {
                                         this.popSuccessMultiple();
                                     }
                                 }
-                                else this.popSuccess(response)
+                                else this.popSuccess(response);
                             })
                             .catch(this.handleError);
                     }
@@ -53,8 +53,8 @@ class Issue extends Component {
                                     issue.rdate = this.anIssue.rdate;
                                 }
                                 return issue;
-                            })
-                            Axios.patch('issues/' + data.key + '.json', { issued: newIssued, ukey: this.props.user.key })
+                            });
+                            Axios.patch("issues/" + data.key + ".json", { issued: newIssued, ukey: this.props.user.key })
                                 .then((response) => {
                                     if (book) { //incase reissue func. required else where
                                         this.booksReissued.push(book);
@@ -63,7 +63,7 @@ class Issue extends Component {
                                             this.popSuccessMultiple();
                                         }
                                     }
-                                    else this.popInfo(response)
+                                    else this.popInfo(response);
                                 })
                                 .catch(this.handleError);
                         }
@@ -78,7 +78,7 @@ class Issue extends Component {
                     }
                 }
                 else { //create issues object for user
-                    Axios.post('issues.json', {
+                    Axios.post("issues.json", {
                         ukey: this.props.user.key,
                         issued: [this.anIssue]
                     })
@@ -90,16 +90,16 @@ class Issue extends Component {
                                     this.popSuccessMultiple();
                                 }
                             }
-                            else this.popSuccess(response)
+                            else this.popSuccess(response);
                         })
                         .catch(this.handleError);
                 }
-            })
+            });
     }
-    popSuccess = (response) => {
+    popSuccess = () => {
         Modal.success({
-            title: 'Thanks for using our services.',
-            content: 'Our associate will reach you shortly.',
+            title: "Thanks for using our services.",
+            content: "Our associate will reach you shortly.",
         });
         this.props.reload && this.props.reload();
         this.props.ToggleIssueModal();
@@ -107,7 +107,7 @@ class Issue extends Component {
     }
     popSuccessMultiple = () => {
         Modal.success({
-            title: 'Thanks for using our services.',
+            title: "Thanks for using our services.",
             content: (
                 <div>
                     <ul>
@@ -118,11 +118,11 @@ class Issue extends Component {
                     Our associate will reach you shortly.
                 </div>
             )
-        })
+        });
         this.props.ToggleIssueModal();
         this.props.reload && this.props.reload();
         if(this.booksAdded.length > 0)
-        booksExtensive.updateFame(this.booksAdded);
+            booksExtensive.updateFame(this.booksAdded);
         this.booksAdded = [];
         this.booksFailed = [];
         this.booksReissued = [];
@@ -135,7 +135,7 @@ class Issue extends Component {
         this.props.ToggleIssueModal();
     }
     handleError = (response) => {
-        console.log(response, 'something went wrong.');
+        console.log(response, "something went wrong.");
     }
     render() {
         return (
@@ -150,7 +150,7 @@ class Issue extends Component {
             >
                 <IssueForm {...this.props} handleSubmit={this.issueBook_s} />
             </Modal>
-        )
+        );
     }
 }
 

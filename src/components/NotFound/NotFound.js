@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import Auxi from '../../hoc/Auxi/Auxi';
-import './NotFound.css';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import Auxi from "../../hoc/Auxi/Auxi";
+import "./NotFound.css";
 
 class NotFound extends Component {
     state = {
@@ -10,10 +10,10 @@ class NotFound extends Component {
     timeoutRef;
     componentDidMount() {
         this.timeoutRef = setInterval(()=>{
-        let timer = this.state.timer;
-        this.setState({
-            timer: --timer
-        })
+            let timer = this.state.timer;
+            this.setState({
+                timer: --timer
+            });
         },1000);
     }
     render() {
@@ -24,7 +24,7 @@ class NotFound extends Component {
                 <p>Redirecting...({this.state.timer})</p>
                 {this.state.timer===0 && !clearTimeout(this.timeoutRef)?<Redirect to="/" />:null}
             </Auxi>
-        )
+        );
     }
 }
 export default NotFound;

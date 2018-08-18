@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
-import Axios from 'axios';
+import React, { Component } from "react";
+import { Modal, Button } from "antd";
+import Axios from "axios";
 
-import classes from './Return.css'
+import classes from "./Return.css";
 
 class Return extends Component {
     ReturnBooks = () => {
@@ -11,7 +11,7 @@ class Return extends Component {
             this.props.selectedBooks.forEach(el => {
                 if (el.key === book.key)
                     keep = false;
-            })
+            });
             return keep;
         });
         newIssued = newIssued.map(book => {
@@ -19,17 +19,17 @@ class Return extends Component {
                 bkey: book.key,
                 rdate: book.rdate,
                 units: book.units
-            }
-        })
-        Axios.patch('issues/' + this.props.issueKey + '.json', { issued: newIssued, ukey: this.props.user.key })
-            .then((response) => {
+            };
+        });
+        Axios.patch("issues/" + this.props.issueKey + ".json", { issued: newIssued, ukey: this.props.user.key })
+            .then(() => {
                 this.popSuccess();
             })
             .catch(this.handleError);
     }
-    popSuccess = (response) => {
+    popSuccess = () => {
         Modal.success({
-            title: 'Operation completed.',
+            title: "Operation completed.",
             content: (
                 <div>
                     <span>Following entries returned:</span>
@@ -49,7 +49,7 @@ class Return extends Component {
                 <li key={index}>
                     {item.title} X {item.units}
                 </li>
-            )
+            );
         });
         return (
             <Modal
@@ -65,11 +65,11 @@ class Return extends Component {
                 <ol>
                     {books}
                 </ol>
-                <div style={{ marginTop: '25px', textAlign: 'center' }}>
+                <div style={{ marginTop: "25px", textAlign: "center" }}>
                     <Button onClick={this.ReturnBooks}>Confirm</Button>
                 </div>
             </Modal>
-        )
+        );
     }
 }
 

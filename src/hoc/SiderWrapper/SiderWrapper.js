@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
-import { Link } from 'react-router-dom';
-import './SiderWrapper.raw.css?raw';
+import React, { Component } from "react";
+import { Layout, Menu, Icon } from "antd";
+import { Link } from "react-router-dom";
+import "./SiderWrapper.raw.css?raw";
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 class SiderWrapper extends Component {
 
-    rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'subo1'];
+    rootSubmenuKeys = ["sub1", "sub2", "sub3", "subo1"];
     state = {
-        openKeys: ['sub1'],
+        openKeys: ["sub1"],
     };
     onOpenChange = (openKeys) => {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -28,15 +28,14 @@ class SiderWrapper extends Component {
                 collapsible
                 collapsed={this.props.collapsed}
                 collapsedWidth="0"
-                //onCollapse={(collapsed, type) => { console.log(collapsed, type,this); }}
-                >
+            >
                 <Menu theme='dark'
                     mode="inline"
                     //defaultSelectedKeys={['1']}
                     openKeys={this.state.openKeys}
                     onOpenChange={this.onOpenChange}
-                    defaultOpenKeys={['sub1']}
-                    style={{ height: '100%', borderRight: 0 }}
+                    defaultOpenKeys={["sub1"]}
+                    style={{ height: "100%", borderRight: 0 }}
                 >
 
                     <SubMenu key="sub1" title={<span><Icon type="database" />All Books</span>}>
@@ -49,8 +48,8 @@ class SiderWrapper extends Component {
                         <Menu.Item key="6" disabled={!this.props.user}><Link to='/issuedBooks'>Issued Books</Link></Menu.Item>
                     </SubMenu>
                     <SubMenu key="sub3" title={<span><Icon type="team" />Social</span>}>
-                        <Menu.Item key="9"><span style={{textDecoration:'line-through'}}>Chatrooms</span></Menu.Item>
-                        <Menu.Item key="11"><span style={{textDecoration:'line-through'}}>Recommend a Book</span></Menu.Item>
+                        <Menu.Item key="9"><span style={{textDecoration:"line-through"}}>Chatrooms</span></Menu.Item>
+                        <Menu.Item key="11"><span style={{textDecoration:"line-through"}}>Recommend a Book</span></Menu.Item>
                     </SubMenu>
                 </Menu>
             </Sider>

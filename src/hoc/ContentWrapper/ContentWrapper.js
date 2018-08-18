@@ -1,30 +1,30 @@
-import React, { Component } from 'react'
-import { Layout, Breadcrumb, Icon } from 'antd';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { Layout, Breadcrumb, Icon } from "antd";
+import { Route, Switch } from "react-router-dom";
 
-import Landing from '../../components/Landing/Landing';
-import NotFound from '../../components/NotFound/NotFound';
+import Landing from "../../components/Landing/Landing";
+import NotFound from "../../components/NotFound/NotFound";
 
-import AsyncLoader from '../AsyncLoader/AsyncLoader';
-import classes from './ContentWrapper.css'
+import AsyncLoader from "../AsyncLoader/AsyncLoader";
+import classes from "./ContentWrapper.css";
 
 const { Content } = Layout;
 const AsyncIndexedCollection = AsyncLoader(() => {
-    return import('../../components/IndexedCollection/IndexedCollection');
-})
+    return import("../../components/IndexedCollection/IndexedCollection");
+});
 const AsyncIssuedBooks = AsyncLoader(() => {
-    return import('../../components/IssuedBooks/IssuedBooks');
-})
+    return import("../../components/IssuedBooks/IssuedBooks");
+});
 const AsyncSignUp = AsyncLoader(() => {
-    return import('../../components/SignUp/SignUp');
-})
+    return import("../../components/SignUp/SignUp");
+});
 const AsyncSubscribedAuthors = AsyncLoader(()=>{
-    return import('../../components/SubscribedAuthors/SubscribedAuthors');
-})
+    return import("../../components/SubscribedAuthors/SubscribedAuthors");
+});
 
 const AsyncFreshArrivals = AsyncLoader(()=>{
-    return import('../../components/FreshArrivals/FreshArrivals');
-})
+    return import("../../components/FreshArrivals/FreshArrivals");
+});
 
 class ContentWrapper extends Component {
     render() {
@@ -79,7 +79,7 @@ class ContentWrapper extends Component {
                     <Route component={NotFound} />
                 </Switch>
             </Content>
-        )
+        );
     }
 }
 
