@@ -32,7 +32,7 @@ class HeaderWrapper extends Component {
                         {this.props.user ?
                             (
                                 <ItemGroup title='You' className={classes.light_item_group}>
-                                    <Menu.Item key="user:1"><Icon type="user" />Profile</Menu.Item>
+                                    <Menu.Item key="user:1"><Icon type="user" /><span style={{textDecoration: "line-through"}}>Profile</span></Menu.Item>
                                     <Menu.Item key="user:2"><a onClick={(e) => { e.preventDefault(); this.props.logout(); this.props.history.push("/"); }}><Icon type="logout" />Logout</a></Menu.Item>
                                 </ItemGroup>
                             ) :
