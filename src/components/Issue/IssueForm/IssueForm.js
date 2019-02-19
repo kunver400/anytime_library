@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, InputNumber, Button, DatePicker } from "antd";
 import moment from "moment";
-import Auxi from "../../../hoc/Auxi/Auxi";
 import classes from "./IssueForm.css";
 const FormItem = Form.Item;
 const formItemLayout = {
@@ -17,7 +16,7 @@ const formItemLayout = {
 const IssueForm = (props) => {
     const { getFieldDecorator } = props.form;
     const BookItem_s = props.selectedBooks.length === 0 ? (
-        <Auxi>
+        <React.Fragment>
             <FormItem {...formItemLayout} label={(props.selectedBook || { title: "placeholder book" }).title}>
                 {getFieldDecorator("units", {
                     rules: [{ required: true, message: "Should be number smaller then 4" }],
@@ -38,9 +37,9 @@ const IssueForm = (props) => {
                         <DatePicker/>)}
                 </FormItem>
             </FormItem>
-        </Auxi>
+        </React.Fragment>
     ) : (
-        <Auxi>
+        <React.Fragment>
             {
                 props.selectedBooks.map((book, index) =>
                     <FormItem label={book.title} key={index} {...formItemLayout} style={{marginBottom: 20}}>
@@ -65,7 +64,7 @@ const IssueForm = (props) => {
                         </FormItem>
                     </FormItem>
                 )}
-        </Auxi>
+        </React.Fragment>
     );
 
     return (

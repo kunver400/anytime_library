@@ -4,7 +4,6 @@ import Axios from "axios";
 import { connect } from "react-redux";
 
 import BOOK_ACTIONS from "../../redux/actions/book_actions";
-import Auxi from "../../hoc/Auxi/Auxi";
 
 import Issue from "../Issue/Issue";
 import Return from "../Return/Return";
@@ -110,7 +109,7 @@ class IssuedBooks extends Component {
     }
     render() {
         return (
-            <Auxi>
+            <React.Fragment>
                 <Table columns={columns}
                     dataSource={this.state.issuedBooks}
                     rowSelection={this.rowSelection}
@@ -121,7 +120,7 @@ class IssuedBooks extends Component {
                 <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks); }}>Re-Issue</Button>
                 <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks} />
                 <Return {...this.props} reload={this.fetchIssuedBooks} allIssued={this.state.issuedBooks}/>
-            </Auxi>
+            </React.Fragment>
         );
     }
 }

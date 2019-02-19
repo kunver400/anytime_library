@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import Axios from "axios";
-import Auxi from "../../../hoc/Auxi/Auxi";
 import firebase from "../../../firebase/config";
 import classes from "./LoginForm.css";
 const FormItem = Form.Item;
@@ -128,7 +127,7 @@ class LoginForm extends React.Component {
             Log in
                   </Button>
                   <Button type="primary" className={classes.login_form_gbutton} onClick={this.handleGoogleUser}>
-                      <Auxi>Use <Icon type="google" />oogle</Auxi>
+                      <React.Fragment>Use <Icon type="google" />oogle</React.Fragment>
                   </Button>
               </FormItem>
           </Form>

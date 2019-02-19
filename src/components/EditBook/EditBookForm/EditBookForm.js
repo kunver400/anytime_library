@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, InputNumber, Button, Input, Icon, Upload, message } from "antd";
 import moment from "moment";
-import Auxi from "../../../hoc/Auxi/Auxi";
 import classes from "./EditBookForm.css";
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -57,7 +56,7 @@ const EditBookForm = (props) => {
             });
         }} className={classes.editBook_form}
         layout="inline">
-            <Auxi>
+            <React.Fragment>
                 <FormItem
                     {...formItemLayout}
                     label="Title"
@@ -119,7 +118,7 @@ const EditBookForm = (props) => {
                         />
                     )}
                 </FormItem>
-            </Auxi>
+            </React.Fragment>
             <div style={{ textAlign: "center" }}>
                 <Button type="primary" htmlType="submit">Submit</Button>
             </div>

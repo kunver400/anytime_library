@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import BOOK_ACTIONS from "../../redux/actions/book_actions";
-import Auxi from "../../hoc/Auxi/Auxi";
 import BookCard from "./BookCard/BookCard";
 import Issue from "../Issue/Issue";
 import Delete from "../Delete/Delete";
@@ -151,7 +150,7 @@ class IndexedCollection extends Component {
     }
     render() {
         return (
-            <Auxi>
+            <React.Fragment>
                 <BookCard book={this.props.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
                 <Table columns={columns}
                     dataSource={this.state.data}
@@ -169,7 +168,7 @@ class IndexedCollection extends Component {
                 <Delete {...this.props} reloadTable={this.fetchBooks} />
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />
                 <EditBook book={this.props.selectedBook} EditBookVisible={this.state.editBookModalVisisble} ToggleEditBookModal={this.ToggleEditBookModal} reloadTable={this.fetchBooks} />
-            </Auxi>
+            </React.Fragment>
         );
     }
 }
