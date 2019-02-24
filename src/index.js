@@ -28,4 +28,4 @@ Axios.interceptors.response.use(function (response) {
 });
 ReactDOM.render(<Provider store={store}><LayoutContainer /></Provider>, document.getElementById("root"));
 
-module.hot.accept();
+//module.hot.accept();
