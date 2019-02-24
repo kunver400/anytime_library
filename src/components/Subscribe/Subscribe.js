@@ -12,8 +12,9 @@ class Subscribe extends Component {
                     this.updateSubbed();
                 });
         else usermeta.unsubscribeAuthor(this.props.book.author)
-            .then(() => {
-                this.updateSubbed();
+            .then((subsleft) => {
+                if(subsleft)
+                    this.updateSubbed();
             });
     }
     componentDidUpdate(prevProps) {

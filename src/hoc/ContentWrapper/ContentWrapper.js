@@ -70,12 +70,12 @@ class ContentWrapper extends Component {
 
                 <Switch>
                     <Route path="/signup" render={()=><AsyncSignUp setUser={this.props.setUser}/>} />
-                    <Route path="/indexofbooks/:search" render={() => <AsyncIndexedCollection user={this.props.user}/>} />
-                    <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection user={this.props.user} />} />
-                    <Route path="/issuedbooks" render={() => <AsyncIssuedBooks user={this.props.user} />} />
-                    <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors user={this.props.user} />} />
-                    <Route path="/tiledisplay/:sorter" exact render={() => <AsyncFreshArrivals user={this.props.user} />} />
-                    <Route path="/" exact render={() => <Landing user={this.props.user} />} />
+                    <Route path="/indexofbooks/:search" render={() => <AsyncIndexedCollection/>} />
+                    <Route path="/indexofbooks/" render={() => <AsyncIndexedCollection />} />
+                    <Route path="/issuedbooks" render={() => <AsyncIssuedBooks />} />
+                    <Route path="/subscriptions" render={() => <AsyncSubscribedAuthors />} />
+                    <Route path="/tiledisplay/:sorter" exact render={() => <AsyncFreshArrivals />} />
+                    <Route path="/" exact render={() => <Landing/>} />
                     <Route component={NotFound} />
                 </Switch>
             </Content>

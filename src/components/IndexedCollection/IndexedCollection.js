@@ -4,6 +4,7 @@ import Axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import UserContext from "../../contexts/UserContext";
 import BOOK_ACTIONS from "../../redux/actions/book_actions";
 import BookCard from "./BookCard/BookCard";
 import Issue from "../Issue/Issue";
@@ -113,7 +114,7 @@ class IndexedCollection extends Component {
         this.fetchBooks();
     }
     UNSAFE_componentWillReceiveProps(newProps) {
-        if(newProps.match.params.search !== this.props.match.params.search)
+        if (newProps.match.params.search !== this.props.match.params.search)
             this.filterResults(newProps.match.params.search);
     }
     ToggleAddBookModal = () => {
@@ -143,15 +144,15 @@ class IndexedCollection extends Component {
                 }
                 return record;
             }).filter(record => !!record),
-        },()=>{
-            if(this.props.match.params.search)
+        }, () => {
+            if (this.props.match.params.search)
                 this.props.SetCurrentBook(this.state.data[0]);
         });
     }
     render() {
         return (
             <React.Fragment>
-                <BookCard book={this.props.selectedBook} {...this.props} toogleEditModal={this.ToggleEditBookModal} />
+                <BookCard book={this.props.selectedBook} toogleEditModal={this.ToggleEditBookModal} bookIssueModal={this.props.bookIssueModal}/>
                 <Table columns={columns}
                     dataSource={this.state.data}
                     rowSelection={this.rowSelection}
@@ -161,9 +162,16 @@ class IndexedCollection extends Component {
                     size='middle'
                     pagination={{ position: "top" }}
                 />
-                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks); }}>Issue</Button>
-                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
-                <Button disabled={!this.props.user || !this.props.user.isAdmin} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks); }}>Delete Entries</Button>
+                <UserContext.Consumer>
+                    {user => (
+                        <React.Fragment>
+                            <Button disabled={!user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks); }}>Issue</Button>
+                            <Button disabled={!user || !user.isAdmin} className={classes.table_action_button} onClick={this.ToggleAddBookModal}>Add Book</Button>
+                            <Button disabled={!user || !user.isAdmin} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksDeleteModal(this.selectedBooks); }}>Delete Entries</Button>
+                        </React.Fragment>
+                    )}
+                </UserContext.Consumer>
+
                 <Issue {...this.props} reissue={false} />
                 <Delete {...this.props} reloadTable={this.fetchBooks} />
                 <AddBook AddBookVisible={this.state.addBookModalVisisble} ToggleAddBookModal={this.ToggleAddBookModal} reloadTable={this.fetchBooks} />

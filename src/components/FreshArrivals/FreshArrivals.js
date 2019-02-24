@@ -4,6 +4,7 @@ import Axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
+import UserContext from "../../contexts/UserContext";
 import common from "../../utils/common";
 import BOOK_ACTIONS from "../../redux/actions/book_actions";
 import Issue from "../Issue/Issue";
@@ -60,21 +61,25 @@ class FreshArrivals extends Component {
         let bookCards = this.state.books.map((item, index) => {
             return (
                 <Col md={6} xs={12} sm={8} key={index}>
-                    <Card
-                        cover={<img style={{ cursor: "pointer" }} onClick={() => this.handleTitleClick(item)} alt="example" src={item.cover ? item.cover : altimg} />}
-                        className={classes.cards}
-                        bodyStyle={{ padding: "12px" }}
-                        actions={[<Tooltip key="0" placement="topLeft" title={!this.props.user ? "You should login first" : "Issue this Book"}><Icon type="tag-o" style={!this.props.user ? { cursor: "not-allowed" } : null} onClick={() => {
-                            if (this.props.user)
-                                this.handleIssue(item);
-                        }} /></Tooltip>,
-                        <Tooltip key="1" placement="topLeft" title="More from the Author"><Icon type="layout" onClick={() => { this.props.history.push("/indexofbooks/" + item.author); }} /></Tooltip>]}
-                    >
-                        <Meta
-                            title={<span style={{ cursor: "pointer" }} onClick={() => this.handleTitleClick(item)}>{item.title}</span>}
-                            description={item.author}
-                        />
-                    </Card>
+                    <UserContext.Consumer>
+                        {user => <Card
+                            cover={<img style={{ cursor: "pointer" }} onClick={() => this.handleTitleClick(item)} alt="example" src={item.cover ? item.cover : altimg} />}
+                            className={classes.cards}
+                            bodyStyle={{ padding: "12px" }}
+                            actions={[<Tooltip key="0" placement="topLeft" title={!user ? "You should login first" : "Issue this Book"}><Icon type="tag-o" style={!user ? { cursor: "not-allowed" } : null} onClick={() => {
+                                if (user)
+                                    this.handleIssue(item);
+                            }} /></Tooltip>,
+                            <Tooltip key="1" placement="topLeft" title="More from the Author"><Icon type="layout" onClick={() => { this.props.history.push("/indexofbooks/" + item.author); }} /></Tooltip>]}
+                        >
+                            <Meta
+                                title={<span style={{ cursor: "pointer" }} onClick={() => this.handleTitleClick(item)}>{item.title}</span>}
+                                description={item.author}
+                            />
+                        </Card>
+                        }
+                    </UserContext.Consumer>
+
                 </Col>
             );
         });

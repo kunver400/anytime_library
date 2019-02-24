@@ -40,9 +40,9 @@
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
     "raf": "3.4.0",
-    "react": "^16.3.2",
+    "react": "^16.8.3",
     "react-dev-utils": "^5.0.1",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.8.3",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.4.1",
@@ -109,7 +109,6 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.7.0",
-    "react-hot-loader": "^4.1.2"
+    "babel-plugin-import": "^1.7.0"
   }
 }

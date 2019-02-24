@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "antd";
 import Axios from "axios";
 
+import UserContext from "../../contexts/UserContext";
 import classes from "./Return.css";
 
 class Return extends Component {
@@ -21,7 +22,7 @@ class Return extends Component {
                 units: book.units
             };
         });
-        Axios.patch("issues/" + this.props.issueKey + ".json", { issued: newIssued, ukey: this.props.user.key })
+        Axios.patch("issues/" + this.props.issueKey + ".json", { issued: newIssued, ukey: this.context.key })
             .then(() => {
                 this.popSuccess();
             })
@@ -72,5 +73,5 @@ class Return extends Component {
         );
     }
 }
-
+Return.contextType = UserContext;
 export default Return;

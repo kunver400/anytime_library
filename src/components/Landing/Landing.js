@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Icon } from "antd";
+
+import UserContext from "../../contexts/UserContext";
 import classes from "./Landing.css";
 import logo from "../../assets/book.svg";
-const Landing = (props) => {
+const Landing = () => {
+    const user = useContext(UserContext);
     return (
         <div className={classes.landing}>
             <span style={{ color: "#ffffffab" }}>
@@ -10,7 +13,7 @@ const Landing = (props) => {
             </span>
             <div className={classes.landing_splash}>
                 <p className={[classes.splash_head,classes.splash_welcome].join(" ")}>
-                    {props.user ? props.user.nickname + "'s Anytime Library." :
+                    {user ? user.nickname + "'s Anytime Library." :
                         <React.Fragment>
                             Hi wanderer <Icon type="smile" style={{ "color": "#ffffffab", "fontSize": 14 }} /> , here's what you're looking for..
                         </React.Fragment>

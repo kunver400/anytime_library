@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal } from "antd";
 import Axios from "axios";
 
+import UserContext from "../../contexts/UserContext";
 import IssueForm from "./IssueForm/IssueForm";
 import usermeta from "./../../utils/usermeta";
 import booksExtensive from "../../utils/booksExtensive";
@@ -31,7 +32,7 @@ class Issue extends Component {
                         let newData = {};
                         newData[data.key] = {
                             issued: data.issuedBooks,
-                            ukey: this.props.user.key
+                            ukey: this.context.key
                         };
                         Axios.patch("issues.json", newData)
                             .then((response) => {
@@ -54,7 +55,7 @@ class Issue extends Component {
                                 }
                                 return issue;
                             });
-                            Axios.patch("issues/" + data.key + ".json", { issued: newIssued, ukey: this.props.user.key })
+                            Axios.patch("issues/" + data.key + ".json", { issued: newIssued, ukey: this.context.key })
                                 .then((response) => {
                                     if (book) { //incase reissue func. required else where
                                         this.booksReissued.push(book);
@@ -79,7 +80,7 @@ class Issue extends Component {
                 }
                 else { //create issues object for user
                     Axios.post("issues.json", {
-                        ukey: this.props.user.key,
+                        ukey: this.context.key,
                         issued: [this.anIssue]
                     })
                         .then((response) => {
@@ -153,5 +154,5 @@ class Issue extends Component {
         );
     }
 }
-
+Issue.contextType = UserContext;
 export default Issue;

@@ -61,7 +61,8 @@ const usermeta = {
             Axios.patch("user.json", newUsers)
                 .then(() => {
                     store.dispatch({ type: ROOT_ACTIONS.UPDATE_USER, user: user });
-                    resolve(true);
+                    if(user.subs.length > 0) resolve(true);
+                    else resolve(false);
                 })
                 .catch((error) => {
                     console.log("something went wrong", error);

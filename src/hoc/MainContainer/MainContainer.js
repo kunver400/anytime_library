@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Layout, Icon} from "antd";
+import UserContext from "../../contexts/UserContext";
 import Backdrop from "../Backdrop/Backdrop";
 import Spinner from "../Spinner/Spinner";
 import ContentWrapper from "../ContentWrapper/ContentWrapper";
@@ -25,7 +26,9 @@ class MainContainer extends Component {
                     style={this.props.siderState?null:{display: "none"}}
                     onClick={this.siderController}
                 />
-                <ContentWrapper user={this.props.user} setUser={this.props.setUser}/>
+                <UserContext.Provider value={this.props.user}>
+                    <ContentWrapper setUser={this.props.setUser}/>
+                </UserContext.Provider>
             </Layout>
         );
     }

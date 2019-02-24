@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Card, Button } from "antd";
 import Subscribe from "../../Subscribe/Subscribe";
 import classes from "./BookCard.css";
 import altimg from "../../../assets/books.jpg";
+import UserContext from "../../../contexts/UserContext";
 
 const BookCard = (props) => {
+    const user = useContext(UserContext);
     return (
         <div className={classes.book_card}>
             {props.book?
@@ -17,15 +19,15 @@ const BookCard = (props) => {
                             <li>
                                 <label><b>Author:</b> {props.book.author}</label>
                             </li>
-                            {props.user?<li style={{listStyleType:"none",paddingBottom:"0",paddingTop:"0"}}>
-                                <Subscribe book={props.book} user={props.user}/>
+                            {user?<li style={{listStyleType:"none",paddingBottom:"0",paddingTop:"0"}}>
+                                <Subscribe book={props.book} user={user}/>
                             </li>:null}
                             <li className={classes.desc}>
                                 <label><b>About the book:</b> {props.book.desc}</label>
                             </li>
                             <li style={{listStyleType:"none"}}>
-                                <Button size='large' className={classes.card_button} disabled = {!props.user} onClick={()=>{props.bookIssueModal();}}>Issue this book</Button>
-                                <Button size='large' className={classes.card_button} style={{marginLeft: "15px"}} disabled={!props.user || !props.user.isAdmin} onClick={props.toogleEditModal}>Edit Entry</Button>
+                                <Button size='large' className={classes.card_button} disabled = {!user} onClick={()=>{props.bookIssueModal();}}>Issue this book</Button>
+                                <Button size='large' className={classes.card_button} style={{marginLeft: "15px"}} disabled={!user || !user.isAdmin} onClick={props.toogleEditModal}>Edit Entry</Button>
                             </li>
                         </ul>
                     </Card.Grid>

@@ -3,6 +3,7 @@ import { Table, Button, message } from "antd";
 import Axios from "axios";
 import { connect } from "react-redux";
 
+import UserContext from "../../contexts/UserContext";
 import BOOK_ACTIONS from "../../redux/actions/book_actions";
 
 import Issue from "../Issue/Issue";
@@ -116,8 +117,14 @@ class IssuedBooks extends Component {
                     size='middle'
                     pagination={false}
                 />
-                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksReturnModal(this.selectedBooks); }}>Return</Button>
-                <Button disabled={!this.props.user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks); }}>Re-Issue</Button>
+                <UserContext.Consumer>
+                    {user=>(
+                        <React.Fragment>
+                            <Button disabled={!user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksReturnModal(this.selectedBooks); }}>Return</Button>
+                            <Button disabled={!user} className={classes.table_action_button} onClick={() => { this.ifSelected() && this.props.booksIssueModal(this.selectedBooks); }}>Re-Issue</Button>
+                        </React.Fragment>
+                    )}
+                </UserContext.Consumer>
                 <Issue {...this.props} reissue={true} reload={this.fetchIssuedBooks} />
                 <Return {...this.props} reload={this.fetchIssuedBooks} allIssued={this.state.issuedBooks}/>
             </React.Fragment>
