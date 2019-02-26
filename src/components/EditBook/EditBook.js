@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal } from "antd";
+import { storageRef } from "../../firebase/config";
 import Axios from "axios";
 
 import EditBookForm from "./EditBookForm/EditBookForm";
@@ -10,6 +11,19 @@ class EditBook extends Component {
     booksAdded = [];
     booksRedundant = [];
     EditBook = (data) => {
+        if (data.cover) {
+            const imageRef = storageRef.child("covers/" + data.title + ".jpg");
+            imageRef.putString(data.cover, "data_url").then((snapshot) => {
+                snapshot.ref.getDownloadURL().then(url => {
+                    data.cover = url;
+                    this.postBook(data);
+                }
+                );
+            });
+        }
+        else this.postBook(data);
+    }
+    postBook = (data) => {
         let newbook = {};
         newbook[this.props.book.key] = {
             title: data.title,
@@ -20,16 +34,16 @@ class EditBook extends Component {
             times_issued: 0,
             cover: data.cover
         };
-        Axios.patch("books.json",newbook)
-            .then((response)=>{this.popSuccess(response, data);})
+        Axios.patch("books.json", newbook)
+            .then((response) => { this.popSuccess(response, data); })
             .catch(this.handleError);
     }
     popSuccess = (response, data) => {
         Modal.success({
             title: "Book updated.",
-            content: data.title+": was updated in place",
+            content: data.title + ": was updated in place",
         });
-        this.props.reloadTable({force: true});
+        this.props.reloadTable({ force: true });
         this.props.ToggleEditBookModal();
     }
     handleError = (response) => {

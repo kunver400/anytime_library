@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal } from "antd";
+import { storageRef } from "../../firebase/config";
 import Axios from "axios";
 
 import AddBookForm from "./AddBookForm/AddBookForm";
@@ -10,7 +11,21 @@ class AddBook extends Component {
     booksAdded = [];
     booksRedundant = [];
     AddBook = (data) => {
-        Axios.post("books.json",{
+        if (data.cover) {
+            const imageRef = storageRef.child("covers/" + data.title + ".jpg");
+            imageRef.putString(data.cover, "data_url").then((snapshot) => {
+                snapshot.ref.getDownloadURL().then(url => {
+                    data.cover = url;
+                    this.postBook(data);
+                }
+                );
+            });
+        }
+        else this.postBook(data);
+
+    }
+    postBook = (data) => {
+        Axios.post("books.json", {
             title: data.title,
             author: data.author,
             desc: data.desc,
@@ -19,15 +34,17 @@ class AddBook extends Component {
             times_issued: 0,
             cover: data.cover
         })
-            .then((response)=>{this.popSuccess(response, data);})
+            .then((response) => {
+                this.popSuccess(response, data);
+            })
             .catch(this.handleError);
     }
     popSuccess = (response, data) => {
         Modal.success({
             title: "Book Added.",
-            content: data.title+": added to the collection",
+            content: data.title + ": added to the collection",
         });
-        this.props.reloadTable({force: true});
+        this.props.reloadTable({ force: true });
         this.props.ToggleAddBookModal();
     }
     handleError = (response) => {

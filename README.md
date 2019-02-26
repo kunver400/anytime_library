@@ -2,12 +2,13 @@
 
 Just a pet project, made using react and other essentials ui stuff.
 
-- Uses React 16.3.2
+- Uses React 16.8.3
 - CRA is used to init the project.
 - Uses SCSS and css modules.
 - Uses redux for fluid state management.
 - Uses Axios for network calls.
 - Services are firebase RDB.
+- Uses firebase storage for media.
 - Google login via firebase is used.
 - Jest is used as test-runner and Enzyme for testing react components.
 - Async/ Lazy loading is implemented.
